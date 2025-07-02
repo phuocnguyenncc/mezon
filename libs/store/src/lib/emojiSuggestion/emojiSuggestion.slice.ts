@@ -69,7 +69,8 @@ export const fetchEmojiCached = async (getState: () => RootState, ensuredMezon: 
 		{
 			api_name: 'GetListEmojisByUserId'
 		},
-		() => ensuredMezon.client.getListEmojisByUserId(ensuredMezon.session)
+		() => ensuredMezon.client.getListEmojisByUserId(ensuredMezon.session),
+		'emoji_list'
 	);
 
 	markApiFirstCalled(apiKey);

@@ -2,7 +2,7 @@ import { IPermissionUser, LoadingStatus } from '@mezon/utils';
 import { EntityState, PayloadAction, createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import { ApiPermission } from 'mezon-js/api.gen';
 import { ThunkConfigWithError } from '../errors';
-import { MezonValueContext, ensureSession, getMezonCtx } from '../helpers';
+import { MezonValueContext, ensureSession, fetchDataWithSocketFallback, getMezonCtx } from '../helpers';
 import { memoizeAndTrack } from '../memoize';
 export const POLICIES_FEATURE_KEY = 'policies';
 
@@ -36,7 +36,18 @@ export const fetchPermissionsUser = createAsyncThunk<any, fetchPermissionsUserPa
 	'policies/fetchPermissionsUser',
 	async ({ clanId }: fetchPermissionsUserPayload, thunkAPI) => {
 		const mezon = await ensureSession(getMezonCtx(thunkAPI));
-		const response = await mezon.client.GetRoleOfUserInTheClan(mezon.session, clanId);
+		const response = await fetchDataWithSocketFallback(
+			mezon,
+			{
+				api_name: 'GetRoleOfUserInTheClan',
+				permission_user_req: {
+					clan_id: clanId
+				}
+			},
+			() => mezon.client.GetRoleOfUserInTheClan(mezon.session, clanId),
+			'role_list'
+		);
+
 		if (!response.roles) {
 			return [];
 		}
@@ -44,13 +55,18 @@ export const fetchPermissionsUser = createAsyncThunk<any, fetchPermissionsUserPa
 	}
 );
 const LIST_PERMISSION_CACHED_TIME = 1000 * 60 * 60;
-export const fetchPermissionCached = memoizeAndTrack((mezon: MezonValueContext) => mezon.client.getListPermission(mezon.session), {
-	promise: true,
-	maxAge: LIST_PERMISSION_CACHED_TIME,
-	normalizer: (args) => {
-		return args[0].session.username ?? '';
+export const fetchPermissionCached = memoizeAndTrack(
+	(mezon: MezonValueContext) => {
+		return mezon.client.getListPermission(mezon.session);
+	},
+	{
+		promise: true,
+		maxAge: LIST_PERMISSION_CACHED_TIME,
+		normalizer: (args) => {
+			return args[0].session.username ?? '';
+		}
 	}
-});
+);
 
 export const fetchPermission = createAsyncThunk('policies/fetchPermission', async (_, thunkAPI) => {
 	const mezon = await ensureSession(getMezonCtx(thunkAPI));

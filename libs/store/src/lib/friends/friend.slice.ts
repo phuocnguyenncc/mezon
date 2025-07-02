@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { selectCurrentUserId } from '../account/account.slice';
 import { CacheMetadata, createApiKey, createCacheMetadata, markApiFirstCalled, shouldForceApiCall } from '../cache-metadata';
 import { StatusUserArgs } from '../channelmembers/channel.members';
-import { MezonValueContext, ensureSession, getMezonCtx } from '../helpers';
+import { MezonValueContext, ensureSession, fetchDataWithSocketFallback, getMezonCtx } from '../helpers';
 export const FRIEND_FEATURE_KEY = 'friends';
 const LIMIT_FRIEND = 1000;
 
@@ -84,7 +84,19 @@ export const fetchListFriendsCached = async (
 		};
 	}
 
-	const response = await ensuredMezon.client.listFriends(ensuredMezon.session, state === -1 ? undefined : state, limit, cursor);
+	const response = await fetchDataWithSocketFallback(
+		ensuredMezon,
+		{
+			api_name: 'ListFriends',
+			list_friend_req: {
+				limit,
+				state,
+				cursor
+			}
+		},
+		() => ensuredMezon.client.listFriends(ensuredMezon.session, state === -1 ? undefined : state, limit, cursor),
+		'friend_list'
+	);
 
 	markApiFirstCalled(apiKey);
 

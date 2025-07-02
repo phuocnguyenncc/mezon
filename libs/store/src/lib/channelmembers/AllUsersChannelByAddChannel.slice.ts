@@ -49,7 +49,7 @@ export const fetchUserChannelsCached = async (
 	const response = await fetchDataWithSocketFallback(
 		ensuredMezon,
 		{
-			api_name: 'listChannelUsersUC',
+			api_name: 'ListChannelUsersUC',
 			list_channel_users_uc_req: {
 				channel_id: channelId,
 				limit

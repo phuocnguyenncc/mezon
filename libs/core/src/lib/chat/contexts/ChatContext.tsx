@@ -70,6 +70,7 @@ import {
 	selectCurrentUserId,
 	selectDmGroupCurrentId,
 	selectIsInCall,
+	selectLastMessageByChannelId,
 	selectModeResponsive,
 	selectStreamMembersByChannelId,
 	selectUserCallId,
@@ -295,10 +296,18 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({ children }) =
 
 	const onchannelmessage = useCallback(
 		async (message: ChannelMessage) => {
-			const store = await getStoreAsync();
-			// check mobile
+			const store = getStore();
 			const isMobile = false;
 			const currentDirectId = selectDmGroupCurrentId(store.getState());
+
+			if (message.id === '0') {
+				const lastMessage = selectLastMessageByChannelId(store.getState(), message.channel_id);
+				if (lastMessage?.id) {
+					message.id = (BigInt(lastMessage.id) + BigInt(1)).toString();
+					message.message_id = message.id;
+				}
+			}
+
 			if (message.code === TypeMessage.MessageBuzz) {
 				handleBuzz(message.channel_id, message.sender_id, true, message.mode);
 			}

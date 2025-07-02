@@ -37,7 +37,6 @@ type fetchNotificationClanSettingsArgs = {
 };
 
 export const fetchDefaultNotificationClanCached = async (getState: () => RootState, mezon: MezonValueContext, clanId: string, noCache = false) => {
-	const socket = mezon.socketRef?.current;
 	const currentState = getState();
 	const clanData = currentState[DEFAULT_NOTIFICATION_CLAN_FEATURE_KEY].byClans[clanId];
 	const apiKey = createApiKey('fetchDefaultNotificationClan', clanId);
@@ -55,13 +54,13 @@ export const fetchDefaultNotificationClanCached = async (getState: () => RootSta
 	const response = await fetchDataWithSocketFallback(
 		mezon,
 		{
-			api_name: 'GetNotificationClan',
-			notification_clan: {
+			api_name: 'GetChannelCategoryNotiSettingsList',
+			list_notification_req: {
 				clan_id: clanId
 			}
 		},
 		() => mezon.client.getNotificationClan(mezon.session, clanId),
-		'notificaion_user_clan'
+		'notification_list'
 	);
 
 	markApiFirstCalled(apiKey);

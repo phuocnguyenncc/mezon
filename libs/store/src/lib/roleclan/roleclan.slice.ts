@@ -94,7 +94,7 @@ export const fetchRolesClanCached = async (getState: () => RootState, ensuredMez
 			}
 		},
 		() => ensuredMezon.client.listRoles(ensuredMezon.session, clanId, 500, 1, ''),
-		'emoji_list'
+		'role_event_list'
 	)) as ApiRoleListEventResponse;
 
 	markApiFirstCalled(apiKey);

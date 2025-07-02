@@ -2,7 +2,7 @@ import { captureSentryError } from '@mezon/logger';
 import { EOverriddenPermission } from '@mezon/utils';
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState, PayloadAction } from '@reduxjs/toolkit';
 import { ApiPermission } from 'mezon-js/api.gen';
-import { ensureSession, getMezonCtx, MezonValueContext } from '../helpers';
+import { ensureSession, fetchDataWithSocketFallback, getMezonCtx, MezonValueContext } from '../helpers';
 import { memoizeAndTrack } from '../memoize';
 import { RootState } from '../store';
 export const OVERRIDDEN_POLICIES_FEATURE_KEY = 'overriddenPolicies';
@@ -79,7 +79,19 @@ interface FetchMaxPermissionChannelsArgs {
 
 export const fetchMaxChannelPermissionCached = memoizeAndTrack(
 	async (mezon: MezonValueContext, clanId: string, channelId: string) => {
-		const response = await mezon.client.listUserPermissionInChannel(mezon.session, clanId, channelId);
+		const response = await fetchDataWithSocketFallback(
+			mezon,
+			{
+				api_name: 'ListUserPermissionInChannel',
+				user_permission_req: {
+					channel_id: channelId,
+					clan_id: clanId
+				}
+			},
+			() => mezon.client.listUserPermissionInChannel(mezon.session, clanId, channelId),
+			'user_permission_list'
+		);
+
 		return { ...response, time: Date.now() };
 	},
 	{

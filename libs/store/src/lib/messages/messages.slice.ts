@@ -29,7 +29,7 @@ import {
 	weakMapMemoize
 } from '@reduxjs/toolkit';
 import { Snowflake } from '@theinternetfolks/snowflake';
-import { ChannelMessage, safeJSONParse } from 'mezon-js';
+import { ChannelMessage } from 'mezon-js';
 import { ApiChannelMessageHeader, ApiMessageAttachment, ApiMessageMention, ApiMessageRef } from 'mezon-js/api.gen';
 import { MessageButtonClicked } from 'mezon-js/socket';
 import { accountActions, selectAllAccount } from '../account/account.slice';
@@ -224,15 +224,15 @@ export const fetchMessagesCached = async (
 		'channel_message_list'
 	);
 
-	if (response?.messages) {
-		response.messages = response.messages.map((item) => ({
-			...item,
-			attachments: safeJSONParse(item.attachments as any),
-			content: safeJSONParse(item.content as any),
-			mentions: safeJSONParse(item.mentions as any),
-			references: safeJSONParse(item.references as any)
-		}));
-	}
+	// if (response?.messages) {
+	// 	response.messages = response.messages.map((item) => ({
+	// 		...item,
+	// 		attachments: safeJSONParse(item.attachments as any),
+	// 		content: safeJSONParse(item.content as any),
+	// 		mentions: safeJSONParse(item.mentions as any),
+	// 		references: safeJSONParse(item.references as any)
+	// 	}));
+	// }
 
 	markApiFirstCalled(apiKey);
 
@@ -1099,15 +1099,15 @@ export const messagesSlice = createSlice({
 							const sendingMessages = state.channelMessages[topic_id]?.ids.filter(
 								(id) => state.channelMessages[topic_id].entities[id].isSending
 							);
-							if (sendingMessages && sendingMessages.length) {
-								for (const mid of sendingMessages) {
-									const message = state.channelMessages[topic_id].entities[mid];
-									if (message?.content?.t === newContent?.t && message?.channel_id === channelId) {
-										state.channelMessages[topic_id] = handleRemoveOneMessage({ state, channelId: topic_id, messageId: mid });
-										break;
-									}
-								}
-							}
+							// if (sendingMessages && sendingMessages.length) {
+							// 	for (const mid of sendingMessages) {
+							// 		const message = state.channelMessages[topic_id].entities[mid];
+							// 		if (message?.content?.t === newContent?.t && message?.channel_id === channelId) {
+							// 			state.channelMessages[topic_id] = handleRemoveOneMessage({ state, channelId: topic_id, messageId: mid });
+							// 			break;
+							// 		}
+							// 	}
+							// }
 						}
 					} else {
 						handleAddOneMessage({ state, channelId, adapterPayload: action.payload });

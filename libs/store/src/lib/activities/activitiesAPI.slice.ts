@@ -3,7 +3,7 @@ import { FOR_24_HOURS, IActivity, LoadingStatus } from '@mezon/utils';
 import { EntityState, PayloadAction, createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import { ApiCreateActivityRequest, ApiUserActivity } from 'mezon-js/api.gen';
 import { CacheMetadata, createApiKey, createCacheMetadata, markApiFirstCalled, shouldForceApiCall } from '../cache-metadata';
-import { MezonValueContext, ensureSession, getMezonCtx } from '../helpers';
+import { MezonValueContext, ensureSession, fetchDataWithSocketFallback, getMezonCtx } from '../helpers';
 
 export const ACTIVITIES_API_FEATURE_KEY = 'activitiesapi';
 
@@ -61,7 +61,14 @@ export const fetchActivitiesCached = async (getState: () => any, mezon: MezonVal
 		};
 	}
 
-	const response = await mezon.client.listActivity(mezon.session);
+	const response = await fetchDataWithSocketFallback(
+		mezon,
+		{
+			api_name: 'ListActivity'
+		},
+		() => mezon.client.listActivity(mezon.session),
+		'user_activity_list'
+	);
 
 	markApiFirstCalled(apiKey);
 

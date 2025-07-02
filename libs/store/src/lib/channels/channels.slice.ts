@@ -192,9 +192,6 @@ export const fetchChannelsCached = async (
 	channelType: number,
 	noCache = false
 ) => {
-	const socket = ensuredMezon.socketRef?.current;
-	console.log(clanId, 'clanId');
-
 	const currentState = getState();
 	const clanData = currentState[CHANNELS_FEATURE_KEY].byClans[clanId];
 	const apiKey = createApiKey('fetchChannels', clanId, channelType);
@@ -216,7 +213,7 @@ export const fetchChannelsCached = async (
 			api_name: 'ListChannelDescs',
 			list_channel_req: {
 				limit,
-				state: { value: 1 },
+				state,
 				channel_type: channelType,
 				clan_id: clanId
 			}
@@ -250,7 +247,17 @@ export const fetchListFavoriteChannelCached = async (getState: () => RootState, 
 		};
 	}
 
-	const response = await ensuredMezon.client.getListFavoriteChannel(ensuredMezon.session, clanId);
+	const response = await fetchDataWithSocketFallback(
+		ensuredMezon,
+		{
+			api_name: 'GetListFavoriteChannel',
+			favorite_channel_req: {
+				clan_id: clanId
+			}
+		},
+		() => ensuredMezon.client.getListFavoriteChannel(ensuredMezon.session, clanId),
+		'favorite_channel_list'
+	);
 
 	markApiFirstCalled(apiKey);
 
@@ -276,7 +283,17 @@ export const fetchAppChannelCached = async (getState: () => RootState, ensuredMe
 		};
 	}
 
-	const response = await ensuredMezon.client.listChannelApps(ensuredMezon.session, clanId);
+	const response = await fetchDataWithSocketFallback(
+		ensuredMezon,
+		{
+			api_name: 'ListChannelApps',
+			list_apps_req: {
+				clan_id: clanId
+			}
+		},
+		() => ensuredMezon.client.listChannelApps(ensuredMezon.session, clanId),
+		'channel_apps_list'
+	);
 
 	markApiFirstCalled(apiKey);
 

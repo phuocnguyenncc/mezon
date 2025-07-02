@@ -45,7 +45,6 @@ export const fetchDefaultNotificationCategoryCached = async (
 	clanId: string,
 	noCache = false
 ) => {
-	const socket = mezon.socketRef?.current;
 	const currentState = getState();
 	const clanData = currentState[DEFAULT_NOTIFICATION_CATEGORY_FEATURE_KEY].byClans[clanId];
 	const apiKey = createApiKey('fetchDefaultNotificationCategory', categoryId, clanId);
@@ -299,7 +298,7 @@ export const fetchChannelCategorySettingCached = async (getState: () => RootStat
 	const response = await fetchDataWithSocketFallback(
 		mezon,
 		{
-			api_name: 'getChannelCategoryNotiSettingsList',
+			api_name: 'GetChannelCategoryNotiSettingsList',
 			notification_category: {
 				clan_id: clanId
 			}
