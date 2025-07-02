@@ -23,7 +23,7 @@ const classifyAttachments = (attachments: ApiMessageAttachment[]) => {
 	const images: ApiMessageAttachment[] = [];
 	const documents: ApiMessageAttachment[] = [];
 
-	attachments.forEach((attachment) => {
+	(attachments || [])?.forEach?.((attachment) => {
 		if (attachment.filetype?.indexOf('video/mp4') !== -1 && !attachment.url?.includes('tenor.com')) {
 			videos.push(attachment);
 		} else if (fileTypeImage.includes(attachment?.filetype)) {

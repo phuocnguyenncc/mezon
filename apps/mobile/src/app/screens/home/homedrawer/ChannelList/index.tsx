@@ -119,8 +119,8 @@ const ChannelList = () => {
 				refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
 				stickyHeaderIndices={[1]}
 				showsVerticalScrollIndicator={true}
-				initialNumToRender={5}
-				maxToRenderPerBatch={5}
+				initialNumToRender={10}
+				maxToRenderPerBatch={10}
 				windowSize={10}
 				updateCellsBatchingPeriod={50}
 				scrollEventThrottle={16}
