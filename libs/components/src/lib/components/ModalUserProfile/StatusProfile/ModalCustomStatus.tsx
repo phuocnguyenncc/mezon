@@ -60,7 +60,7 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 
 	return (
 		<ModalLayout onClose={onClose}>
-			<div className="bg-theme-surface pt-4 rounded w-[440px]">
+			<div className="bg-theme-surface pt-4 rounded w-[440px] ">
 				<div>
 					<h1 className="text-theme-primary text-xl font-semibold text-center">Set a custom status</h1>
 				</div>
@@ -73,7 +73,7 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 							type="text"
 							defaultValue={customStatus}
 							className="text-theme-primary bg-theme-direct-message outline-none w-full h-10 p-[10px] text-base rounded placeholder:text-sm border-theme-primary"
-							placeholder="Support has arrived!"
+							placeholder="What on your mind?"
 							maxLength={128}
 							autoFocus
 							onChange={handleChangeCustomStatus}
@@ -87,7 +87,7 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 							trigger="click"
 							dismissOnClick={false}
 							renderTrigger={() => (
-								<div className="flex items-center justify-between rounded-sm cursor-pointer h-9 text-theme-primary-hover bg-theme-direct-message px-3 text-theme-primary">
+								<div className="flex items-center justify-between rounded-lg cursor-pointer h-9 text-theme-primary-hover bg-theme-direct-message px-3 text-theme-primary">
 									<li className="text-[14px] text-theme-primary w-full py-[6px] list-none select-none">{timeSetReset}</li>
 									<Icons.ArrowDown defaultFill="#fff" />
 								</div>
@@ -113,14 +113,14 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 							trigger="click"
 							dismissOnClick={false}
 							renderTrigger={() => (
-								<div className="flex items-center justify-between rounded-sm h-9 text-theme-primary-hover bg-theme-direct-message px-3 text-theme-primary">
+								<div className="flex items-center justify-between rounded-lg h-9 text-theme-primary-hover bg-theme-direct-message px-3 text-theme-primary">
 									<li className="text-[14px] text-theme-primary w-full py-[6px] cursor-pointer list-none select-none">Online</li>
 									<Icons.ArrowDown defaultFill="#fff" />
 								</div>
 							)}
 							label=""
 							placement="bottom-start"
-							className="dark:bg-[#232428] bg-bgLightModeThird border-none py-0 w-[200px] [&>ul]:py-0"
+							className="bg-theme-setting-primary border-none py-0 w-[200px] [&>ul]:py-0"
 						>
 							<ItemSelect children="Online" startIcon={<Icons.OnlineStatus />} />
 							<ItemSelect children="Idle" startIcon={<Icons.DarkModeIcon className="text-[#F0B232] -rotate-90" />} />
@@ -129,11 +129,11 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 						</Dropdown>
 					</div>
 					<div className="flex justify-end p-4 gap-2 rounded-b bg-theme-surface">
-						<button className="py-2 h-10 px-4 rounded   text-theme-primary" type="button" onClick={onClose}>
+						<button className="py-2 h-10 px-4 rounded-lg  hover:underline text-theme-primary" type="button" onClick={onClose}>
 							Cancel
 						</button>
 						<button
-							className="py-2 h-10 px-4 rounded bg-bgSelectItem  hover:!bg-bgSelectItemHover  text-white"
+							className="py-2 h-10 px-4 rounded-lg btn-primary-hover btn-primary hover:opacity-80 "
 							type="button"
 							onClick={handleSaveCustomStatus}
 						>

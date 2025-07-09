@@ -194,15 +194,15 @@ const HistoryTransaction = ({ onClose }: IProps) => {
 							<div className="flex items-center gap-2">
 								<button
 									onClick={refreshData}
-									className="dark:text-gray-400 text-gray-500 hover:dark:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700"
+									className="text-theme-primary text-theme-primary-hover transition-colors p-2 rounded-lg hover:bg-gray-500/10 "
 								>
-									<Icons.ReloadIcon className="w-5 h-5 dark:text-white text-gray-500" />
+									<Icons.ReloadIcon className="w-5 h-5 " />
 								</button>
 								<button
 									onClick={onClose}
-									className="dark:text-gray-400 text-gray-500 hover:dark:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700"
+									className="text-theme-primary text-theme-primary-hover transition-colors p-2 rounded-lg hover:bg-gray-500/10 "
 								>
-									<Icons.Close className="w-5 h-5" />
+									<Icons.Close className="w-5 h-5 " />
 								</button>
 							</div>
 						</div>
@@ -299,15 +299,15 @@ const HistoryTransaction = ({ onClose }: IProps) => {
 						<div className="flex items-center gap-2">
 							<button
 								onClick={refreshData}
-								className="dark:text-gray-400 text-gray-500 hover:dark:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700"
+								className="text-theme-primary text-theme-primary-hover transition-colors p-2 rounded-lg hover:bg-gray-500/10 "
 							>
-								<Icons.ReloadIcon className="w-5 h-5 dark:text-white text-gray-500" />
+								<Icons.ReloadIcon className="w-5 h-5 " />
 							</button>
 							<button
 								onClick={onClose}
-								className="dark:text-gray-400 text-gray-500 hover:dark:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700"
+								className="text-theme-primary text-theme-primary-hover transition-colors p-2 rounded-lg hover:bg-gray-500/10 "
 							>
-								<Icons.Close className="w-5 h-5" />
+								<Icons.Close className="w-5 h-5 " />
 							</button>
 						</div>
 					</div>

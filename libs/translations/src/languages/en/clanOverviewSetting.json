@@ -4,7 +4,8 @@
     },
     "toast": {
         "saveSuccess": "Save Successfully",
-        "notBlank": "Cannot be left blank"
+        "notBlank": "Cannot be left blank",
+        "saveError": "Error when saving"
     },
     "menu": {
         "serverName": {
@@ -28,7 +29,8 @@
             "welcomeRandom": "Send a random welcome messages when someone joins this clan",
             "welcomeSticker": "Prompt members to reply to welcome messages with a sticker",
             "boostMessage": "Send a messages when someone boosts this clan",
-            "setupTips": "Send helpful tips for clan setup"
+            "setupTips": "Send helpful tips for clan setup",
+            "hideAuditLog": "Send a log when an action is applied to the clan"
         },
         "deleteServer": {
             "title": "Delete Clan",

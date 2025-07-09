@@ -170,7 +170,7 @@ function SoundSquare({ channel, mode, onClose, isTopic = false, onSoundSelect }:
 	);
 
 	return (
-		<div ref={modalRef} tabIndex={-1} className="outline-none flex h-full w-full md:w-[500px] max-sm:ml-1">
+		<div ref={modalRef} tabIndex={-1} className="outline-none flex h-full w-full md:w-[500px] max-sm:ml-1 pt-3">
 			<div className="overflow-y-auto overflow-x-hidden hide-scrollbar h-[25rem] rounded md:ml-2">
 				<div className="w-16 flex flex-col gap-y-2 bg-item-theme pt-3 px-1.5 md:items-start pb-3 rounded-l-lg items-center min-h-[25rem] shadow-sm">
 					{categoryLogo.map((cat) => (
@@ -292,7 +292,7 @@ export const SoundPanel: React.FC<ISoundPanelProps> = React.memo(({ soundList, o
 						<button
 							onClick={() => onClickSendSound(sound)}
 							title="Send sound"
-							className="flex items-center gap-2 px-4 py-1.5 bg-button-primary text-white rounded-full hover:bg-blue-600 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105 mt-2"
+							className="flex items-center gap-2 px-4 py-1.5 btn-primary btn-primary-hover rounded-full  transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-105 mt-2"
 						>
 							<Icons.ArrowRight defaultFill="white" className="w-4 h-4" />
 						</button>

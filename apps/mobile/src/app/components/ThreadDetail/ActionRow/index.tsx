@@ -64,7 +64,8 @@ export const ActionRow = React.memo(() => {
 						screen: APP_SCREEN.MENU_CHANNEL.SEARCH_MESSAGE_CHANNEL,
 						params: {
 							typeSearch: ETypeSearch.SearchChannel,
-							currentChannel
+							currentChannel,
+							nameChannel: currentChannel?.channel_label
 						}
 					});
 				}

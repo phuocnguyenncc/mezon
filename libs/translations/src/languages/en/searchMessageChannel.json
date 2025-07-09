@@ -10,5 +10,9 @@
   "media": "Media",
   "pins": "Pins",
   "in": "in:",
-  "Messages": "Messages"
+  "Messages": "Messages",
+  "filterOptions": {
+    "fromUser": "From a specific user",
+    "mentionUser": "Mention someone"
+  }
 }

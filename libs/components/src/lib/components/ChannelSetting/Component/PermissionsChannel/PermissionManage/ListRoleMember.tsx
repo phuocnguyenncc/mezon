@@ -81,10 +81,8 @@ const ListRoleMember = memo((props: ListRoleMemberProps) => {
 					<div
 						key={item.id}
 						onClick={() => handleItemClick(item)}
-						className={`w-full py-1.5 px-[10px] text-[15px] bg-transparent hover:bg-bgLightModeButton font-medium inline-flex gap-x-2 items-center rounded ${
-							selectedItemId === item.id
-								? 'dark:bg-bgModifierHover bg-bgLightModeButton'
-								: 'dark:text-textDarkTheme text-textLightTheme'
+						className={`w-full py-1.5 px-[10px] text-[15px] text-theme-primary bg-item-hover font-medium inline-flex gap-x-2 items-center rounded ${
+							selectedItemId === item.id ? 'bg-item-theme' : ''
 						}`}
 					>
 						{item.title}
@@ -133,24 +131,20 @@ const HeaderAddRoleMember = memo((props: HeaderAddRoleMemberProps) => {
 	};
 	return (
 		<div ref={panelRef} className="flex justify-between items-center relative" onClick={() => setShowPopup(!showPopup)}>
-			<h4 className="uppercase font-bold text-xs text-contentTertiary">Roles/Members</h4>
-			{channel?.channel_private === 1 && <Icons.PlusIcon defaultSize="size-4 text-contentTertiary cursor-pointer" />}
+			<h4 className="uppercase font-bold text-xs text-theme-primary-active">Roles/Members</h4>
+			{channel?.channel_private === 1 && <Icons.PlusIcon defaultSize="size-4  cursor-pointer" />}
 			{showPopup && (
-				<div className="absolute bottom-5 w-64 rounded-lg overflow-hidden dark:text-contentTertiary text-colorTextLightMode border dark:border-gray-700 border-gray-300">
-					<div className="dark:bg-bgTertiary bg-bgLightModeSecond flex gap-x-1 p-4 text-sm">
-						<p className="font-bold">ADD:</p>
+				<div className="absolute bottom-5 w-64 rounded-lg overflow-hidden bg-theme-setting-primary border-theme-primary">
+					<div className=" flex gap-x-1 p-4 text-sm bg-theme-setting-nav">
+						<p className="font-bold text-theme-primary-active">ADD:</p>
 						<input type="text" className="bg-transparent outline-none font-medium" placeholder="Role/Member" />
 					</div>
-					<div className="dark:bg-bgSecondary bg-white p-2 h-64 overflow-y-scroll hide-scrollbar">
+					<div className=" p-2 h-64 overflow-y-scroll hide-scrollbar text-theme-primary text-theme-primary-hover">
 						{Boolean(listManageNotInChannel.length) && (
 							<div>
 								<p className="px-3 py-2 uppercase text-[11px] font-bold">Role</p>
 								{listManageNotInChannel.map((item) => (
-									<div
-										key={item.id}
-										className="rounded px-3 py-2 font-semibold dark:hover:bg-bgModifierHover hover:bg-bgLightModeButton dark:hover:text-white hover:text-black"
-										onClick={() => addRole(item.id)}
-									>
+									<div key={item.id} className="rounded px-3 py-2 font-semibold bg-item-hover" onClick={() => addRole(item.id)}>
 										{item.title}
 									</div>
 								))}

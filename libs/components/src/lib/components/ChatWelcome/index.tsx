@@ -110,12 +110,12 @@ const WelComeChannel = (props: WelComeChannelProps) => {
 	return (
 		<>
 			<div
-				className={`h-[75px] w-[75px] rounded-full text-theme-primary  flex items-center justify-center ${!isChatStream ? 'bg-theme-primary' : ''}`}
+				className={`h-[75px] w-[75px] rounded-full text-theme-primary-active  flex items-center justify-center ${!isChatStream ? 'bg-theme-primary' : ''}`}
 			>
 				{isChatStream ? <Icons.Chat defaultSize="w-10 h-10 " /> : <Icons.Hashtag defaultSize="w-10 h-10" />}
 			</div>
 			<div>
-				<p className="text-xl md:text-3xl font-bold pt-1 text-theme-primary" style={{ wordBreak: 'break-word' }}>
+				<p className="text-xl md:text-3xl font-bold pt-1 text-theme-primary-active" style={{ wordBreak: 'break-word' }}>
 					Welcome to #{name}
 				</p>
 			</div>
@@ -299,7 +299,7 @@ const StatusFriend = memo((props: StatusFriendProps) => {
 			)}
 			{title.map((button, index) => (
 				<button
-					className={`rounded-lg   border border-theme-primary px-4 py-0.5 font-medium  ${checkAddFriend === EStateFriend.OTHER_PENDING ? 'cursor-not-allowed' : ''} ${checkAddFriend === EStateFriend.FRIEND ? 'bg-button-secondary text-theme-primary text-theme-primary-hover' : 'bg-button-add-friend text-white'}`}
+					className={`rounded-lg   border border-theme-primary px-4 py-0.5 font-medium  ${checkAddFriend === EStateFriend.OTHER_PENDING ? 'cursor-not-allowed' : ''} ${checkAddFriend === EStateFriend.FRIEND ? 'bg-button-secondary text-theme-primary text-theme-primary-hover' : 'btn-primary btn-primary-hover'}`}
 					onClick={() => handleOnClickButtonFriend(index)}
 					key={button}
 				>

@@ -45,8 +45,8 @@ const ItemPermission = forwardRef<{ reset: () => void }, ItemPermissionProps>((p
 	};
 
 	const className = {
-		wrapperClass: 'h-[26px] flex rounded-md overflow-hidden border dark:border-gray-700 border-gray-300 dark:bg-transparent bg-white',
-		buttonClass: 'w-8 flex justify-center items-center border dark:border-gray-700 border-gray-300'
+		wrapperClass: 'h-[26px] flex rounded-md overflow-hidden border-theme-primary bg-theme-setting-primary',
+		buttonClass: 'w-8 flex justify-center items-center border-theme-primary'
 	};
 
 	return (
@@ -54,7 +54,7 @@ const ItemPermission = forwardRef<{ reset: () => void }, ItemPermissionProps>((p
 			<p className="font-semibold text-base">{title}</p>
 			<div className={className.wrapperClass}>
 				<button
-					className={`${className.buttonClass} ${choose === TypeChoose.Remove ? 'bg-colorDanger' : ''}`}
+					className={`${className.buttonClass} ${choose === TypeChoose.Remove ? 'bg-colorDanger text-white' : ''}`}
 					onClick={() => {
 						onSelect(id!, TypeChoose.Remove, false);
 						handleSelect(TypeChoose.Remove);
@@ -63,7 +63,7 @@ const ItemPermission = forwardRef<{ reset: () => void }, ItemPermissionProps>((p
 					<Icons.Close defaultSize="size-4" />
 				</button>
 				<button
-					className={`${className.buttonClass} ${choose === TypeChoose.Or ? 'dark:bg-bgModifierHover bg-bgModifierHoverLight' : ''}`}
+					className={`${className.buttonClass} ${choose === TypeChoose.Or ? 'bg-item-theme' : ''}`}
 					onClick={() => {
 						onSelect(id!, TypeChoose.Or);
 						handleSelect(TypeChoose.Or);
@@ -72,7 +72,7 @@ const ItemPermission = forwardRef<{ reset: () => void }, ItemPermissionProps>((p
 					<Icons.IconOr defaultSize="size-4" />
 				</button>
 				<button
-					className={`${className.buttonClass} ${choose === TypeChoose.Tick ? 'bg-colorSuccess' : ''}`}
+					className={`${className.buttonClass} ${choose === TypeChoose.Tick ? 'bg-colorSuccess text-white' : ''}`}
 					onClick={() => {
 						onSelect(id!, TypeChoose.Tick, true);
 						handleSelect(TypeChoose.Tick);

@@ -1268,3 +1268,9 @@ export const mapChannelToAppEntity = (
 		url: payload.app_url
 	};
 };
+
+export const getIdSaleItemFromSource = (src: string) => {
+	const fileName = src.split('/').pop() || '';
+	const idFromSource = fileName.split('.').slice(0, -1).join('.') || '';
+	return idFromSource;
+};

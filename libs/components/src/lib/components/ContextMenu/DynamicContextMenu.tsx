@@ -220,7 +220,7 @@ export default function DynamicContextMenu({ menuId, items, messageId, message, 
 			onVisibilityChange={onVisibilityChange}
 			id={menuId}
 			style={className}
-			className="z-50 rounded-lg  text-theme-primary text-theme-primary-hover "
+			className="z-50 rounded-lg  text-theme-primary text-theme-primary-hover border-theme-primary "
 		>
 			{checkPos && <ReactionPart emojiList={firstFourElements} messageId={messageId} isOption={false} message={message} isTopic={isTopic} />}
 			{children}

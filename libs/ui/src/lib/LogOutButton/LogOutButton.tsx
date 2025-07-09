@@ -23,7 +23,7 @@ export function LogOutButton() {
 			{openModal && <LogoutModal handleLogOut={handleLogOut} onClose={handleCloseModal} />}
 			<Button
 				onClick={handleOpenModal}
-				className="inline-flex m-4 h-10 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide text-white  duration-300"
+				className="inline-flex m-4  h-10 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide text-white  duration-300"
 			>
 				<span>Log Out</span>
 				<span className="relative only:-mx-5">
@@ -72,7 +72,11 @@ export const LogoutModal: React.FC<ModalProps> = ({ handleLogOut, onClose }) => 
 					>
 						Cancel
 					</Button>
-					<ButtonLoading onClick={handleLogOut} className="px-4 py-2 rounded focus:ring focus:border-blue-300" label="Log Out" />
+					<ButtonLoading
+						onClick={handleLogOut}
+						className="px-4 py-2 rounded focus:ring bg-[#da373c] text-white hover:opacity-80"
+						label="Log Out"
+					/>
 				</div>
 			</div>
 		</div>

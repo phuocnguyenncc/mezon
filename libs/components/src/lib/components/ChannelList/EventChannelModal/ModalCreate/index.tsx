@@ -368,7 +368,7 @@ const ModalCreate = (props: ModalCreateProps) => {
 				</button>
 				<div className="flex justify-end gap-x-4 w-full">
 					<button
-						className="px-4 py-2 rounded-md border-theme-primary text-theme-primary-hover font-semibold"
+						className="px-4 py-2 rounded-md border-theme-primary text-theme-primary-hover font-semibold hover:underline"
 						onClick={() => {
 							onClose();
 							clearEventId();

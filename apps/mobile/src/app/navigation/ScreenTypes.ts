@@ -186,6 +186,7 @@ export type MenuChannelStackParamList = {
 	[APP_SCREEN.MENU_CHANNEL.SEARCH_MESSAGE_CHANNEL]: {
 		typeSearch: ETypeSearch;
 		currentChannel: IChannel | DirectEntity;
+		nameChannel?: string;
 	};
 	[APP_SCREEN.MENU_CHANNEL.CHANNEL_PERMISSION]: {
 		channelId: string;

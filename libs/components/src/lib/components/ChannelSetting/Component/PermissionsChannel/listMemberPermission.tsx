@@ -86,7 +86,7 @@ const ItemMemberPermission = (props: ItemMemberPermissionProps) => {
 	};
 
 	return (
-		<div className={`flex justify-between py-2 rounded`} key={id}>
+		<div className={`flex justify-between py-2 rounded text-theme-primary`} key={id}>
 			<div className="flex gap-x-2 items-center">
 				<AvatarImage
 					alt={username}
@@ -96,16 +96,13 @@ const ItemMemberPermission = (props: ItemMemberPermissionProps) => {
 					src={avatarPrioritize}
 					classNameText="text-[9px] pt-[3px]"
 				/>
-				<p className="text-sm font-semibold">{namePrioritize}</p>
-				<p className="text-contentTertiary font-light">{username}</p>
+				<p className="text-sm font-semibold text-theme-primary-active">{namePrioritize}</p>
+				<p className=" font-light">{username}</p>
 			</div>
 			<div className="flex items-center gap-x-2">
-				<p className="text-xs text-[#AEAEAE]">{isClanOwner && 'Clan Owner'}</p>
-				<div onClick={handleDelete} role="button">
-					<Icons.EscIcon
-						defaultSize={`${isClanOwner ? 'cursor-not-allowed' : 'cursor-pointer'} size-[15px]`}
-						defaultFill={isClanOwner ? '#4C4D55' : '#AEAEAE'}
-					/>
+				<p className="text-xs ">{isClanOwner && 'Clan Owner'}</p>
+				<div onClick={handleDelete} role="button" className={`${isClanOwner ? 'cursor-not-allowed' : 'cursor-pointer hover:text-red-500'}`}>
+					<Icons.EscIcon defaultSize={` size-[15px]`} defaultFill={isClanOwner ? 'text-theme-primary-active' : ''} />
 				</div>
 			</div>
 		</div>

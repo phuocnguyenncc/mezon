@@ -89,7 +89,7 @@ const SystemMessagesManagement = ({ updateSystem, setUpdateSystemMessageRequest,
 						) : null
 					)}
 			</Dropdown>
-			<p className={'text-xs py-2'}>This is the channel we send system event messages to. These can be turned off at any time</p>
+			<p className={'text-sm py-2'}>This is the channel we send system event messages to. These can be turned off at any time</p>
 			<ToggleItem
 				label={'Send a random welcome message when someone joins this server.'}
 				value={updateSystem?.welcome_random === '1'}
@@ -145,10 +145,12 @@ const ToggleItem: React.FC<ToggleItemProps> = ({ label, value, handleToggle }) =
 			<div className="relative flex flex-wrap items-center">
 				<input
 					className="peer relative h-4 w-8 cursor-pointer appearance-none rounded-lg
-               bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full
-                after:bg-slate-500 after:transition-all checked:bg-blue-200 checked:after:left-4 checked:after:bg-blue-500
-                 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-blue-300 checked:after:hover:bg-blue-600
-                  focus:outline-none focus-visible:outline-none"
+						bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full
+						after:bg-slate-500 after:transition-all
+						checked:bg-[#5265EC] checked:after:left-4 checked:after:bg-white
+						hover:bg-slate-400 after:hover:bg-slate-600
+						checked:hover:bg-[#4654C0] checked:after:hover:bg-white
+						focus:outline-none focus-visible:outline-none"
 					type="checkbox"
 					checked={value}
 					onChange={(e) => handleToggle(e.target.checked)}

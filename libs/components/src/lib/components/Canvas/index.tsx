@@ -162,10 +162,10 @@ const Canvas = () => {
 
 	if (showLoading) {
 		return (
-			<div className="w-full h-[calc(100vh-50px)] max-w-[80%] flex items-center justify-center">
+			<div className="w-full h-[calc(100vh-50px)] max-w-[80%] flex items-center justify-center text-theme-message">
 				<div className="flex flex-col items-center gap-4">
 					<div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-					<span className="text-gray-500">Loading canvas...</span>
+					<span className="">Loading canvas...</span>
 				</div>
 			</div>
 		);
@@ -173,7 +173,7 @@ const Canvas = () => {
 
 	if (error) {
 		return (
-			<div className="w-full h-[calc(100vh-50px)] max-w-[80%] flex items-center justify-center">
+			<div className="w-full h-[calc(100vh-50px)] max-w-[80%] flex items-center justify-center text-theme-message">
 				<div className="flex flex-col items-center gap-4">
 					<div className="text-red-500 text-lg">
 						<span role="img" aria-label="warning">
@@ -181,7 +181,7 @@ const Canvas = () => {
 						</span>
 						Error
 					</div>
-					<span className="text-gray-500">{error}</span>
+					<span className="">{error}</span>
 				</div>
 			</div>
 		);
@@ -193,11 +193,10 @@ const Canvas = () => {
 				ref={textAreaRef}
 				placeholder="Your canvas title"
 				value={title || ''}
-				style={{ color: appearanceTheme === 'light' ? 'rgb(51, 51, 51)' : 'white' }}
 				onChange={handleInputChange}
 				rows={1}
 				disabled={!isEditAndDelCanvas}
-				className="w-full px-4 py-2 mt-[25px] bg-inherit focus:outline-none text-[28px] resize-none leading-[34px] font-bold text-inherit"
+				className="w-full px-4 py-2 mt-[25px] text-theme-message bg-inherit focus:outline-none text-[28px] resize-none leading-[34px] font-bold "
 			/>
 			<div className="w-full">
 				<Suspense fallback={<CanvasContentPlaceholder />}>

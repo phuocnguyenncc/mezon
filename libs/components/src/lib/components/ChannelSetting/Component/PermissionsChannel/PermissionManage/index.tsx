@@ -47,9 +47,9 @@ type HeaderPermissionManageProps = {
 
 const HeaderPermissionManage = memo(({ showRole, setShowRole }: HeaderPermissionManageProps) => {
 	return (
-		<div className="flex items-center gap-x-3.5 w-fit" onClick={() => setShowRole(!showRole)}>
+		<div className="flex items-center gap-x-3.5 w-fit text-theme-primary" onClick={() => setShowRole(!showRole)}>
 			<h3 className="text-xl font-semibold">Advanced permissions</h3>
-			<Icons.ArrowDown defaultSize={`size-5 dark:text-white text-black transition-all duration-300 ${showRole ? '' : '-rotate-90'}`} />
+			<Icons.ArrowDown defaultSize={`size-5  transition-all duration-300 ${showRole ? '' : '-rotate-90'}`} />
 		</div>
 	);
 });

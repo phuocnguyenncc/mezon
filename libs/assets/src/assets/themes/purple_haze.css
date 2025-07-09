@@ -64,7 +64,7 @@
 	--theme-input: hsl(240 4% 30% / 0.2);
 	--theme-border-input: color-mix(in oklab, hsl(240 4% 60% / 0.4) 100%, hsl(183 100% 80% / 0.3) 50%);
 	/* màu nền của clan */
-	--theme-base-color: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06));
+	--theme-base-color: linear-gradient(rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.13));
 	--theme-text-color-dark: rgb(229, 254, 255);
 	--theme-setting-primary: rgb(27, 28, 32);
 	--theme-setting-nav: rgb(21, 22, 24);
@@ -89,7 +89,15 @@
 		color-mix(in oklab, hsl(240 4% 40% / 0.3) 100%, hsl(50 100% 90% / 0.3) 50%) 100%
 	);
 	/* màu bên channel và user */
-	--bg-theme-direct-message: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), linear-gradient(128.92deg, rgb(14, 181, 191) 3.94%, rgb(76, 12, 224) 26.1%, rgb(163, 8, 167) 39.82%, rgb(154, 83, 255) 56.89%, rgb(33, 139, 224) 76.45%);
+	--bg-theme-direct-message: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+		linear-gradient(
+			128.92deg,
+			rgb(14, 181, 191) 3.94%,
+			rgb(76, 12, 224) 26.1%,
+			rgb(163, 8, 167) 39.82%,
+			rgb(154, 83, 255) 56.89%,
+			rgb(33, 139, 224) 76.45%
+		);
 	/* màu text bên channel và user khi active */
 	--text-secondary: #f7ffff;
 	--bg-item-hover: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06));
@@ -136,8 +144,6 @@
 	/* nền active tím đậm mạnh (indigo-700) */
 	--text-count-page-active: #ffffff;
 	/* chữ trắng nổi bật */
-	/* button primary */
-	--bg-button-primary: hsl(234.935 calc(1 * 85.556%) 64.706% /1);
 	--bg-modal-theme: color-mix(in oklab, hsl(232.5 calc(1 * 6.557%) 23.922% /1) 100%, rgb(0, 14, 26) 50%);
 	/* option  */
 	--bg-option-theme: #252d36;
@@ -146,4 +152,15 @@
 	--bg-button-add-friend-active: hsl(240 calc(1 * 4%) 60.784% /0.12156862745098039);
 	--text-button-add-friend-active: color-mix(in oklab, hsl(228.679 calc(1 * 96.364%) 78.431% /1) 100%, #000 0%);
 	--bg-markdown-code: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06));
+
+	/* scroll bar */
+	--bg-scroll-bar: #b4b2ab;
+	--thread-scroll: #787881;
+	/* pop up */
+	--bg-theme-pop: color-mix(in oklab, hsl(232.5 calc(1 * 6.557%) 23.922% /1) 100%, rgb(0, 14, 26) 50%);
+	--border-highlight-react-theme: #5865f2;
+	--bg-highlight-react-theme: rgba(154, 161, 240, 0.18);
+	--bg-input-secondary: color-mix(in oklab, hsl(0 calc(1 * 0%) 0% /0.2) 100%, hsl(207.6923076923077 100% 5.098039215686274% /0.2) 50%);
+	--bg-button-primary-hover: #4654C0;
+	--button-theme-primary: #5265EC;
 }

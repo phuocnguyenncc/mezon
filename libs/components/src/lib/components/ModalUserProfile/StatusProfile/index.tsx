@@ -232,7 +232,7 @@ const StatusProfile = ({ userById, isDM, modalRef, onClose }: StatusProfileProps
 			<ButtonCopy
 				copyText={userProfile?.user?.id || ''}
 				title="Copy User ID"
-				className=" px-2 py-[6px] !text-[var(--text-theme-primary)] bg-item-theme-hover"
+				className=" px-2 py-[6px] text-theme-primary-hover bg-item-theme-hover"
 			/>
 			{isShowModalWithdraw && <SettingRightWithdraw onClose={handleCloseWithdrawModal} />}
 			{isShowModalHistory && <HistoryTransaction onClose={handleCloseHistoryModal} />}
@@ -280,10 +280,10 @@ const AddAccountModal = ({ handleSetAccount }: { handleSetAccount: (email: strin
 							ref={inputPassword}
 							id="password"
 							type="password"
-							className="w-full px-3 py-2 rounded-md pr-10 border
-						border-gray-300 dark:border-gray-600
-						bg-white dark:bg-[#1e1e1e]
-						text-black dark:text-white
+							className="w-full px-3 py-2 rounded-md pr-10 border-theme-primary
+							
+						
+						
 						focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 "
 							autoComplete="off"
 							placeholder="Enter your password"

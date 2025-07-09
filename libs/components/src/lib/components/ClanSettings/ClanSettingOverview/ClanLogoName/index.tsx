@@ -109,7 +109,7 @@ const ClanLogoName = ({ onUpload, onGetClanName }: ClanLogoNameProps) => {
 					<p className="text-sm mb-2">We recommend an image of at least 512x512 for the clan.</p>
 					<button
 						onClick={handleOpenFile}
-						className="h-10 text-theme-primary-active text-sm w-fit flex items-center px-2 justify-center mt-2 rounded-lg border-theme-primary bg-theme-input text-theme-primary-hover bg-secondary-button-hover  focus:!ring-transparent"
+						className="h-10 text-theme-primary-active text-sm w-fit flex items-center px-2 justify-center mt-2 rounded-lg btn-primary btn-primary-hover"
 					>
 						Upload Image
 					</button>

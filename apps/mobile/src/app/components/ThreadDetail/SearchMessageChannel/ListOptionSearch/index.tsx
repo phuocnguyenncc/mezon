@@ -1,5 +1,5 @@
 import { IOption, ITypeOptionSearch } from '@mezon/mobile-components';
-import {  useTheme } from '@mezon/mobile-ui';
+import { useTheme } from '@mezon/mobile-ui';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import MezonIconCDN from '../../../../componentUI/MezonIconCDN';
@@ -20,24 +20,24 @@ const ListOptionSearch = ({ onPressOption }: IListOptionSearchProps) => {
 	};
 
 	const searchOptions = [
-	{
-		title: ITypeOptionSearch.FROM,
-		content: 'user',
-		value: 'username',
-		icon: <MezonIconCDN icon={IconCDN.userIcon} color={themeValue.textStrong} />
-	},
-	{
-		title: ITypeOptionSearch.MENTIONS,
-		content: 'user',
-		value: 'mention',
-		icon: <MezonIconCDN icon={IconCDN.atIcon} color={themeValue.textStrong} />
-	}
-	// { title: ITypeOptionSearch.HAS, content: 'link, embed or file', value: 'attachment', icon: <LinkIcon /> },
-	// { title: ITypeOptionSearch.BEFORE, content: 'specific data', value: 'username', icon: <CalendarDayIcon /> },
-	// { title: ITypeOptionSearch.DURING, content: 'specific data', value: 'username' },
-	// { title: ITypeOptionSearch.AFTER, content: 'specific data', value: 'username', icon: <CalendarPlusIcon /> },
-	// { title: ITypeOptionSearch.PINED, content: 'true or false', value: 'username' }
-];
+		{
+			title: ITypeOptionSearch.FROM,
+			content: t('filterOptions.fromUser'),
+			value: 'username',
+			icon: <MezonIconCDN icon={IconCDN.userIcon} color={themeValue.text} width={20} height={20} />
+		},
+		{
+			title: ITypeOptionSearch.MENTIONS,
+			content: t('filterOptions.mentionUser'),
+			value: 'mention',
+			icon: <MezonIconCDN icon={IconCDN.atIcon} color={themeValue.text} width={20} height={20} />
+		}
+		// { title: ITypeOptionSearch.HAS, content: 'link, embed or file', value: 'attachment', icon: <LinkIcon /> },
+		// { title: ITypeOptionSearch.BEFORE, content: 'specific data', value: 'username', icon: <CalendarDayIcon /> },
+		// { title: ITypeOptionSearch.DURING, content: 'specific data', value: 'username' },
+		// { title: ITypeOptionSearch.AFTER, content: 'specific data', value: 'username', icon: <CalendarPlusIcon /> },
+		// { title: ITypeOptionSearch.PINED, content: 'true or false', value: 'username' }
+	];
 
 	return (
 		<View style={styles.optionSearchContainer}>

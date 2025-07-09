@@ -14,7 +14,8 @@ export function useMenuStyles(warningStatus: string) {
 				'--contexify-rightSlot-color': 'var(--text-secondary)',
 				'--contexify-activeRightSlot-color': 'var(--text-secondary)',
 				'--contexify-arrow-color': 'var(--text-theme-primary)',
-				'--contexify-activeArrow-color': 'var(--text-secondary)'
+				'--contexify-activeArrow-color': 'var(--text-secondary)',
+				'--contexify-activeItem-radius': '6px'
 			}) as CSSProperties,
 		[warningStatus]
 	);

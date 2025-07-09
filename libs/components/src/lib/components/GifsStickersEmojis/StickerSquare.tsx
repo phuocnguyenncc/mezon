@@ -34,6 +34,7 @@ interface ICategorizedStickerProps {
 		forSale: boolean | undefined;
 	}[];
 	categoryName: string;
+	logo?: string;
 	onClickSticker: (stickerUrl: StickerPanel) => void;
 	valueInputToCheckHandleSearch?: string;
 	onOpenBuySticker: (sticker: StickerPanel) => void;
@@ -166,7 +167,7 @@ function StickerSquare({ channel, mode, onClose, isTopic = false }: ChannelMessa
 	}, [stickerBuy]);
 
 	return (
-		<div ref={modalRef} tabIndex={-1} className="outline-none flex h-full w-full md:w-[500px] max-sm:ml-1">
+		<div ref={modalRef} tabIndex={-1} className="outline-none flex h-full w-full md:w-[500px] max-sm:ml-1 pt-3">
 			<div className="overflow-y-auto overflow-x-hidden hide-scrollbar h-[25rem] rounded md:ml-2 ">
 				<div
 					className="w-11 max-sm:gap-x-1
@@ -218,6 +219,7 @@ function StickerSquare({ channel, mode, onClose, isTopic = false }: ChannelMessa
 									stickerList={stickers}
 									onClickSticker={handleClickImage}
 									categoryName={avt.type || ''}
+									logo={avt.url}
 									onOpenBuySticker={handleOpenBuySticker}
 								/>
 							</div>
@@ -230,13 +232,7 @@ function StickerSquare({ channel, mode, onClose, isTopic = false }: ChannelMessa
 }
 export default StickerSquare;
 
-const CategorizedStickers: React.FC<ICategorizedStickerProps> = ({
-	stickerList,
-	categoryName,
-	onClickSticker,
-	valueInputToCheckHandleSearch,
-	onOpenBuySticker
-}) => {
+const CategorizedStickers: React.FC<ICategorizedStickerProps> = ({ stickerList, categoryName, onClickSticker, onOpenBuySticker, logo }) => {
 	const stickersListByCategoryName = stickerList.filter((sticker) =>
 		categoryName === FOR_SALE_CATE ? sticker.forSale : sticker.type === categoryName && !sticker.forSale
 	);
@@ -251,11 +247,20 @@ const CategorizedStickers: React.FC<ICategorizedStickerProps> = ({
 		<div>
 			<button
 				onClick={handleToggleButton}
-				className="w-full flex flex-row justify-start items-center pl-1 mb-1 mt-0 py-1 gap-[2px] sticky top-[-0.5rem]  z-10  max-h-full bg-theme-setting-primary"
+				className="w-full flex flex-row justify-start items-center pl-1 mb-1 mt-0 py-1 sticky top-[-0.5rem]  z-10  max-h-full bg-theme-setting-primary"
 			>
-				<p className="uppercase">{categoryName !== 'custom' ? categoryName : currentClan?.clan_name}</p>
+				{logo !== '' ? (
+					<img src={logo} className="w-4 !h-4 flex items-center justify-center rounded-full" />
+				) : (
+					<div className="dark:text-textDarkTheme text-xs text-textLightTheme w-4 h-4 rounded-full">
+						{currentClan?.clan_name?.charAt(0).toUpperCase()}
+					</div>
+				)}
+				<p className={'ml-2 uppercase text-left truncate text-xs font-semibold'}>
+					{categoryName !== 'custom' ? categoryName : currentClan?.clan_name}
+				</p>
 				<span className={`${isShowStickerList ? ' rotate-90' : ''}`}>
-					<Icons.ArrowRight />
+					<Icons.ArrowRight defaultSize="w-4 h-4" />
 				</span>
 			</button>
 			{isShowStickerList && (

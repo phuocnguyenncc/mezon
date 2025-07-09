@@ -40,7 +40,7 @@ const ItemPanel = ({
 			<div className={'flex flex-row items-center justify-between w-full'}>
 				<li
 					className={`text-[14px] font-medium w-full py-[6px] px-[8px]  text-left cursor-pointer list-none m-0 truncate
-						${danger ? ' text-colorDanger hover:text-white' : info ? 'text-blue-500 dark:text-blue-400' : 'text-theme-primary'}`}
+						${danger ? ' text-colorDanger hover:text-white' : info ? 'text-blue-500 dark:text-blue-400' : 'text-theme-primary text-theme-primary-hover'}`}
 				>
 					{children}
 				</li>

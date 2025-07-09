@@ -116,7 +116,7 @@ export const GifStickerEmojiPopup = ({
 
 	return (
 		<div onClick={(e) => e.stopPropagation()} className={containerClassName}>
-			<div className="w-full">
+			<div className="w-full flex flex-col gap-3 border-b-theme-primary pb-4">
 				{!idMessageRefReaction && emojiAction !== EmojiPlaces.EMOJI_EDITOR_BUZZ && (
 					<TabBar subPanelActive={subPanelActive} onTabClick={handleTabClick} showTabs={showTabs} />
 				)}
@@ -161,11 +161,11 @@ const TabBar = React.memo(
 		};
 	}) => {
 		const getTabClassName = useCallback((isActive: boolean) => {
-			return `relative px-2 mx-2 rounded-md ${isActive ? 'text-theme-primary-active font-semibold' : 'text-theme-primary'}`;
+			return `relative px-2 mx-2 text-sm rounded-md ${isActive ? 'text-theme-primary-active font-semibold' : 'text-theme-primary'}`;
 		}, []);
 
 		return (
-			<div className="flex justify-start flex-row mt-3 border-b-theme-primary pb-1 pt-1 max-sm:justify-evenly">
+			<div className="flex justify-start flex-row mt-3 pt-1 max-sm:justify-evenly">
 				{showTabs.gifs && (
 					<button className={getTabClassName(subPanelActive === SubPanelName.GIFS)} onClick={() => onTabClick(SubPanelName.GIFS)}>
 						Gifs

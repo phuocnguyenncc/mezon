@@ -10,5 +10,9 @@
   "media": "Phương tiện",
   "pins": "Ghim",
   "in": "trong:",
-  "Messages": "Tin nhắn"
+  "Messages": "Tin nhắn",
+  "filterOptions": {
+    "fromUser": "Từ một người cụ thể",
+    "mentionUser": "Đề cập ai đó"
+  }
 }

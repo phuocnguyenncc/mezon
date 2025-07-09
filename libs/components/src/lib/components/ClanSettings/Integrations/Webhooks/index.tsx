@@ -44,7 +44,7 @@ const Webhooks = ({ allWebhooks, currentChannel, isClanSetting }: IWebhooksProps
 
 	return (
 		<div className="pb-5">
-			<div className=" text-sm pt-5">
+			<div className=" text-sm pt-5 text-theme-primary">
 				Webhooks are a simple way to post messages from other apps and websites into Mezon using internet magic.
 				<b className="font-semibold text-[#00a8fc] hover:underline cursor-pointer"> Learn more</b> or try{' '}
 				<b className="font-semibold text-[#00a8fc] hover:underline cursor-pointer">building one yourself.</b>
@@ -54,7 +54,7 @@ const Webhooks = ({ allWebhooks, currentChannel, isClanSetting }: IWebhooksProps
 				<>
 					<div
 						onClick={handleAddWebhook}
-						className="py-2 px-4 bg-blue-500 hover:bg-blue-600  rounded-md mb-[24px] w-fit text-[14px] font-semibold cursor-pointer text-white"
+						className="py-2 px-4 btn-primary btn-primary-hover  rounded-lg mb-[24px] w-fit text-[14px] font-semibold cursor-pointer "
 					>
 						New Webhook
 					</div>
@@ -69,7 +69,7 @@ const Webhooks = ({ allWebhooks, currentChannel, isClanSetting }: IWebhooksProps
 					<div className="font-medium ">You have no webhooks!</div>
 					<div
 						onClick={handleAddWebhook}
-							className="py-2 px-4 bg-blue-500 hover:bg-blue-600 rounded-md mb-[24px] w-fit text-[14px] font-semibold cursor-pointer text-white"
+							className="py-2 px-4 btn-primary btn-primary-hover rounded-lg mb-[24px] w-fit text-[14px] font-semibold cursor-pointer"
 					>
 						New Webhook
 					</div>

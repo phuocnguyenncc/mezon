@@ -26,7 +26,7 @@ const EmptyThread = ({ onClick }: EmptyThreadProps) => {
 			{canManageThread && (
 				<button
 					onClick={handleCreateThread}
-					className=" py-2 px-3 mt-6 h-10 font-medium text-sm rounded focus:ring-transparent bg-button-primary text-white"
+					className=" py-2 px-3 mt-6 h-10 font-medium text-sm rounded-lg focus:ring-transparent btn-primary btn-primary-hover"
 				>
 					Create Thread
 				</button>

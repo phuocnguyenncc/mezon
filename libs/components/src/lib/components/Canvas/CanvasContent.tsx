@@ -40,7 +40,7 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 	const hasSetInitialContent = useRef(false);
 	const dispatch = useDispatch();
 	const [quill, setQuill] = useState<Quill | null>(null);
-	const placeholderColor = isLightMode ? 'rgba(0,0,0,0.6)' : '#ffffff';
+	const placeholderColor = 'var(--text-theme-primary)';
 	const [toolbarPosition, setToolbarPosition] = useState({ top: 0, left: 0 });
 
 	const [activeOption, setActiveOption] = useState('paragraph');
@@ -390,15 +390,15 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 				fontWeight: format === 'bold' ? 600 : 'normal',
 				fontStyle: format === 'italic' ? 'italic' : 'normal',
 				textDecoration: format === 'underline' ? 'underline' : format === 'strike' ? 'line-through' : 'none',
-				backgroundColor: activeFormats[format] ? (isLightMode ? '#d3d3d3' : '#555') : 'transparent',
-				color: 'white',
+				backgroundColor: activeFormats[format] ? 'var(--bg-item-hover)' : 'transparent',
+				color: activeFormats[format] ? 'var(--text-secondary)' : 'var(--text-theme-primary)',
 				border: 'none',
 				cursor: 'pointer',
 				borderRadius: '5px'
 			};
 		} else if (type === 'option') {
 			return {
-				color: activeFormats[format] ? '#048dba' : 'white'
+				color: activeFormats[format] ? '#048dba' : 'var(--text-theme-primary)'
 			};
 		}
 		return {};
@@ -436,9 +436,9 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 						padding: '5px',
 						display: 'flex',
 						alignItems: 'center',
-						gap: '4px',
-						background: '#333',
-						color: 'white',
+						gap: '8px',
+						background: 'var(--bg-theme-contexify)',
+						color: 'var(--text-theme-primary',
 						borderRadius: '5px',
 						zIndex: 99,
 						boxShadow: '0 0 0 1px #e8e8e840,0 1px 3px #00000014'
@@ -453,7 +453,7 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 							{isOpen && (
 								<ul
 									style={{ boxShadow: '0 0 0 1px #e8e8e840,0 1px 3px #00000014' }}
-									className="absolute left-0 bg-[#313338] pt-[12px] pr-[0] pb-[12px] pl-[0] rounded-[6px] min-w-[200px] max-w-[calc(100vh - 62px)] overflow-y-auto"
+									className="absolute left-0 bg-theme-contexify pt-[12px] pr-[0] pb-[12px] pl-[0] rounded-[6px] min-w-[200px] max-w-[calc(100vh - 62px)] overflow-y-auto"
 								>
 									{options.map((option) => (
 										<React.Fragment key={option.value}>
@@ -497,7 +497,7 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 					></span>
 
 					<button
-						className="disabled:opacity-50 disabled:cursor-auto"
+						className={`disabled:opacity-50 disabled:cursor-auto  ${activeFormats['bold'] ? 'bg-theme-contexify' : ''}`}
 						type="button"
 						onClick={() => formatText('bold')}
 						style={getStyle('button', 'bold')}
@@ -595,7 +595,7 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 					height: 'auto',
 					width: '100%',
 					fontSize: '15px',
-					color: isLightMode ? 'black' : 'white',
+					color: 'var(--text-theme-primary',
 					border: 'none'
 				}}
 			/>
@@ -607,8 +607,7 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 				}
 
 				#editor .ql-snow .ql-editor code {
-					background-color: #23241f;
-					color: #f0f0f0 !important;
+					color: var(--text-theme-primary), !important;
 				}
 
 				#editor span, #editor strong {
@@ -621,6 +620,10 @@ function CanvasContent({ isLightMode, content, idCanvas, isEditAndDelCanvas, onC
 
 				.note-canvas .ql-tooltip {
 					left: 0 !important;
+				}
+				.note-canvas .ql-editor .ql-code-block-container {
+					background-color: var(--theme-setting-primary);
+					color: var(--text-theme-primary);
 				}
       `}
 			</style>

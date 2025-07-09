@@ -170,7 +170,7 @@ const ModalInputMessageBuzz: React.FC<ModalInputMessageBuzzProps> = ({ currentCh
 					</MentionsInput>
 					<button
 						onClick={handleSendBuzzMsg}
-						className="w-[70px] flex justify-center items-center px-4 py-2 bg-button-primary text-white rounded-md hover:bg-indigo-600"
+						className="w-[70px] flex justify-center items-center px-4 py-2 btn-primary btn-primary-hover rounded-lg "
 					>
 						Send
 					</button>

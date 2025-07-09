@@ -161,7 +161,7 @@ const SettingOnBoarding = ({ onClose }: { onClose?: () => void }) => {
 	}, [description, about, initialDescription, initialAbout]);
 
 	const renderOnboardingContent = () => (
-		<div className="dark:text-channelTextLabel text-colorTextLightMode text-sm">
+		<div className="text-theme-primary text-sm">
 			{currentPage === EOnboardingStep.MAIN && (
 				<MainIndex
 					handleGoToPage={handleGoToPage}
@@ -231,16 +231,12 @@ const SettingOnBoarding = ({ onClose }: { onClose?: () => void }) => {
 							</div>
 							{renderOnboardingContent()}
 							<div className="flex justify-end gap-4 mt-6">
-								<button
-									onClick={() => setIsModalOpen(false)}
-									className="px-4 py-2 rounded-md bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-colorTextLightMode dark:text-white"
-									disabled={isSaving}
-								>
+								<button onClick={() => setIsModalOpen(false)} className="px-4 py-2 rounded-md hover:underline" disabled={isSaving}>
 									Cancel
 								</button>
 								<button
 									onClick={handleConfirm}
-									className="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center min-w-[100px]"
+									className="px-4 py-2 rounded-lg btn-primary btn-primary-hover flex items-center justify-center min-w-[100px]"
 									disabled={isSaving}
 								>
 									{isSaving ? (
@@ -265,28 +261,21 @@ const SettingOnBoarding = ({ onClose }: { onClose?: () => void }) => {
 			{/* Onboarding Modal */}
 			{isModalOpen && (
 				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-					<div className="bg-white dark:bg-bgSecondary p-6 rounded-lg w-[800px] max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
+					<div className="bg-theme-setting-primary p-6 rounded-lg w-[800px] max-h-[80vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900">
 						<div className="flex justify-between items-center mb-6">
 							<h3 className="text-xl font-semibold text-theme-primary">Community Settings</h3>
-							<button
-								onClick={() => setIsModalOpen(false)}
-								className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white"
-							>
+							<button onClick={() => setIsModalOpen(false)} className=" bg-item-theme hover:text-white">
 								<Icons.CloseIcon className="w-6 h-6" />
 							</button>
 						</div>
 						{renderOnboardingContent()}
 						<div className="flex justify-end gap-4 mt-6">
-							<button
-								onClick={() => setIsModalOpen(false)}
-								className="px-4 py-2 rounded-md bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-colorTextLightMode dark:text-white"
-								disabled={isSaving}
-							>
+							<button onClick={() => setIsModalOpen(false)} className="px-4 py-2 rounded-md hover:underline" disabled={isSaving}>
 								Cancel
 							</button>
 							<button
 								onClick={handleConfirm}
-								className="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center min-w-[100px]"
+								className="px-4 py-2 rounded-lg btn-primary btn-primary-hover flex items-center justify-center min-w-[100px]"
 								disabled={isSaving}
 							>
 								{isSaving ? (
@@ -305,8 +294,8 @@ const SettingOnBoarding = ({ onClose }: { onClose?: () => void }) => {
 
 			{/* Main Onboarding UI */}
 			{isCommunityEnabled && (
-				<div className="dark:text-channelTextLabel text-colorTextLightMode text-sm pb-10">
-					<div className="flex items-center justify-between p-4 bg-gray-100 dark:bg-bgSecondary rounded-lg mb-6">
+				<div className="text-theme-primary text-sm pb-10">
+					<div className="flex items-center justify-between p-4 bg-theme-setting-primary rounded-lg mb-6">
 						<div className="flex flex-col">
 							<h3 className="text-lg font-semibold text-theme-primary">Community Onboarding</h3>
 							<p className="text-sm text-theme-primary">Community features are enabled</p>
@@ -359,11 +348,11 @@ const MainIndex = ({ isEnableOnBoarding, toggleEnableStatus, handleGoToPage, onC
 				</div>
 				<div className="flex gap-2 items-center">
 					<div className="cursor-pointer text-blue-500 hover:underline">See examples</div>
-					<div className="w-1 h-1 rounded-full bg-gray-600" />
+					<div className="w-1 h-1 rounded-full bg-item-theme" />
 					<div className="cursor-pointer text-blue-500 hover:underline" onClick={openOnboardingPreviewMode}>
 						Preview
 					</div>
-					<div className="w-1 h-1 rounded-full bg-gray-600" />
+					<div className="w-1 h-1 rounded-full bg-item-theme" />
 					<div className="cursor-pointer text-blue-500 hover:underline">Switch to Advanced Mode</div>
 				</div>
 			</div>
@@ -416,7 +405,7 @@ const MainIndex = ({ isEnableOnBoarding, toggleEnableStatus, handleGoToPage, onC
 					action={
 						<div
 							onClick={() => handleGoToPage(EOnboardingStep.QUESTION)}
-							className="px-3 py-2 flex gap-2 justify-center items-center rounded-lg bg-button-primary text-white hover:bg-indigo-500 cursor-pointer"
+							className="px-3 py-2 flex gap-2 justify-center items-center rounded-lg btn-primary btn-primary-hover  cursor-pointer"
 						>
 							<div>Set up</div> <Icons.LongArrowRight className="w-3" />
 						</div>

@@ -1,287 +1,289 @@
 .bg-theme-primary {
-  background: var(--bg-primary);
+	background: var(--bg-primary);
 }
 
 .bg-theme-direct-message {
-  background: var(--bg-theme-direct-message);
+	background: var(--bg-theme-direct-message);
 }
 
 .bg-theme-setting-nav {
-  background: var(--theme-setting-nav);
+	background: var(--theme-setting-nav);
 }
 
 .bg-theme-setting-primary {
-  background: var(--theme-setting-primary);
+	background: var(--theme-setting-primary);
 }
 
 .bg-private-theme {
-  background: var(--private-theme);
+	background: var(--private-theme);
 }
 
 .bg-theme-contexify {
-  background: var(--bg-theme-contexify) !important;
+	background: var(--bg-theme-contexify) !important;
 }
 
 .theme-base-color {
-  background: var(--theme-base-color);
+	background: var(--theme-base-color);
 }
 
 .bg-input-theme {
-  background: var(--theme-input);
+	background: var(--theme-input);
 }
 
 .border-color-theme {
-  border-color: var(--theme-border-input);
+	border-color: var(--theme-border-input);
 }
 
 .bg-active-friend-list {
-  background: var(--bg-active-friend-list);
+	background: var(--bg-active-friend-list);
 }
 
 .bg-active-button {
-  background: var(--bg-active-button);
+	background: var(--bg-active-button);
 }
 
 .bg-button-add-friend,
 button.bg-button-add-friend {
-  background: var(--bg-button-add-friend);
+	background: var(--bg-button-add-friend);
 }
 
 .bg-button-primary {
-  background: var(--bg-button-primary);
+	background: var(--bg-button-primary);
 }
 
 .bg-button-hover:hover:not(:disabled) {
-  background: var(--bg-tertiary);
+	background: var(--bg-tertiary);
 }
 
 .bg-secondary-button-hover:hover:not(:disabled) {
-  background: var(--bg-secondary-button-hover);
+	background: var(--bg-secondary-button-hover);
 }
 
 .bg-theme-input {
-  background: var(--bg-tertiary);
+	background: var(--bg-tertiary);
 }
 
 .border-color-primary {
-  border-color: var(--border-primary);
+	border-color: var(--border-primary);
 }
 
 .bg-button-hover {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--border-primary);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--border-primary);
 }
 
 .bg-button-secondary {
-  background: var(--bg-button-secondary);
+	background: var(--bg-button-secondary);
 }
 
 .bg-theme-input-primary {
-  background: var(--bg-primary);
+	background: var(--bg-primary);
 }
 
 .theme-base-color {
-  background: var(--theme-base-color);
+	background: var(--theme-base-color);
 }
 
 .bg-item-hover:hover {
-  background: var(--bg-item-hover);
+	background: var(--bg-item-hover);
 }
 
 .bg-item-msg-selected {
-  background: var(--bg-item-hover);
+	background: var(--bg-item-hover);
 }
 
-
 .bg-item-hover-chat:hover {
-  background: var(--bg-item-hover-chat);
+	background: var(--bg-item-hover-chat);
 }
 
 .bg-item-theme {
-  background: var(--bg-active-member-channel);
+	background: var(--bg-active-member-channel);
 }
 
 .bg-item-theme-hover:hover {
-  background: var(--bg-active-member-channel);
+	background: var(--bg-active-member-channel);
 }
 
 .bg-item-theme-hover-important:hover {
-  background: var(--bg-active-member-channel) !important;
+	background: var(--bg-active-member-channel) !important;
 }
 
 .bg-item-theme-hover-status:hover {
-  background: var(--bg-hover-select-status);
+	background: var(--bg-hover-select-status);
 }
 
 .bg-theme-surface {
-  background: var(--bg-surface);
+	background: var(--bg-surface);
 }
 
 .bg-ping-member {
-  background: var(--bg-ping-member);
+	background: var(--bg-ping-member);
 }
 
 .bg-add-clan-hover:hover,
 .bg-add-clan-hover:active p {
-  background: var(--bg-button-add-friend);
-  color: #ffffff;
+	background: var(--bg-button-add-friend);
+	color: #ffffff;
 }
 
 .bg-theme-hover {
-  background-color: var(--bg-hover);
+	background-color: var(--bg-hover);
 }
 
 .bg-mention {
-  background-color: var(--mention-primary);
+	background-color: var(--mention-primary);
 }
 
 .bg-highlight {
-  background: var(--bg-highlight);
+	background: var(--bg-highlight);
 }
 
 .bg-modal-theme {
-  background: var(--bg-modal-theme);
+	background: var(--bg-modal-theme);
 }
 
 .bg-input-secondary {
-  background: var(--bg-input-secondary);
+	background: var(--bg-input-secondary);
 }
 
 .bg-option-theme {
-  background: var(--bg-option-theme);
+	background: var(--bg-option-theme);
 }
 
 .bg-option-theme-important {
-  background: var(--bg-option-theme) !important;
+	background: var(--bg-option-theme) !important;
 }
 
 .bg-highlight-no-hover {
-  background: var(--bg-highlight) !important;
+	background: var(--bg-highlight) !important;
 }
 
 /* button */
 .btn-theme-primary {
-  color: var(--text-theme-primary);
-  transition: all 0.2s ease-in-out;
+	color: var(--text-theme-primary);
+	transition: all 0.2s ease-in-out;
 }
 
 /* border */
 .border-user {
-  border-color: var(--theme-setting-primary);
+	border-color: var(--theme-setting-primary);
 }
 
 .bg-control-nav {
-  background: var(--text-theme-primary);
+	background: var(--text-theme-primary);
 }
 
 .border-theme-secondary {
-  border-color: var(--border-secondary);
+	border-color: var(--border-secondary);
 }
 
 .border-theme-hover {
-  border-color: var(--border-hover);
+	border-color: var(--border-hover);
 }
 
 .border-left-theme-primary {
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-left-color: var(--border-color-primary);
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: var(--border-color-primary);
 }
 
 .border-b-theme-primary {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: var(--border-color-primary);
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--border-color-primary);
 }
 
 .border-theme-primary {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--border-primary);
+	border-width: 1px;
+	border-style: solid;
+	border-color: var(--border-primary);
 }
 
 .border-t-theme-primary {
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: var(--border-primary);
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: var(--border-primary);
 }
 
 /* color */
 .color-mention {
-  color: var(--mention-color);
+	color: var(--mention-color);
 }
 
 .color-mention-everyone {
-  color: var(--color-mention-everyone);
+	color: var(--color-mention-everyone);
 }
 
 .color-mention-everyone-hover {
-  color: var(--color-mention-everyone-hover);
+	color: var(--color-mention-everyone-hover);
 }
 
 .bg-mention-everyone-hover:hover {
-  background-color: var(--bg-mention-everyone-hover);
+	background-color: var(--bg-mention-everyone-hover);
 }
 
 .bg-mention-everyone {
-  background-color: var(--bg-mention-evryone);
+	background-color: var(--bg-mention-evryone);
 }
 
 .button-add-friend-active {
-  background-color: var(--bg-button-add-friend-active);
-  color: var(--text-button-add-friend-active);
+	background-color: var(--bg-button-add-friend-active);
+	color: var(--text-button-add-friend-active);
 }
 
 .color-mention-hover {
-  color: var(--color-mention-hover);
+	color: var(--color-mention-hover);
 }
 
 .color-text-active-button {
-  color: var(--color-text-active-button);
+	color: var(--color-text-active-button);
 }
 
 .color-text-secondary::placeholder {
-  color: var(--text-secondary);
+	color: var(--text-secondary);
 }
 
 .text-theme-primary {
-  color: var(--text-theme-primary);
+	color: var(--text-theme-primary);
 }
 
 .text-theme-message {
-  color: var(--text-theme-message);
+	color: var(--text-theme-message);
 }
 
 .text-theme-primary-hover:hover {
-  color: var(--text-secondary);
+	color: var(--text-secondary);
 }
 
 .text-theme-primary-active {
-  color: var(--text-secondary);
-  font-variant: initial;
+	color: var(--text-secondary);
+	font-variant: initial;
 }
 
 .text-theme-secondary {
-  color: var(--text-secondary);
+	color: var(--text-secondary);
 }
 
 .text-theme-tertiary {
-  color: var(--text-tertiary);
+	color: var(--text-tertiary);
 }
 
 .text-theme-muted {
-  color: var(--text-muted);
+	color: var(--text-muted);
+}
+.bg-theme-pop {
+	background: var(--bg-theme-pop);
 }
 
 .text-theme-disabled {
-  color: var(--text-disabled);
+	color: var(--text-disabled);
 }
 
 /* hover mention */
 .hover-mention:hover {
-  background-color: var(--bg-mention-hover);
-  color: var(--color-mention-hover);
+	background-color: var(--bg-mention-hover);
+	color: var(--color-mention-hover);
 }
 
 /* placeholder */
@@ -291,80 +293,93 @@ button.bg-button-add-friend {
 input.bg-input-theme,
 input.bg-theme-input,
 input.bg-theme-input-primary::placeholder {
-  color: var(--text-theme-primary);
+	color: var(--text-theme-primary);
 }
 
 /* outline */
 .outline-theme-primary {
-  outline-color: var(--bg-primary);
-  outline-width: 2px;
-  outline-style: solid;
+	outline-color: var(--bg-primary);
+	outline-width: 2px;
+	outline-style: solid;
 }
 
 .custom-contexify-menu {
-  --contexify-menu-bgColor: var(--bg-theme-contexify);
-  --contexify-item-color: var(--text-theme-primary);
-  --contexify-activeItem-color: red;
-  --contexify-activeItem-bgColor: var(--bg-item-hover);
-  --contexify-rightSlot-color: var(--text-secondary);
-  --contexify-activeRightSlot-color: var(--text-secondary);
-  --contexify-arrow-color: var(--text-theme-primary);
-  --contexify-activeArrow-color: var(--text-secondary);
+	--contexify-menu-bgColor: var(--bg-theme-contexify);
+	--contexify-item-color: var(--text-theme-primary);
+	--contexify-activeItem-color: red;
+	--contexify-activeItem-bgColor: var(--bg-item-hover);
+	--contexify-rightSlot-color: var(--text-secondary);
+	--contexify-activeRightSlot-color: var(--text-secondary);
+	--contexify-arrow-color: var(--text-theme-primary);
+	--contexify-activeArrow-color: var(--text-secondary);
 }
 
 .border-r-t-l-theme-primary {
-  border-top-left-radius: var(--border-r-t-l-theme-primary);
-  border-top-right-radius: var(--border-r-t-l-theme-primary);
+	border-top-left-radius: var(--border-r-t-l-theme-primary);
+	border-top-right-radius: var(--border-r-t-l-theme-primary);
 }
 
 .border-r-b-l-theme-primary {
-  border-bottom-left-radius: var(--border-r-b-l-theme-primary);
-  border-bottom-right-radius: var(--border-r-b-l-theme-primary);
+	border-bottom-left-radius: var(--border-r-b-l-theme-primary);
+	border-bottom-right-radius: var(--border-r-b-l-theme-primary);
 }
 
 .bg-count-page {
-  background-color: var(--bg-count-page);
-  color: var(--text-count-page);
+	background-color: var(--bg-count-page);
+	color: var(--text-count-page);
 }
 
 .bg-count-page-hover:hover {
-  background-color: var(--bg-count-page-hover);
-  color: var(--text-count-page-hover);
+	background-color: var(--bg-count-page-hover);
+	color: var(--text-count-page-hover);
 }
 
 .bg-count-page-active {
-  background-color: var(--bg-count-page-active);
-  color: var(--text-count-page-active);
+	background-color: var(--bg-count-page-active);
+	color: var(--text-count-page-active);
 }
 
 .bg-footer-profile {
-  background: var(--bg-footer);
+	background: var(--bg-footer);
 }
 
 .bg-theme-chat {
-  background: var(--bg-secondary);
+	background: var(--bg-secondary);
 }
 
 .bg-outside-footer {
-  background: var(--bg-outside-footer);
+	background: var(--bg-outside-footer);
 }
 
 .focus-input:focus {
-  border-color: var(--focus-input);
-  outline: none;
+	border-color: var(--focus-input);
+	outline: none;
 }
 
 /* Modal */
 .bg-modal-overlay {
-  background: var(--bg-modal);
-  outline: none;
+	background: var(--bg-modal);
+	outline: none;
+}
+
+.highlight-react-theme {
+	background: var(--bg-highlight-react-theme);
+	border: 1px solid var(--border-highlight-react-theme);
+	backdrop-filter: blur(2px);
 }
 
 
 .status-user-background {
-  background: var(--bg-primary);
+	background: var(--bg-primary);
 }
 
 .bg-markdown-code {
-  background: var(--bg-markdown-code);
+	background: var(--bg-markdown-code);
+}
+.btn-primary {
+  background: var(--button-theme-primary);
+  color: white;
+}
+.btn-primary-hover:hover {
+  background: var(--bg-button-primary-hover);
 }

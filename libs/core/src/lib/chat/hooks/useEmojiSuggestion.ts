@@ -8,7 +8,7 @@ import {
 	selectTextToSearchEmojiSuggestion,
 	useAppDispatch
 } from '@mezon/store';
-import { IEmoji } from '@mezon/utils';
+import { IEmoji, getIdSaleItemFromSource } from '@mezon/utils';
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -17,13 +17,25 @@ interface EmojiSuggestionProps {
 }
 
 const filterEmojiData = (emojis: IEmoji[]) => {
-	return emojis.map(({ id, src, shortname, category, is_for_sale }) => ({
-		id,
-		src,
-		category,
-		shortname,
-		is_for_sale
-	}));
+	return emojis.map(({ id, src, shortname, category, is_for_sale }) => {
+		if (is_for_sale && src) {
+			const idSale = getIdSaleItemFromSource(src);
+			return {
+				id: idSale,
+				src,
+				category,
+				shortname,
+				is_for_sale
+			};
+		}
+		return {
+			id,
+			src,
+			category,
+			shortname,
+			is_for_sale
+		};
+	});
 };
 
 export function useEmojiSuggestion({ isMobile = false }: EmojiSuggestionProps = {}) {

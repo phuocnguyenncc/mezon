@@ -234,7 +234,7 @@ const SettingUserClanProfileEdit: React.FC<SettingUserClanProfileEditProps> = ({
 						<p className="font-bold tracking-wide text-sm">AVATAR</p>
 						<div className="flex mt-[10px] gap-x-5">
 							<label>
-								<div className="text-[14px] font-medium bg-[#155EEF] hover:bg-blue-500 rounded-lg p-[8px] pr-[10px] pl-[10px] cursor-pointer text-white">
+								<div className="text-[14px] font-medium btn-primary btn-primary-hover rounded-lg p-[8px] pr-[10px] pl-[10px] cursor-pointer ">
 									Change avatar
 								</div>
 								<input type="file" onChange={handleFile} className="hidden" />

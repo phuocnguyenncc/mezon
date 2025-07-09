@@ -78,7 +78,7 @@ const PinnedMessages = ({ onClose, rootRef, mode }: PinnedMessagesProps) => {
 						<span className="text-base font-medium cursor-default ">Pinned Messages</span>
 					</div>
 				</div>
-				<div className={`flex flex-col flex-1 overflow-y-auto `}>
+				<div className={`flex flex-col flex-1 overflow-y-auto thread-scroll`}>
 					<ListPinMessage mode={mode} onClose={onClose} handleUnPinConfirm={handleUnPinConfirm} />
 				</div>
 			</div>

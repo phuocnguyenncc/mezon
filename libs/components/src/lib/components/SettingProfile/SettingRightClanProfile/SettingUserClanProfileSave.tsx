@@ -34,7 +34,7 @@ export const SettingUserClanProfileSave = (props: SettingUserClanProfileSaveProp
 					Reset
 				</button>
 				<ButtonLoading
-					className="ml-auto bg-blue-600 rounded-[4px] px-4 py-1.5 text-nowrap text-white"
+					className="ml-auto btn-primary btn-primary-hover  rounded-lg px-4 py-1.5 text-nowrap "
 					label="Save Changes"
 					onClick={handleSaveChanges}
 				/>

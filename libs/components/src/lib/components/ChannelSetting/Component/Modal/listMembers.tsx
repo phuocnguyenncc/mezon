@@ -42,7 +42,7 @@ const ItemMember = (props: ItemMemberProps) => {
 	const namePrioritize = getNameForPrioritize(clanName, displayName, username);
 	const avatarPrioritize = getAvatarForPrioritize(clanAvatar, avatar);
 	return (
-		<div className={`flex justify-between py-2 rounded hover:bg-[#E1E2E4] dark:hover:bg-[#43444B] px-[6px]`}>
+		<div className={`flex justify-between py-2 rounded bg-item-hover px-[6px]`}>
 			<label className="flex gap-x-2 items-center w-full">
 				<div className="relative flex flex-row justify-center">
 					<input
@@ -50,7 +50,7 @@ const ItemMember = (props: ItemMemberProps) => {
 						value={displayName}
 						checked={checked}
 						onChange={onChange}
-						className="peer appearance-none forced-colors:appearance-auto relative w-4 h-4 border dark:border-textPrimary border-gray-600 rounded-md focus:outline-none"
+						className="peer appearance-none forced-colors:appearance-auto relative w-4 h-4  border-theme-primary rounded-lg focus:outline-none"
 					/>
 					<Icons.Check className="absolute invisible peer-checked:visible forced-colors:hidden w-4 h-4" />
 				</div>
@@ -62,8 +62,8 @@ const ItemMember = (props: ItemMemberProps) => {
 					src={avatarPrioritize}
 					classNameText="text-[9px] pt-[3px]"
 				/>
-				<p className="text-sm one-line">{namePrioritize}</p>
-				<p className="text-contentTertiary font-light">{username}</p>
+				<p className="text-sm one-line text-theme-primary-active">{namePrioritize}</p>
+				<p className=" font-light">{username}</p>
 			</label>
 		</div>
 	);

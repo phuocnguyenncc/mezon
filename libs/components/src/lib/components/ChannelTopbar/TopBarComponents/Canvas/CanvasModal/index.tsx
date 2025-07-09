@@ -90,7 +90,7 @@ const CanvasModal = ({ onClose, rootRef }: CanvasProps) => {
 					</div>
 					<SearchCanvas setKeywordSearch={setKeywordSearch} />
 					<div className="flex flex-row items-center gap-4">
-						<button onClick={handleCreateCanvas} className="px-3 h-6 rounded-lg bg-button-primary text-white text-sm">
+						<button onClick={handleCreateCanvas} className="px-3 h-6 rounded-lg btn-primary btn-primary-hover text-sm">
 							Create
 						</button>
 						<button onClick={onClose}>

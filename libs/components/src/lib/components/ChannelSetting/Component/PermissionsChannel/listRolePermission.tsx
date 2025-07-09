@@ -36,13 +36,13 @@ const ListRolePermission = (props: ListRolePermissionProps) => {
 	};
 	return listRolesInChannel.length !== 0 ? (
 		listRolesInChannel.map((role) => (
-			<div className={`flex justify-between py-2 rounded`} key={role.id}>
+			<div className={`flex justify-between text-theme-primary py-2 rounded`} key={role.id}>
 				<div className="flex gap-x-2 items-center">
 					<Icons.RoleIcon defaultSize="w-5 h-5 min-w-5" />
 					<p className="text-sm">{role.title}</p>
 				</div>
 				<div className="flex items-center gap-x-2">
-					<p className="text-xs text-[#AEAEAE]">Role</p>
+					<p className="text-xs ">Role</p>
 					<div onClick={() => deleteRole(role?.id || '')} role="button">
 						<Icons.EscIcon defaultSize="size-[15px] cursor-pointer" />
 					</div>
@@ -50,10 +50,10 @@ const ListRolePermission = (props: ListRolePermissionProps) => {
 			</div>
 		))
 	) : (
-		<div className={`flex justify-between py-2 rounded`}>
+		<div className={`flex justify-between text-theme-primary py-2 rounded`}>
 			<div className="flex gap-x-2 items-center">
 				<Icons.RoleIcon defaultSize="w-5 h-5 min-w-5" />
-				<p className="text-sm text-[#AEAEAE]">No Roles</p>
+				<p className="text-sm ">No Roles</p>
 			</div>
 		</div>
 	);

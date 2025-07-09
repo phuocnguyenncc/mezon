@@ -328,7 +328,7 @@ function SearchModal({ onClose }: SearchModalProps) {
 					<InputField
 						type="text"
 						placeholder="Where would you like to go?"
-						className="py-[18px] text-[16px] mt-2 mb-[15px] bg-input-secondary rounded-lg text-theme-message"
+						className="py-[18px] text-[16px] mt-2 mb-[15px] bg-input-secondary rounded-lg text-theme-message border-theme-primary"
 						onChange={(e) => debouncedSetSearchText(e.target.value)}
 						autoFocus
 					/>

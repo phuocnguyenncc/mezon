@@ -114,7 +114,7 @@ const CategoryOrderSetting = () => {
 					<button onClick={handleReset} className="rounded px-4 py-1.5 hover:underline ">
 						Reset
 					</button>
-					<button onClick={handleSave} className="bg-blue-600 rounded-[4px] px-4 py-1.5 text-nowrap text-white">
+					<button onClick={handleSave} className="btn-primary btn-primary-hover rounded-lg px-4 py-1.5 text-nowrap ">
 						Save Changes
 					</button>
 				</div>

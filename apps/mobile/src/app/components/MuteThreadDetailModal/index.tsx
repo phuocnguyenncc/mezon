@@ -137,7 +137,7 @@ const MuteThreadDetailModal = ({ route }: MuteThreadDetailModalProps) => {
 	const openBottomSheet = () => {
 		const data = {
 			heightFitContent: true,
-			children: <NotificationSetting />
+			children: <NotificationSetting channel={currentChannel}/>
 		};
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: false, data });
 	};

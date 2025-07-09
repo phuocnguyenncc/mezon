@@ -24,6 +24,7 @@ import {
 	RECENT_EMOJI_CATEGORY,
 	RequestInput,
 	SubPanelName,
+	getIdSaleItemFromSource,
 	getSrcEmoji,
 	isPublicChannel
 } from '@mezon/utils';
@@ -84,7 +85,7 @@ function EmojiCustomPanel(props: EmojiCustomPanelOptions) {
 			<Icons.ClockHistory defaultSize="w-7 h-7" />,
 			...categoryEmoji.map((emoji) =>
 				emoji.clan_logo !== '' ? (
-					<img src={emoji.clan_logo} className="w-7 h-7 rounded-full" alt={emoji.clan_name} />
+					<img src={emoji.clan_logo} className="max-w-7 max-h-7 w-full rounded-full aspect-square object-cover" alt={emoji.clan_name} />
 				) : (
 					<div className="dark:text-textDarkTheme text-textLightTheme">{emoji.clan_name?.charAt(0).toUpperCase()}</div>
 				)
@@ -291,14 +292,13 @@ function EmojiCustomPanel(props: EmojiCustomPanelOptions) {
 		<div
 			ref={modalRef}
 			tabIndex={-1}
-			className={`outline-none flex max-h-full max-sm:h-32 max-sbm:h-full flex-row w-full md:w-[500px] max-sm:ml-1 ${props.isReaction && 'border border-black rounded overflow-hidden'}`}
+			className={`outline-none flex max-h-full max-sm:h-32 max-sbm:h-full flex-row w-full md:w-[500px] max-sm:ml-1 pt-3`}
 		>
 			<div
 				className={`w-11 max-sm:gap-x-1
 				flex flex-col max-sm:flex-row max-sm:justify-end gap-y-1
 				max-sm:w-full max-sbm:w-11 bg-item-theme pt-1
-				px-1 md:items-start h-[25rem] pb-1 rounded max-sbm:flex-col
-				${!props.isReaction && 'md:ml-2 mb-2'}
+				px-1 md:items-start h-[25rem] pb-1 max-sbm:flex-col
         overflow-y-scroll
         hide-scrollbar`}
 			>
@@ -323,7 +323,7 @@ function EmojiCustomPanel(props: EmojiCustomPanelOptions) {
 					<EmojiHover emojiHoverShortCode={emojiHoverShortCode} isReaction={props.isReaction} emojiId={emojiId} />
 				</div>
 			) : (
-				<div className="flex flex-col w-[90%] pr-2">
+				<div className="flex flex-col w-[90%]">
 					<div
 						ref={containerRef}
 						className="w-full  max-h-[352px] overflow-y-scroll pt-0 overflow-x-hidden hide-scrollbar dark: bg-transparent bg-bgLightMode"
@@ -338,6 +338,7 @@ function EmojiCustomPanel(props: EmojiCustomPanelOptions) {
 										categoryName={item.name}
 										onClickAddButton={props.onClickAddButton}
 										showAddButton={modeResponsive === ModeResponsive.MODE_CLAN}
+										categoryIcons={categoryIcons[index]}
 									/>
 								</div>
 							);
@@ -357,6 +358,7 @@ type DisplayByCategoriesProps = {
 	readonly emojisData: IEmoji[];
 	onClickAddButton?: () => void;
 	showAddButton?: boolean;
+	categoryIcons?: JSX.Element;
 };
 
 const getEmojisByCategories = (emojis: IEmoji[], categoryParam: string) => {
@@ -377,7 +379,8 @@ const DisplayByCategories = React.memo(function DisplayByCategories({
 	onEmojiSelect,
 	onEmojiHover,
 	onClickAddButton,
-	showAddButton
+	showAddButton,
+	categoryIcons
 }: DisplayByCategoriesProps) {
 	const emojisByCategoryName = useMemo(() => getEmojisByCategories(emojisData, categoryName ?? ''), [emojisData, categoryName]);
 
@@ -386,12 +389,12 @@ const DisplayByCategories = React.memo(function DisplayByCategories({
 		<div>
 			<button
 				onClick={() => setEmojisPanelStatus(!emojisPanel)}
-				className="w-full flex flex-row justify-start items-center pl-1 mb-1 mt-0 py-1 sticky top-[-0.5rem] z-10  bg-theme-setting-primary"
+				className="w-full flex flex-row justify-start items-center pl-1 mb-1 mt-0 py-1 sticky z-10  bg-theme-setting-primary"
 			>
-				<p className={'uppercase text-left truncate'}>{categoryName}</p>
+				<div className="w-4 !h-4 flex items-center justify-center !text-xs">{categoryIcons}</div>
+				<p className={'ml-2 uppercase text-left truncate text-xs font-semibold'}>{categoryName}</p>
 				<span className={`${emojisPanel ? ' rotate-90' : ''}`}>
-					{' '}
-					<Icons.ArrowRight />
+					<Icons.ArrowRight defaultSize={`w-4 h-4`} />
 				</span>
 			</button>
 			{emojisPanel && (
@@ -438,6 +441,17 @@ const EmojisPanel = React.memo(function EmojisPanel({
 		return <ModalBuyItem onCancel={closeModalBuy} onConfirm={handleConfirmBuyItem} />;
 	}, [itemUnlock]);
 
+	const onClickEmoji = useCallback((item: IEmoji) => {
+		const { is_for_sale, src, shortname, id } = item;
+		if (!id || !shortname) return;
+
+		if (is_for_sale) {
+			return src ? onEmojiSelect(getIdSaleItemFromSource(src), shortname || '') : handleOpenUnlockItem(item);
+		}
+
+		onEmojiSelect(id, shortname);
+	}, []);
+
 	return (
 		<div
 			className={`  grid grid-cols-9 ml-1 gap-1   ${valueInputToCheckHandleSearch !== '' ? 'overflow-y-scroll overflow-x-hidden hide-scrollbar max-h-[352px]' : ''}`}
@@ -446,21 +460,7 @@ const EmojisPanel = React.memo(function EmojisPanel({
 				<button
 					key={index}
 					className={` relative ${shiftPressedState ? 'border-none outline-none' : ''} text-2xl  emoji-button  rounded-md bg-item-hover hover:rounded-md  p-1 flex items-center justify-center w-full aspect-square`}
-					onClick={() => {
-						if (item.is_for_sale && !item.src) {
-							handleOpenUnlockItem(item);
-							return;
-						}
-
-						if (item.is_for_sale && item.src) {
-							const fileName = item.src.split('/').pop() || '';
-							const idFromSource = fileName.split('.').slice(0, -1).join('.') || '';
-							onEmojiSelect(idFromSource, item.shortname || '');
-							return;
-						}
-
-						onEmojiSelect(item.id || '', item.shortname || '');
-					}}
+					onClick={() => onClickEmoji(item)}
 					onMouseEnter={() => onEmojiHover(item)}
 				>
 					<img
@@ -504,9 +504,7 @@ type EmojiHoverProps = {
 const EmojiHover = React.memo(function EmojiHover({ emojiHoverShortCode, isReaction, emojiId }: EmojiHoverProps) {
 	const appearanceTheme = useSelector(selectTheme);
 	return (
-		<div
-			className={`w-full max-h-12 flex-1 bg-item-theme flex flex-row items-center pl-1 gap-x-1 justify-start  ${!isReaction && 'mb-2 max-sbm:mb-0'} py-1`}
-		>
+		<div className={`w-full max-h-12 flex-1 bg-item-theme flex flex-row items-center pl-1 gap-x-1 justify-start py-1`}>
 			{emojiId ? <img draggable="false" className="max-w-10 max-h-full" src={getSrcEmoji(emojiId)} /> : <Icons.AddIcon />}
 			{emojiHoverShortCode}
 		</div>

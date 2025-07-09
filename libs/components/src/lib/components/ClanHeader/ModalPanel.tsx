@@ -45,26 +45,27 @@ const ModalPanel: React.FC<ModalPanelProps> = ({
 	return (
 		<div
 			onClick={(e) => e.stopPropagation()}
-			className=" p-2 text-theme-primary rounded w-[250px] absolute left-1/2 top-[58px] z-[9999] transform translate-x-[-50%] shadow-xl bg-theme-contexify"
+			className=" p-2 text-theme-primary rounded-lg w-[250px] absolute left-1/2 top-[58px] z-[9999] transform translate-x-[-50%] shadow-xl bg-theme-contexify"
 		>
 			<div className="flex flex-col pb-1 mb-1 border-b-[0.08px] border-b-theme-primary last:border-b-0 last:mb-0 last:pb-0">
-				{canManageClan && <ItemModal onClick={handleShowCreateCategory} children="Create Category" endIcon={<Icons.CreateCategoryIcon />} />}
+				{canManageClan && <ItemModal className="text-theme-primary-hover bg-item-theme-hover" onClick={handleShowCreateCategory} children="Create Category" endIcon={<Icons.CreateCategoryIcon />} />}
 				<ItemModal
+					className="text-theme-primary-hover bg-item-theme-hover"
 					onClick={statusMarkAsReadClan === 'pending' ? undefined : () => handleMarkAsReadClan(currentClanId as string)}
 					disabled={statusMarkAsReadClan === 'pending'}
 				>
 					{statusMarkAsReadClan === 'pending' ? 'Processing...' : 'Mark As Read'}
 				</ItemModal>
 
-				<ItemModal className="text-theme-primary-hover" onClick={handleShowInviteClanModal} children="Invite People" endIcon={<Icons.AddPerson />} />
+				<ItemModal className="text-theme-primary-hover bg-item-theme-hover" onClick={handleShowInviteClanModal} children="Invite People" endIcon={<Icons.AddPerson />} />
 				<ItemModal
-					className="text-theme-primary-hover"
+					className="text-theme-primary-hover bg-item-theme-hover"
 					onClick={handleShowServerSettings}
 					children="Clan Settings"
 					endIcon={<Icons.SettingProfile className="text-theme-primary-hover" />}
 				/>
 				<ItemModal
-					className="text-theme-primary-hover"
+					className="text-theme-primary-hover bg-item-theme-hover"
 					onClick={handleShowNotificationSetting}
 					children="Notification Settings"
 					endIcon={<Icons.Bell className=" text-theme-primary-hover" />}

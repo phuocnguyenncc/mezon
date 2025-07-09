@@ -337,7 +337,7 @@ const PanelMember = ({
 				top: positionTop ? 'auto' : coords.mouseY,
 				boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px'
 			}}
-			className="outline-none fixed top-full  z-20 w-[200px] py-[10px] px-[10px] border border-slate-300 dark:border-none rounded"
+			className="outline-none fixed top-full  z-20 w-[200px] py-[10px] px-[10px] border-theme-primary bg-theme-contexify rounded-md"
 			onClick={(e) => {
 				e.stopPropagation();
 				onClose();

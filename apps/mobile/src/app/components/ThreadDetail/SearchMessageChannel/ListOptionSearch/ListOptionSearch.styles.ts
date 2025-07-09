@@ -8,12 +8,12 @@ export const style = (colors: Attributes) =>
 		},
 		headerTitle: {
 			color: colors.text,
-			fontSize: size.label,
-			fontWeight: '600',
+			fontSize: size.s_14,
+			fontWeight: '900',
 			height: size.s_50,
 			borderBottomColor: colors.border,
 			borderBottomWidth: 4,
 			paddingHorizontal: size.s_10,
-			paddingVertical: size.s_10
+			textAlignVertical: 'center'
 		}
 	});

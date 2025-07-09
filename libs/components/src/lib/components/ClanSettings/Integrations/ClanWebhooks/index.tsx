@@ -38,7 +38,7 @@ const ClanWebhooks = ({ allClanWebhooks }: IClanWebhooksProps) => {
 
 	return (
 		<div className="pb-5">
-			<div className=" text-sm pt-5 flex flex-col">
+			<div className=" text-sm pt-5 flex flex-col text-theme-primary">
 				<span className="font-semibold">
 					Clan Webhooks are a simple way to post messages from other apps and websites for each Mezon user using internet technology.
 				</span>
@@ -51,7 +51,7 @@ const ClanWebhooks = ({ allClanWebhooks }: IClanWebhooksProps) => {
 				<>
 					<div
 						onClick={handleAddWebhook}
-						className="py-2 px-4 bg-blue-500 hover:bg-blue-600 rounded-md mb-[24px] w-fit text-[14px] font-semibold cursor-pointer text-white"
+						className="py-2 px-4 btn-primary btn-primary-hover rounded-lg mb-[24px] w-fit text-[14px] font-semibold cursor-pointer "
 					>
 						New Clan Webhook
 					</div>
@@ -63,7 +63,7 @@ const ClanWebhooks = ({ allClanWebhooks }: IClanWebhooksProps) => {
 					<div className="font-medium ">You have no webhooks!</div>
 					<div
 						onClick={handleAddWebhook}
-							className="py-2 px-4 bg-blue-500 hover:bg-blue-600 rounded-md mb-[24px] w-fit text-[14px] font-semibold cursor-pointer text-white"
+							className="py-2 px-4 btn-primary btn-primary-hover rounded-lg mb-[24px] w-fit text-[14px] font-semibold cursor-pointer "
 					>
 						New Clan Webhook
 					</div>

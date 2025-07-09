@@ -14,9 +14,9 @@ export const style = (colors: Attributes) =>
 		},
 		textOption: {
 			color: colors.text,
-			fontSize: size.label,
+			fontSize: size.s_14,
 			fontWeight: '500',
-			maxWidth: 200
+			maxWidth: size.s_200
 		},
 		content: {
 			flexDirection: 'row',

@@ -182,7 +182,7 @@ const PanelCategory: React.FC<IPanelCategoryProps> = ({
 						)}
 						label=""
 						placement="right-start"
-						className="bg-theme-contexify text-theme-primary border-none ml-[3px] py-[6px] px-[8px] w-[200px]"
+						className="bg-theme-contexify text-theme-primary border-theme-primary ml-[3px] py-[6px] px-[8px] w-[200px]"
 					>
 						<ItemPanel children="For 15 Minutes" onClick={() => handleScheduleMute(FOR_15_MINUTES)} />
 						<ItemPanel children="For 1 Hour" onClick={() => handleScheduleMute(FOR_1_HOUR)} />
@@ -205,7 +205,7 @@ const PanelCategory: React.FC<IPanelCategoryProps> = ({
 					)}
 					label=""
 					placement="right-start"
-					className=" bg-theme-contexify text-theme-primary border-none ml-[3px] py-[6px] px-[8px] w-[200px]"
+					className=" bg-theme-contexify text-theme-primary border-theme-primary ml-[3px] py-[6px] px-[8px] w-[200px]"
 				>
 					<ItemPanel
 						children="Use Clan Default"

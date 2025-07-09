@@ -13,7 +13,7 @@ export const InputSearch: React.FC = () => {
 	const { trendingClickingStatus, setClickedTrendingGif, categoriesStatus, setShowCategories, buttonArrowBackStatus, setButtonArrowBack } =
 		useGifs();
 
-	const { setValueInputSearch, valueInputToCheckHandleSearch, valuePlaceHolder } = useGifsStickersEmoji();
+	const { setValueInputSearch, valuePlaceHolder } = useGifsStickersEmoji();
 
 	const debouncedSetValueSearchGif = useDebouncedCallback((value) => {
 		setValueSearchGif(value);
@@ -70,14 +70,12 @@ export const InputSearch: React.FC = () => {
 			)}
 
 			{!trendingClickingStatus && (
-				<div
-					className={`transition-all duration-300 h-8 pl-4 pr-2 py-3 bg-theme-input relative rounded items-center inline-flex w-[97%] m-2 text-center`}
-				>
+				<div className={`transition-all duration-300 h-8 pl-4 pr-2 py-3 relative rounded items-center inline-flex w-[97%] text-center`}>
 					<input
 						onChange={handleInputChange}
 						type="text"
 						placeholder={valuePlaceHolder || 'search'}
-						className="bg-theme-input outline-none bg-transparent w-full"
+						className="bg-theme-input outline-none bg-theme-input flex-1 p-2 rounded-md "
 						value={valueInput}
 						ref={searchInputRef}
 					/>

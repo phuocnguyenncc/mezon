@@ -272,7 +272,7 @@ const SettingRightUser = ({
 						<p className="font-semibold tracking-wide text-sm">AVATAR</p>
 						<div className="flex mt-[10px] gap-x-5">
 							<label>
-								<div className="text-white font-medium bg-button-primary hover:bg-blue-500 rounded-lg p-[8px] pr-[10px] pl-[10px] cursor-pointer text-[14px]">
+								<div className="font-medium btn-primary btn-primary-hover rounded-lg p-[8px] pr-[10px] pl-[10px] cursor-pointer text-[14px]">
 									Change avatar
 								</div>
 								<input type="file" onChange={(e) => handleFile(e)} className="w-full text-sm  hidden" />

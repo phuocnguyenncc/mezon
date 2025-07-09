@@ -26,7 +26,7 @@ const EmptyCanvas = ({ onClick }: EmptyCanvasProps) => {
 			{canManageThread && (
 				<button
 					onClick={handleCreateCanvas}
-					className="mt-6 py-3 px-2 text-white font-medium text-sm rounded-lg focus:ring-transparent bg-button-primary"
+					className="mt-6 py-3 px-2  font-medium text-sm rounded-lg focus:ring-transparent btn-primary btn-primary-hover"
 				>
 					Create Canvas
 				</button>

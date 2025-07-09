@@ -45,7 +45,7 @@ const SettingNotifications = ({ menuIsOpen }: SettingNotificationsProps) => {
 					<p className="mb-4">When the checkbox is clicked, any notification will be displayed without any content.</p>
 				)}
 
-				<button onClick={handleSave} className="mt-4 text-white px-4 py-2 rounded bg-button-primary hover:bg-blue-600">
+				<button onClick={handleSave} className="mt-4  px-4 py-2 rounded btn-primary btn-primary-hover ">
 					Save
 				</button>
 			</div>

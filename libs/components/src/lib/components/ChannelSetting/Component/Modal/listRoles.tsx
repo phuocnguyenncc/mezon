@@ -10,7 +10,7 @@ type ListRoleProps = {
 const ListRole = (props: ListRoleProps) => {
 	const { listItem, selectedRoleIds, handleCheckboxRoleChange } = props;
 	return listItem.map((role, index) => (
-		<div className={'flex justify-between py-2 dark:hover:bg-[#43444B] hover:bg-[#E1E2E4] px-[6px] rounded'} key={role.id}>
+		<div className={'flex justify-between py-2 bg-item-hover px-[6px] rounded'} key={role.id}>
 			<label className="flex gap-x-2 items-center w-full">
 				<div className="relative flex flex-row justify-center">
 					<input
@@ -19,7 +19,7 @@ const ListRole = (props: ListRoleProps) => {
 						value={role.title}
 						checked={selectedRoleIds.includes(role.id)}
 						onChange={(event) => handleCheckboxRoleChange(event, role?.id || '')}
-						className="peer appearance-none forced-colors:appearance-auto relative w-4 h-4 border dark:border-textPrimary border-gray-600 rounded-md focus:outline-none"
+						className="peer appearance-none forced-colors:appearance-auto relative w-4 h-4  border-theme-primary rounded-lg focus:outline-none"
 					/>
 					<Icons.Check className="absolute invisible peer-checked:visible forced-colors:hidden w-4 h-4" />
 				</div>

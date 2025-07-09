@@ -13,9 +13,9 @@ const ItemModal = ({ children, endIcon, onClick, disabled, className }: ItemModa
 		<button
 			onClick={onClick}
 			disabled={disabled}
-			className={`flex items-center w-full justify-between rounded-sm hover:bg-bgSelectItem group pr-2 ${className}`}
+			className={`flex items-center w-full justify-between rounded-sm bg-item-theme-hover group pr-2 ${className}`}
 		>
-			<li className="text-[14px] group-hover:text-white font-medium w-full py-[6px] px-[8px] text-left cursor-pointer list-none ">
+			<li className="text-[14px] text-theme-primary-hover font-medium w-full py-[6px] px-[8px] text-left cursor-pointer list-none ">
 
 				{children}
 			</li>

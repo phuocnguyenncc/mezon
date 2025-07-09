@@ -102,11 +102,14 @@ const PermissionsChannel = (props: PermissionsChannelProps) => {
 							</div>
 							<input
 								className="peer relative h-4 w-8 cursor-pointer appearance-none rounded-lg
-							 bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full
-								after:bg-slate-500 after:transition-all checked:bg-blue-200 checked:after:left-4 checked:after:bg-blue-500
-								 hover:bg-slate-400 after:hover:bg-slate-600 checked:hover:bg-blue-300 checked:after:hover:bg-blue-600
-									focus:outline-none checked:focus:bg-blue-400 checked:after:focus:bg-blue-700 focus-visible:outline-none disabled:cursor-not-allowed
-									 disabled:bg-slate-200 disabled:after:bg-slate-300"
+								bg-slate-300 transition-colors after:absolute after:top-0 after:left-0 after:h-4 after:w-4 after:rounded-full
+								after:bg-slate-500 after:transition-all
+								checked:bg-[#5265EC] checked:after:left-4 checked:after:bg-white
+								hover:bg-slate-400 after:hover:bg-slate-600
+								checked:hover:bg-[#4654C0] checked:after:hover:bg-white
+								focus:outline-none checked:focus:bg-[#4654C0] checked:after:focus:bg-white
+								focus-visible:outline-none disabled:cursor-not-allowed
+								disabled:bg-slate-200 disabled:after:bg-slate-300"
 								type="checkbox"
 								checked={valueToggle}
 								id="id-c01"
@@ -117,7 +120,7 @@ const PermissionsChannel = (props: PermissionsChannelProps) => {
 							<div className="p-4 bg-theme-setting-nav border-theme-primary">
 								<div className="flex justify-between items-center pb-4">
 									<p className="uppercase font-bold text-xs text-theme-primary">Who can access this channel?</p>
-									<button className="bg-[#155EEF] hover:bg-blue-500 px-4 py-1 rounded text-white" onClick={openAddMemRoleModal}>
+									<button className="btn-primary btn-primary-hover px-4 py-1 rounded-lg " onClick={openAddMemRoleModal}>
 										Add members or roles
 									</button>
 								</div>

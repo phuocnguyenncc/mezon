@@ -34,10 +34,10 @@ const MemberTopBar = () => {
 				</div>
 				<div>
 					<button
-						className="h-8 rounded text-sm font-medium flex gap-1 px-2 focus:ring-transparent bg-bgModifierHoverLight dark:bg-buttonSecondary hover:!bg-buttonSecondaryHover items-center dark:text-textDarkTheme text-textLightTheme"
+						className="h-8 rounded text-sm font-medium flex gap-1 px-2 focus:ring-transparent bg-indigo-500 hover:bg-indigo-600 items-center text-white"
 						onClick={toggleSortOrder}
 					>
-						<Icons.ConvertAccount className="rotate-90 mr-1 dark:text-textDarkTheme text-textLightTheme" />
+						<Icons.ConvertAccount className="rotate-90 mr-1 text-white" />
 						<span>Sort</span>
 					</button>
 				</div>

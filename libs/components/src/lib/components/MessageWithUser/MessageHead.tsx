@@ -44,7 +44,7 @@ const BaseMessageHead = ({
 	return (
 		<>
 			<div
-				className="text-base font-medium tracking-normal cursor-pointer break-all username text-theme-primary hover:underline flex items-center"
+				className="text-base font-medium tracking-normal cursor-pointer break-all username text-theme-primary-active hover:underline flex items-center"
 				onClick={onClick}
 				role="button"
 				style={{

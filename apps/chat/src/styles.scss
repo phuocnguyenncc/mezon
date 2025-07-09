@@ -103,7 +103,7 @@
 }
 
 .app-scroll::-webkit-scrollbar-thumb {
-	background: #1a1b1e;
+	background: var(--bg-scroll-bar);
 	border-radius: 5px;
 }
 
@@ -119,7 +119,7 @@
 }
 
 #editorReactMentionChannel::-webkit-scrollbar-thumb {
-	background: #1a1b1e;
+	background: var(--bg-scroll-bar);
 	border-radius: 5px;
 }
 
@@ -128,7 +128,7 @@
 }
 
 #react-select-3-listbox::-webkit-scrollbar-thumb {
-	background: #1a1b1e;
+	background: var(--bg-scroll-bar);
 	border-radius: 5px;
 }
 
@@ -556,6 +556,10 @@ input:-webkit-autofill:active {
 	content: '';
 }
 
+.rc-tooltip:has(.bg-theme-pop) {
+	opacity: 1 !important;
+}
+
 // css video
 #meet {
 	video {
@@ -594,7 +598,7 @@ input:-webkit-autofill:active {
 }
 
 .pre::-webkit-scrollbar-thumb:hover {
-	background: #787881;
+	background: var(--thread-scroll);
 }
 
 // thread-scroll
@@ -615,11 +619,11 @@ input:-webkit-autofill:active {
 }
 
 .thread-scroll.show-scroll::-webkit-scrollbar-thumb {
-	background: #787881;
+	background: var(--thread-scroll);
 }
 
 .thread-scroll:hover::-webkit-scrollbar-thumb {
-	background: #787881;
+	background: var(--thread-scroll);
 }
 
 .thread-scroll {
@@ -634,7 +638,7 @@ input:-webkit-autofill:active {
 }
 
 .mentions__suggestions__list::-webkit-scrollbar-thumb {
-	background: #787881;
+	background: var(--thread-scroll);
 	border-radius: 5px;
 }
 
@@ -643,7 +647,7 @@ input:-webkit-autofill:active {
 // attachment-scroll-dark
 
 .attachment-scroll::-webkit-scrollbar-thumb {
-	background: #787881;
+	background: var(--thread-scroll);
 	border-radius: 5px;
 }
 
@@ -665,7 +669,7 @@ input:-webkit-autofill:active {
 }
 
 .attachment-scroll-light::-webkit-scrollbar-thumb {
-	background: #7f8081;
+	background: var(--thread-scroll);
 }
 
 // css tagLink of markdown

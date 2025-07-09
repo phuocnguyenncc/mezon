@@ -58,7 +58,7 @@ const DeleteWebhookPopup = ({ webhookItem, currentChannel, closeShowPopup, isCla
 					</div>
 					<div
 						onClick={() => handleDeleteWebhook(webhookItem)}
-						className="bg-red-600 hover:bg-red-700 text-white rounded-sm px-[25px] py-[8px] cursor-pointer"
+						className="bg-red-600 hover:bg-red-700 text-white rounded-lg px-[25px] py-[8px] cursor-pointer"
 					>
 						Delete
 					</div>

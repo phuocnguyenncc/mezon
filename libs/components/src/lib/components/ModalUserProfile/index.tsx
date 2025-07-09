@@ -220,9 +220,9 @@ const ModalUserProfile = ({
 				statusOnline={statusOnline}
 			/>
 			<div className="px-[16px]">
-				<div className=" w-full border-theme-primary p-2 my-[16px] text-theme-primary text-theme-primary-hover shadow rounded-[10px] flex flex-col text-justify   bg-item-theme-hover ">
+				<div className=" w-full border-theme-primary p-2 my-[16px] text-theme-primary shadow rounded-[10px] flex flex-col text-justify bg-item-theme">
 					<div>
-						<p className="font-semibold tracking-wider text-xl one-line my-0">
+						<p className="font-semibold tracking-wider text-xl one-line text-theme-primary-active my-0">
 							{isUserRemoved
 								? 'Unknown User'
 								: checkAnonymous
@@ -249,7 +249,7 @@ const ModalUserProfile = ({
 						<div className="w-full items-center mt-2">
 							<input
 								type="text"
-								className={`w-full border text-theme-primary color-text-secondary dark:border-bgDisable rounded-[5px] bg-theme-contexify p-[5px] `}
+								className={`w-full border-theme-primary text-theme-primary color-text-secondary rounded-[5px] bg-theme-contexify p-[5px] `}
 								placeholder={`Message @${placeholderUserName}`}
 								value={content}
 								onKeyPress={(e) => {

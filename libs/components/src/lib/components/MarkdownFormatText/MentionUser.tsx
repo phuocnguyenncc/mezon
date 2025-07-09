@@ -7,7 +7,15 @@ import {
 	selectMemberByUsername,
 	useAppSelector
 } from '@mezon/store';
-import { HEIGHT_PANEL_PROFILE, HEIGHT_PANEL_PROFILE_DM, TITLE_MENTION_HERE, getNameForPrioritize } from '@mezon/utils';
+import {
+	HEIGHT_PANEL_PROFILE,
+	HEIGHT_PANEL_PROFILE_DM,
+	TITLE_MENTION_HERE,
+	WIDTH_CHANNEL_LIST_BOX,
+	WIDTH_CLAN_SIDE_BAR,
+	WIDTH_PANEL_PROFILE,
+	getNameForPrioritize
+} from '@mezon/utils';
 import { ChannelStreamMode, ChannelType } from 'mezon-js';
 import { RefObject, memo, useCallback, useMemo, useState } from 'react';
 import { useModal } from 'react-modal-hook';
@@ -117,12 +125,18 @@ const MentionUser = ({
 			if (window.innerHeight - e.clientY > heightPanel) {
 				setPositionShortUser({
 					top: e.clientY,
-					left: 366 + e.currentTarget.offsetWidth
+					left:
+						e.clientX < WIDTH_CLAN_SIDE_BAR + WIDTH_CHANNEL_LIST_BOX + WIDTH_PANEL_PROFILE
+							? WIDTH_CLAN_SIDE_BAR + WIDTH_CHANNEL_LIST_BOX + e.currentTarget.offsetWidth + 24
+							: e.clientX
 				});
 			} else {
 				setPositionShortUser({
 					top: window.innerHeight - heightPanel,
-					left: 366 + e.currentTarget.offsetWidth
+					left:
+						e.clientX < WIDTH_CLAN_SIDE_BAR + WIDTH_CHANNEL_LIST_BOX + WIDTH_PANEL_PROFILE
+							? WIDTH_CLAN_SIDE_BAR + WIDTH_CHANNEL_LIST_BOX + e.currentTarget.offsetWidth + 24
+							: e.clientX
 				});
 			}
 			setIsShowPanelChannel(!showProfileUser);

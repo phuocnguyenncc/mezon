@@ -312,7 +312,7 @@ const WalletManagementModal: React.FC<WalletManagementModalProps> = ({ isOpen, o
 						<p className="mb-6">No wallet found</p>
 						<button
 							onClick={generateWallet}
-							className="bg-button-primary hover:bg-buttonPrimaryHover text-white px-6 py-3 rounded-lg text-sm font-medium inline-flex items-center gap-2"
+							className="btn-primary btn-primary-hover hover:bg-buttonPrimaryHover  px-6 py-3 rounded-lg text-sm font-medium inline-flex items-center gap-2"
 						>
 							<WalletIcon />
 							Generate New Wallet (BIP39 Standard)
@@ -386,7 +386,7 @@ const WalletManagementModal: React.FC<WalletManagementModalProps> = ({ isOpen, o
 									<div className="flex gap-2">
 										<ButtonCopy
 											copyText={walletData.recoveryPhrase}
-											className="flex-1 py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2"
+												className="flex-1 py-2 px-4 btn-primary btn-primary-hover rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2"
 											title="Copy to clipboard"
 										/>
 
@@ -495,7 +495,7 @@ const WalletManagementModal: React.FC<WalletManagementModalProps> = ({ isOpen, o
 								<button
 									onClick={handlePinConfirm}
 									disabled={showPinModal.type === 'setup' ? pin.length !== 6 || confirmPin.length !== 6 : pin.length !== 6}
-									className="flex-1 py-2 px-4 bg-button-primary disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2"
+									className="flex-1 py-2 px-4 btn-primary btn-primary-hover disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium inline-flex items-center justify-center gap-2"
 								>
 									<Icons.LockIcon className="w-4 h-4" />
 									{showPinModal.type === 'setup' ? 'Encrypt Wallet' : 'Decrypt & Show'}

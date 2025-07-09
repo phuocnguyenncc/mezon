@@ -188,7 +188,7 @@ function MessageLinkFile({ attachmentData, mode, message }: MessageImage) {
 						{isPDF && (
 							<button
 								onClick={openPDFViewer}
-								className="px-3 py-1 text-sm rounded transition-all duration-200 text-white bg-button-primary hover:opacity-90"
+									className="px-3 py-1 text-sm rounded transition-all duration-200  btn-primary btn-primary-hover"
 								title="View PDF"
 							>
 								View

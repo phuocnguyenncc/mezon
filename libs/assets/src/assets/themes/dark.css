@@ -1,72 +1,72 @@
 /* Cyber Dark Theme */
 :root {
-  --bg-primary: #26272b;
-  --bg-secondary: #313338;
+	--bg-primary: #26272b;
+	--bg-secondary: #313338;
 
-  --bg-outside-footer: #1a1a1a;
+	--bg-outside-footer: #1a1a1a;
 
-  --bg-footer: #0f0f0f;
+	--bg-footer: #0f0f0f;
 
-  --bg-surface: #383a40;
+	--bg-surface: #383a40;
 
-  --bg-ping-member: #2d2d30;
-  --bg-tertiary: rgba(70, 70, 70, 0.2);
-  --bg-accent: rgba(75, 75, 75, 0.25);
-  --bg-hover: #2c2c2c;
-  --bg-modal: rgba(0, 0, 0, 0.7);
+	--bg-ping-member: #2d2d30;
+	--bg-tertiary: rgba(70, 70, 70, 0.2);
+	--bg-accent: rgba(75, 75, 75, 0.25);
+	--bg-hover: #2c2c2c;
+	--bg-modal: rgba(0, 0, 0, 0.7);
 
-  --theme-input: rgba(77, 77, 77, 0.2);
-  --theme-border-input: rgba(120, 120, 120, 0.4);
+	--theme-input: rgba(77, 77, 77, 0.2);
+	--theme-border-input: rgba(120, 120, 120, 0.4);
 
-  --theme-base-color: rgba(255, 255, 255, 0.06);
-  --theme-text-color-dark: #e0e0e0;
-  --theme-setting-primary: #313338;
-  --theme-setting-nav: #2b2d31;
-  --private-theme: #2c4957;
+	--theme-base-color: rgba(255, 255, 255, 0.06);
+	--theme-text-color-dark: #e0e0e0;
+	--theme-setting-primary: #313338;
+	--theme-setting-nav: #2b2d31;
+	--private-theme: #2c4957;
 
-  --text-theme-primary: oklab(0.694091 0.00173712 -0.0100561);
-  --text-theme-primary-hover: rgb(255 255 255 / 1);
+	--text-theme-primary: oklab(0.694091 0.00173712 -0.0100561);
+	--text-theme-primary-hover: rgb(255 255 255 / 1);
 
-  --text-theme-message: oklab(0.906424 -0.000235766 -0.0028885);
+	--text-theme-message: oklab(0.906424 -0.000235766 -0.0028885);
 
-  --bg-active-friend-list: #2b2d31;
-  --bg-active-button: rgba(85, 85, 85, 0.25);
-  --color-text-active-button: #7eb1ff;
-  --bg-button-add-friend: #3366cc;
+	--bg-active-friend-list: #2b2d31;
+	--bg-active-button: rgba(85, 85, 85, 0.25);
+	--color-text-active-button: #7eb1ff;
+	--bg-button-add-friend: #3366cc;
 
-  --border-color-primary: oklab(0.678888 0.00325716 -0.011175 / 0.121569);
-  --bg-theme-direct-message: #2b2d31;
+	--border-color-primary: oklab(0.678888 0.00325716 -0.011175 / 0.121569);
+	--bg-theme-direct-message: #2b2d31;
 
-  --bg-item-hover-chat: #18181a94;
-  /* màu click vào member channel */
-  --bg-active-member-channel: rgba(233, 233, 233, 0.08);
-  --text-secondary: oklab(0.999994 0.0000455678 0.0000200868);
-  --bg-item-hover: rgba(255, 255, 255, 0.08);
-  --bg-active-member-channel: rgba(233, 233, 233, 0.08);
+	--bg-item-hover-chat: #18181a94;
+	/* màu click vào member channel */
+	--bg-active-member-channel: rgba(233, 233, 233, 0.08);
+	--text-secondary: oklab(0.999994 0.0000455678 0.0000200868);
+	--bg-item-hover: rgba(255, 255, 255, 0.08);
+	--bg-active-member-channel: rgba(233, 233, 233, 0.08);
 
-  --bg-theme-input-primary: #161616;
+	--bg-theme-input-primary: #161616;
 
-  --border-theme-primary: #444444;
-  --border-t-theme-primary: #444444;
-  --border-r-t-l-theme-primary: #444444;
-  --border-r-b-l-theme-primary: #444444;
-  --border-primary: rgba(100, 100, 100, 0.4);
-  --border-secondary: #5a8cd9;
-  --border-focus: #6a9fe8;
-  --border-divider: #2b2b2b;
-  --border-hover: #4177c9;
-  --bg-hover-select-status: #2d3035;
-  /* mention */
-  --mention-primary: rgba(67, 97, 238, 0.24);
-  --mention-color: #3298ff;
-  --bg-mention-hover: rgba(67, 98, 238, 0.39);
-  --color-mention-hover: #3298ff;
-  --bg-mention-evryone: #2eb08b63;
-  --color-mention-evryone: #2eb08c;
-  --bg-mention-everyone-hover: #2eb08b8c;
-  --color-mention-everyone-hover: #32b993;
+	--border-theme-primary: #444444;
+	--border-t-theme-primary: #444444;
+	--border-r-t-l-theme-primary: #444444;
+	--border-r-b-l-theme-primary: #444444;
+	--border-primary: rgba(100, 100, 100, 0.4);
+	--border-secondary: #5a8cd9;
+	--border-focus: #6a9fe8;
+	--border-divider: #2b2b2b;
+	--border-hover: #4177c9;
+	--bg-hover-select-status: #2d3035;
+	/* mention */
+	--mention-primary: rgba(67, 97, 238, 0.24);
+	--mention-color: #3298ff;
+	--bg-mention-hover: rgba(67, 98, 238, 0.39);
+	--color-mention-hover: #3298ff;
+	--bg-mention-evryone: #2eb08b63;
+	--color-mention-evryone: #2eb08c;
+	--bg-mention-everyone-hover: #2eb08b8c;
+	--color-mention-everyone-hover: #32b993;
 
-  --bg-highlight: rgba(77, 120, 204, 0.08);
+  --bg-highlight: rgba(232, 202, 82, 0.08);
   --bg-secondary-button-hover: rgba(77, 77, 77, 0.3);
   /* contexify */
   --bg-theme-contexify: #252525;
@@ -77,8 +77,6 @@
   --bg-count-page-active: #3366cc;
   --text-count-page-active: #ffffff;
   --bg-item-theme-hover: rgba(255, 255, 255, 0.08);
-  /* button primary */
-  --bg-button-primary: hsl(234.935 calc(1 * 85.556%) 64.706% /1);
   /* modal */
   --bg-modal-theme: color-mix(in oklab, hsl(240 calc(1 * 6.494%) 15.098% /1) 100%, #000 0%);
   /* input secondary */
@@ -87,12 +85,23 @@
   --bg-option-theme: #28282d;
   --bg-option-active: #3e3e44;
 
-  /* button add friend */
-  --bg-button-add-friend-active: hsl(240 calc(1 * 4%) 60.784% /0.12156862745098039);
-  --text-button-add-friend-active: color-mix(in oklab, hsl(228.679 calc(1 * 96.364%) 78.431% /1) 100%, #000 0%);
+	/* button add friend */
+	--bg-button-add-friend-active: hsl(240 calc(1 * 4%) 60.784% /0.12156862745098039);
+	--text-button-add-friend-active: color-mix(in oklab, hsl(228.679 calc(1 * 96.364%) 78.431% /1) 100%, #000 0%);
 
-  /* color-mix(in oklab, hsl(220 calc(1*4.918%) 88.039% /1) 100%, #000 0%) */
+	/* color-mix(in oklab, hsl(220 calc(1*4.918%) 88.039% /1) 100%, #000 0%) */
 
+	/* oklab(0.751834 0.00131807 -0.008479) */
+	--bg-markdown-code: oklab(0.298112 0.00109589 -0.00903481);
+	/* scroll bar */
+	--bg-scroll-bar: #b4b2ab;
+	--thread-scroll: #787881;
+	/* pop up */
+	--bg-theme-pop: color-mix(in oklab, hsl(240 calc(1 * 6.494%) 15.098% /1) 100%, #000 0%);
+	--border-highlight-react-theme: #5865F2;
+	--bg-highlight-react-theme: rgba(154, 161, 240, 0.18);
   /* oklab(0.751834 0.00131807 -0.008479) */
-  --bg-markdown-code: oklab(0.298112 0.00109589 -0.00903481);
+  --bg-markdown-code: #2B2D31;
+  --bg-button-primary-hover: #4654C0;
+	--button-theme-primary: #5265EC;
 }

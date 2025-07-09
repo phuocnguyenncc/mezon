@@ -118,7 +118,7 @@ const ServerSettingMainRoles = (props: ModalOpenEdit) => {
 							/>
 						</div>
 						<ButtonLoading
-							className="text-[15px] bg-blue-600 hover:bg-blue-500 rounded-[3px] py-[5px] px-2 text-nowrap font-medium inline-flex items-center justify-center h-[32.5px]"
+							className="text-[15px] bg-indigo-500 hover:bg-indigo-600 text-white py-[5px] rounded-lg px-2 text-nowrap font-medium inline-flex items-center justify-center h-[32.5px]"
 							onClick={handleCreateNewRole}
 							label="Create Role"
 						/>

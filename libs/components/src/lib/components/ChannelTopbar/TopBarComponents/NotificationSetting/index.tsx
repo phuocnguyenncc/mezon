@@ -128,7 +128,7 @@ const NotificationSetting = ({ onClose, rootRef }: { onClose: () => void; rootRe
 	useOnClickOutside(modalRef, onClose, rootRef);
 
 	return (
-		<div ref={modalRef} tabIndex={-1} className="absolute top-8 shadow-2xl shadow-black/20 rounded-md z-[99999999] bg-theme-setting-primary">
+		<div ref={modalRef} tabIndex={-1} className="absolute top-8 shadow-2xl shadow-black/20 rounded-md z-[99999999] bg-theme-setting-primary ">
 			<div className="flex flex-col rounded-[4px] w-[202px] shadow-sm overflow-hidden py-[6px] px-[8px]">
 				<div className="flex flex-col pb-1 mb-1 border-b-theme-primary last:border-b-0 last:mb-0 last:pb-0 ">
 					{getNotificationChannelSelected?.active === 1 || getNotificationChannelSelected?.id === '0' ? (
@@ -160,7 +160,7 @@ const NotificationSetting = ({ onClose, rootRef }: { onClose: () => void; rootRe
 						<ItemPanel children={nameChildren} subText={mutedUntil} onClick={() => muteOrUnMuteChannel(1)} />
 					)}
 				</div>
-				<div className="flex flex-col pb-2 mb-1 border-b-[0.08px] dark:border-b-[#6A6A6A] border-b-[#E1E1E1] last:border-b-0 last:mb-0 last:pb-0">
+				<div className="flex flex-col pb-2 mb-1 border-b-theme-primary last:border-b-0 last:mb-0 last:pb-0">
 					<ItemPanel
 						children="Reaction Message"
 						type="checkbox"

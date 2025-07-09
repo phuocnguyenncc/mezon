@@ -1,20 +1,21 @@
 import { IOptionsNotification, notifyLabels } from '@mezon/mobile-components';
 import { useTheme } from '@mezon/mobile-ui';
 import {
+	appActions,
 	notificationSettingActions,
 	selectCurrentChannelId,
 	selectCurrentClanId,
 	selectDefaultNotificationCategory,
 	selectDefaultNotificationClan,
-	selectNotifiReactMessageByChannelId,
 	selectNotifiSettingsEntitiesById,
 	useAppDispatch,
 	useAppSelector
 } from '@mezon/store-mobile';
-import { ChannelThreads, ENotificationTypes } from '@mezon/utils';
+import { ChannelThreads, ENotificationTypes, sleep } from '@mezon/utils';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { useSelector } from 'react-redux';
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 import { style } from './NotificationSetting.styles';
@@ -53,7 +54,6 @@ export default function NotificationSetting({ channel }: { channel?: ChannelThre
 	const currentChannelId = useSelector(selectCurrentChannelId);
 	const [radioBox, setRadioBox] = useState<IOptionsNotification[]>(optionNotifySetting);
 	const currentClanId = useSelector(selectCurrentClanId);
-	const notifyReactMessage = useAppSelector((state) => selectNotifiReactMessageByChannelId(state, channel?.id as string));
 	const getNotificationChannelSelected = useAppSelector((state) => selectNotifiSettingsEntitiesById(state, channel?.id || currentChannelId || ''));
 	const defaultNotificationCategory = useAppSelector((state) => selectDefaultNotificationCategory(state, channel?.category_id as string));
 	const defaultNotificationClan = useSelector(selectDefaultNotificationClan);
@@ -64,7 +64,7 @@ export default function NotificationSetting({ channel }: { channel?: ChannelThre
 			return;
 		}
 		setRadioBox(radioBox.map((item) => item && { ...item, isChecked: getNotificationChannelSelected?.notification_setting_type === item.value }));
-	}, [notifyReactMessage, getNotificationChannelSelected]);
+	}, [getNotificationChannelSelected]);
 
 	useEffect(() => {
 		if (defaultNotificationCategory?.notification_setting_type) {
@@ -74,29 +74,44 @@ export default function NotificationSetting({ channel }: { channel?: ChannelThre
 		}
 	}, [getNotificationChannelSelected, defaultNotificationCategory, defaultNotificationClan]);
 
-	const handleRadioBoxPress = (checked: boolean, id: number) => {
+	const handleRadioBoxPress = async (checked: boolean, id: number) => {
 		const notifyOptionSelected = radioBox.map((item) => item && { ...item, isChecked: item.id === id });
 		setRadioBox(notifyOptionSelected);
 		if (notifyOptionSelected?.length) {
 			const notifyOptionSettingSelected = notifyOptionSelected.find((option) => option.isChecked);
-			if (
-				[ENotificationTypes.ALL_MESSAGE, ENotificationTypes.MENTION_MESSAGE, ENotificationTypes.NOTHING_MESSAGE].includes(
-					notifyOptionSettingSelected?.value
-				)
-			) {
-				const body = {
-					channel_id: channel?.channel_id || currentChannelId || '',
-					notification_type: notifyOptionSettingSelected?.value || 0,
-					clan_id: currentClanId || ''
-				};
-				dispatch(notificationSettingActions.setNotificationSetting(body));
-			} else {
-				dispatch(
-					notificationSettingActions.deleteNotiChannelSetting({
+			try {
+				dispatch(appActions.setLoadingMainMobile(true));
+				if (
+					[ENotificationTypes.ALL_MESSAGE, ENotificationTypes.MENTION_MESSAGE, ENotificationTypes.NOTHING_MESSAGE].includes(
+						notifyOptionSettingSelected?.value
+					)
+				) {
+					const body = {
 						channel_id: channel?.channel_id || currentChannelId || '',
+						notification_type: notifyOptionSettingSelected?.value || 0,
 						clan_id: currentClanId || ''
-					})
-				);
+					};
+					const res = await dispatch(notificationSettingActions.setNotificationSetting(body));
+					if (res?.meta?.requestStatus === 'rejected') {
+						throw res?.meta?.requestStatus;
+					}
+				} else {
+					const res = await dispatch(
+						notificationSettingActions.deleteNotiChannelSetting({
+							channel_id: channel?.channel_id || currentChannelId || '',
+							clan_id: currentClanId || ''
+						})
+					);
+					if (res?.meta?.requestStatus === 'rejected') {
+						throw res?.meta?.requestStatus;
+					}
+				}
+			} catch (error) {
+				Toast.show({ type: 'error', text1: t('toast.error', { error: error }) });
+				await sleep(100);
+				setRadioBox(radioBox);
+			} finally {
+				dispatch(appActions.setLoadingMainMobile(false));
 			}
 		}
 	};

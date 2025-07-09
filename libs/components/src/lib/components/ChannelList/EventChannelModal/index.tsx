@@ -1,6 +1,7 @@
 import { selectShowModelDetailEvent } from '@mezon/store';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { ModalLayout } from '../../../components';
 import ModalCreate from './ModalCreate';
 import ModalDetailItemEvent from './ModalCreate/modalDetailItemEvent';
 import { StartEventModal } from './StartEvent';
@@ -15,7 +16,6 @@ const EventModal = (props: EventModalProps) => {
 	const [eventUpdateId, setEventUpdatedId] = useState<string>('');
 	const showModalDetailEvent = useSelector(selectShowModelDetailEvent);
 
-	const modalRef = useRef<HTMLDivElement>(null);
 	const onEventUpdateId = (id: string) => {
 		setEventUpdatedId(id);
 	};
@@ -27,20 +27,11 @@ const EventModal = (props: EventModalProps) => {
 		setEventUpdatedId(eventUpdateId || '');
 	}, [eventUpdateId]);
 	return (
-		<div
-			ref={modalRef}
-			tabIndex={-1}
-			className={`outline-none  justify-center ${!openModal ? 'items-center' : 'pt-[72px]'}  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-10 outline-none focus:outline-none bg-black bg-opacity-80 dark:text-white text-black hide-scrollbar overflow-hidden`}
-		>
+		<ModalLayout onClose={onClose}>
 			<div className={`relative w-full sm:h-auto rounded-lg ${openModal ? 'max-w-[472px]' : 'max-w-[600px]'}`}>
 				{!openModal ? (
 					<div className="rounded-lg text-sm overflow-hidden bg-theme-setting-primary text-theme-primary">
-						<StartEventModal
-							rootRef={modalRef}
-							onClose={onClose}
-							onOpenCreate={() => setOpenModal(true)}
-							onEventUpdateId={onEventUpdateId}
-						/>
+						<StartEventModal onClose={onClose} onOpenCreate={() => setOpenModal(true)} onEventUpdateId={onEventUpdateId} />
 					</div>
 				) : (
 					<div className="rounded-lg text-sm">
@@ -54,7 +45,7 @@ const EventModal = (props: EventModalProps) => {
 				)}
 			</div>
 			{showModalDetailEvent && <ModalDetailItemEvent />}
-		</div>
+		</ModalLayout>
 	);
 };
 

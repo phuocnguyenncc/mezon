@@ -239,7 +239,7 @@ const ExpendedWebhookModal = ({ webhookItem, currentChannel, isClanSetting }: IE
 							<div className="flex items-center gap-[20px]">
 								<div
 									onClick={() => handleCopyUrl(webhookItem.url as string)}
-									className="font-medium px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md  cursor-pointer"
+									className="font-medium px-4 py-2 btn-primary btn-primary-hover rounded-lg  cursor-pointer"
 								>
 									Copy Webhook URL
 								</div>
@@ -255,7 +255,7 @@ const ExpendedWebhookModal = ({ webhookItem, currentChannel, isClanSetting }: IE
 					<div className="flex items-center gap-[20px]">
 						<div
 							onClick={() => handleCopyUrl(webhookItem.url as string)}
-							className="font-medium px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md  cursor-pointer"
+							className="font-medium px-4 py-2 btn-primary btn-primary-hover rounded-lg  cursor-pointer"
 						>
 							Copy Webhook URL
 						</div>

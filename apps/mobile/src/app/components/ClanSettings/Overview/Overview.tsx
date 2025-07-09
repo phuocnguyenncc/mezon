@@ -3,6 +3,7 @@ import { ActionEmitEvent, optionNotification } from '@mezon/mobile-components';
 import { size, useTheme } from '@mezon/mobile-ui';
 import {
 	ChannelsEntity,
+	appActions,
 	checkDuplicateNameClan,
 	createSystemMessage,
 	defaultNotificationActions,
@@ -89,7 +90,8 @@ export function ClanOverviewSetting({ navigation }: MenuClanScreenProps<ClanSett
 				systemMessage.welcome_sticker !== updateSystemMessageRequest.welcome_sticker ||
 				systemMessage.boost_message !== updateSystemMessageRequest.boost_message ||
 				systemMessage.setup_tips !== updateSystemMessageRequest.setup_tips ||
-				systemMessage.channel_id !== updateSystemMessageRequest.channel_id;
+				systemMessage.channel_id !== updateSystemMessageRequest.channel_id ||
+				systemMessage.hide_audit_log !== updateSystemMessageRequest.hide_audit_log;
 		}
 
 		if (!validInput(clanName)) {
@@ -157,53 +159,72 @@ export function ClanOverviewSetting({ navigation }: MenuClanScreenProps<ClanSett
 				newMessage: cachedMessageUpdate,
 				cachedMessage: updateSystemMessageRequest
 			};
-			await dispatch(updateSystemMessage(request));
+			const response = await dispatch(updateSystemMessage(request));
+			if (response?.meta?.requestStatus === 'rejected') {
+				throw new Error(response?.meta?.requestStatus);
+			}
 		} else if (updateSystemMessageRequest) {
-			await dispatch(createSystemMessage(updateSystemMessageRequest));
+			const response = await dispatch(createSystemMessage(updateSystemMessageRequest));
+			if (response?.meta?.requestStatus === 'rejected') {
+				throw new Error(response?.meta?.requestStatus);
+			}
 		}
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });
 	};
 
 	async function handleSave() {
 		setLoading(true);
+		try {
+			dispatch(appActions.setLoadingMainMobile(true));
+			const isClanNameChanged = clanName !== currentClan?.clan_name;
 
-		const isClanNameChanged = clanName !== currentClan?.clan_name;
-
-		if (isClanNameChanged) {
-			const isDuplicateClan = await handleCheckDuplicateClanname();
-			if (isDuplicateClan) {
-				setErrorMessage(t('menu.serverName.duplicateNameMessage'));
-				setIsCheckValid(false);
-				setLoading(false);
-				return;
+			if (isClanNameChanged) {
+				const isDuplicateClan = await handleCheckDuplicateClanname();
+				if (isDuplicateClan) {
+					setErrorMessage(t('menu.serverName.duplicateNameMessage'));
+					setIsCheckValid(false);
+					setLoading(false);
+					return;
+				}
 			}
+
+			await updateClan({
+				clan_id: currentClan?.clan_id ?? '',
+				request: {
+					banner: banner,
+					clan_name: clanName?.trim() || (currentClan?.clan_name ?? ''),
+					creator_id: currentClan?.creator_id ?? '',
+					is_onboarding: currentClan?.is_onboarding,
+					logo: currentClan?.logo ?? '',
+					welcome_channel_id: currentClan?.welcome_channel_id ?? ''
+				}
+			});
+
+			const response = await dispatch(
+				defaultNotificationActions.setDefaultNotificationClan({ clan_id: currentClan?.clan_id, notification_type: notificationSetting })
+			);
+
+			if (response?.meta?.requestStatus === 'rejected') {
+				throw response?.meta?.requestStatus;
+			}
+
+			await handleUpdateSystemMessage();
+
+			Toast.show({
+				type: 'info',
+				text1: t('toast.saveSuccess')
+			});
+		} catch (error) {
+			Toast.show({
+				type: 'error',
+				text1: t('toast.saveError'),
+				text2: error?.message || String(error)
+			});
+		} finally {
+			setLoading(false);
+			navigation.goBack();
+			dispatch(appActions.setLoadingMainMobile(false));
 		}
-
-		await updateClan({
-			clan_id: currentClan?.clan_id ?? '',
-			request: {
-				banner: banner,
-				clan_name: clanName?.trim() || (currentClan?.clan_name ?? ''),
-				creator_id: currentClan?.creator_id ?? '',
-				is_onboarding: currentClan?.is_onboarding,
-				logo: currentClan?.logo ?? '',
-				welcome_channel_id: currentClan?.welcome_channel_id ?? ''
-			}
-		});
-
-		await dispatch(
-			defaultNotificationActions.setDefaultNotificationClan({ clan_id: currentClan?.clan_id, notification_type: notificationSetting })
-		);
-
-		await handleUpdateSystemMessage();
-
-		setLoading(false);
-		Toast.show({
-			type: 'info',
-			text1: t('toast.saveSuccess')
-		});
-
-		navigation.goBack();
 	}
 
 	function handleLoad(url: string) {
@@ -342,6 +363,22 @@ export function ClanOverviewSetting({ navigation }: MenuClanScreenProps<ClanSett
 				/>
 			),
 			disabled: disabled
+		},
+		{
+			title: t('menu.systemMessage.hideAuditLog'),
+			component: (
+				<MezonSwitch
+					disabled={disabled}
+					value={systemMessage?.hide_audit_log !== '1'}
+					onValueChange={(value) =>
+						setUpdateSystemMessageRequest((prev) => ({
+							...prev,
+							hide_audit_log: value ? '0' : '1'
+						}))
+					}
+				/>
+			),
+			disabled: disabled
 		}
 	];
 
@@ -385,6 +422,8 @@ export function ClanOverviewSetting({ navigation }: MenuClanScreenProps<ClanSett
 					defaultValue={banner}
 					height={size.s_200}
 					width={width - size.s_40}
+					imageHeight={400}
+					imageWidth={400}
 					onLoad={handleLoad}
 					showHelpText
 					autoUpload

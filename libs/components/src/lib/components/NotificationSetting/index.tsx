@@ -10,16 +10,16 @@ import {
 	selectCurrentClanId,
 	selectDefaultNotificationClan,
 	selectNotifiSettingsEntitiesById,
-	selectTheme,
 	useAppDispatch,
 	useAppSelector
 } from '@mezon/store';
-import { Modal } from '@mezon/ui';
+import { Button } from '@mezon/ui';
 import { ICategoryChannel, IChannel } from '@mezon/utils';
 import { ChannelType } from 'mezon-js';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Creatable from 'react-select/creatable';
+import { ModalLayout } from '../../components';
 import { notificationTypesList } from '../PanelChannel';
 export type ModalParam = {
 	onClose: () => void;
@@ -69,7 +69,6 @@ export const customStyles = {
 };
 
 const ModalNotificationSetting = (props: ModalParam) => {
-	const appearanceTheme = useSelector(selectTheme);
 	const currentClan = useSelector(selectCurrentClan);
 	const defaultNotificationClan = useSelector(selectDefaultNotificationClan);
 	const currentChannel = useSelector(selectCurrentChannel);
@@ -110,7 +109,7 @@ const ModalNotificationSetting = (props: ModalParam) => {
 	const [selectedOption, setSelectedOption] = useState(null);
 	const handleChange = (newValue: any) => {
 		setSelectedOption(newValue);
-		if (newValue.title === 'category') {
+		if (newValue?.title === 'category') {
 			dispatch(
 				defaultNotificationCategoryActions.setDefaultNotificationCategory({
 					category_id: newValue.id,
@@ -208,16 +207,21 @@ const ModalNotificationSetting = (props: ModalParam) => {
 	};
 
 	return (
-		<Modal
-			title="Notification Setting"
-			onClose={props.onClose}
-			showModal={props.open}
-			subTitleBox={`${currentClan?.clan_name}`}
-			classSubTitleBox="ml-[0px] cursor-default"
-			borderBottomTitle="border-b "
-		>
-			<div>
-				<div className={`${appearanceTheme === 'light' ? 'customScrollLightMode' : ''}`}>
+		<ModalLayout onClose={props.onClose}>
+			<div className="flex flex-col bg-theme-setting-primary rounded-xl overflow-hidden max-w-[684px] w-screen">
+				<div className="flex-1 flex items-center justify-between border-b-theme-primary rounded-t p-4">
+					<div className="flex flex-col">
+						<p className="font-bold text-xl text-theme-primary-active">Notification Setting</p>
+						<p>{currentClan?.clan_name}</p>
+					</div>
+					<Button
+						className="rounded-full aspect-square w-6 h-6 text-5xl leading-3 !p-0 opacity-50 text-theme-primary-hover"
+						onClick={props.onClose}
+					>
+						×
+					</Button>
+				</div>
+				<div className={`px-5 py-4 max-h-[500px] overflow-y-auto hide-scrollbar`}>
 					<div className="text-xs font-bold  uppercase mb-2 text-theme-primary-active">CLAN NOTIFICATION SETTINGS</div>
 					<div className="space-y-2">
 						{notificationTypesList.map((notificationType, index) => (
@@ -314,7 +318,7 @@ const ModalNotificationSetting = (props: ModalParam) => {
 					</div>
 				</div>
 			</div>
-		</Modal>
+		</ModalLayout>
 	);
 };
 export default ModalNotificationSetting;

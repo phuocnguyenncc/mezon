@@ -14,7 +14,7 @@ const OptionSearch = ({ option, onSelect }: IOptionSearchProps) => {
 						{option?.title}
 					</Text>
 					<Text numberOfLines={1} ellipsizeMode="tail" style={styles.textOption}>
-						{option?.content}
+						{` ${option?.content}`}
 					</Text>
 				</View>
 				{option?.icon}

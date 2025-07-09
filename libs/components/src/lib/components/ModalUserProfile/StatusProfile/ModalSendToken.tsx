@@ -228,7 +228,7 @@ const ModalSendToken = ({
 													>
 														<div
 															onClick={() => handleSelectUser(user.id, user.username)}
-															className="flex items-center gap-3 p-3 hover:dark:bg-gray-700 hover:bg-gray-50 cursor-pointer transition-colors"
+															className="flex items-center gap-3 p-3 bg-item-theme-hover cursor-pointer transition-colors"
 														>
 															<AvatarImage
 																alt={user?.username ?? ''}

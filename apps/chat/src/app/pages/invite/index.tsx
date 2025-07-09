@@ -125,7 +125,7 @@ export default function InvitePage() {
 				<button
 					onClick={handleJoinChannel}
 					disabled={loading}
-					className={`text-white w-full py-[10px] text-base font-medium rounded-md ${loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-button-primary hover:bg-opacity-85'}`}
+					className={`text-white w-full py-[10px] text-base font-medium rounded-md ${loading ? 'bg-gray-500 cursor-not-allowed' : 'btn-primary btn-primary-hover '}`}
 				>
 					{loading ? 'Joining...' : 'Accept Invite'}
 				</button>

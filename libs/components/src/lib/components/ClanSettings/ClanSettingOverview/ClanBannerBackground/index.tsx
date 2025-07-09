@@ -67,7 +67,7 @@ const ClanBannerBackground = ({ onUpload, urlImage }: ClanBannerBackgroundProps)
 				<p className="text-sm font-normal mb-2">This image will display at the top of your channels list.</p>
 				<p className="text-sm font-normal">The recommended minimum size is 960x540 and recommended aspect ratio is 16:9.</p>
 				<button
-					className="h-10 text-theme-primary-active w-fit px-4 mt-4 rounded border-theme-primary bg-theme-input text-theme-primary-hover bg-secondary-button-hover focus:!ring-transparent"
+					className="h-10 text-theme-primary-active w-fit px-4 mt-4 rounded-lg btn-primary btn-primary-hover"
 					onClick={handleOpenFile}
 				>
 					Upload Background

@@ -287,12 +287,12 @@ const ListOptionRole = ({
 	for (const key in rolesClanEntity) {
 		if (key !== EVERYONE_ROLE_ID && (isClanOwner || Number(maxPermissionLevel) > Number(rolesClanEntity[key]?.max_level_permission || -1))) {
 			roleElements.push(
-				<div className="flex gap-2 items-center h-6 justify-between px-2" key={key}>
+				<div className="flex gap-2 items-center h-6 justify-between px-2 bg-theme-setting-nav" key={key}>
 					<div
 						className="text-transparent size-3 rounded-full"
 						style={{ backgroundColor: rolesClanEntity[key].color || DEFAULT_ROLE_COLOR }}
 					/>
-					<span className="text-xs font-medium px-1 truncate flex-1" style={{ lineHeight: '15px' }}>
+					<span className="text-xs font-medium px-1 truncate flex-1 text-theme-primary" style={{ lineHeight: '15px' }}>
 						{rolesClanEntity[key].title}
 					</span>
 					<div className="relative flex flex-row justify-center">

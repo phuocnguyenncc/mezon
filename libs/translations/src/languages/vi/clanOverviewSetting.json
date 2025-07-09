@@ -4,7 +4,8 @@
   },
   "toast": {
     "saveSuccess": "Lưu thành công",
-    "notBlank": "Không được để trống"
+    "notBlank": "Không được để trống",
+    "saveError": "Lỗi xảy ra khi lưu"
 },
   "menu": {
     "serverName": {
@@ -28,7 +29,8 @@
       "welcomeRandom": "Gửi tin nhắn chào mừng ngẫu nhiên khi ai đó tham gia vào clan này",
       "welcomeSticker": "Yêu cầu thành viên trả lời tin nhắn chào mừng bằng nhãn dán",
       "boostMessage": "Gửi tin nhắn khi ai đó tăng cấp clan này",
-      "setupTips": "Gửi các mẹo hữu ích để thiết lập clan"
+      "setupTips": "Gửi các mẹo hữu ích để thiết lập clan",
+      "hideAuditLog": "Gửi nhật ký khi có hành động được thực hiện với clan"
     },
     "deleteServer": {
       "title": "Xóa clan",

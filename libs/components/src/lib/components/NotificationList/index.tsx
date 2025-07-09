@@ -134,7 +134,7 @@ function NotificationList({ rootRef }: NotificationProps) {
 								return (
 									<div key={index}>
 										<button
-											className={`px-2 py-[4px] rounded-[4px] text-base font-medium ${currentTabNotify === tab.value ? 'bg-button-primary text-white' : ''}`}
+											className={`px-2 py-[4px] rounded-[4px] text-base font-medium ${currentTabNotify === tab.value ? 'btn-primary btn-primary-hover' : ''}`}
 											tabIndex={index}
 											onClick={() => handleChangeTab(tab.value)}
 										>

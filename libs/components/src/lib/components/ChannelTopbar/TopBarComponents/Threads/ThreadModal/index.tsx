@@ -134,7 +134,7 @@ const ThreadModal = ({ onClose, rootRef }: ThreadsProps) => {
 						<div className="flex flex-row items-center gap-4">
 							<button
 								onClick={handleCreateThread}
-								className=" px-3 text-white text-center text-sm font-medium h-6 rounded-lg bg-button-primary"
+								className=" px-3  text-center text-sm font-medium h-6 rounded-lg btn-primary btn-primary-hover"
 							>
 								Create
 							</button>

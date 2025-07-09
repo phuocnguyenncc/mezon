@@ -81,7 +81,7 @@ const SettingManageMembers = ({ RolesClan, hasPermissionEdit }: { RolesClan: Rol
 					onChange={(e) => setSearchTerm(e.target.value)}
 				/>
 				<button
-					className="flex-grow text-[15px] bg-blue-600 hover:bg-blue-500 rounded py-[3px] px-2 text-nowrap font-medium text-white"
+					className="flex-grow text-[15px] bg-indigo-500 hover:bg-indigo-600 rounded-lg py-[3px] px-2 text-nowrap font-medium text-white"
 					onClick={() => {
 						handleOpenModal();
 					}}

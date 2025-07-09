@@ -26,5 +26,8 @@
       "untilTurnItBackOn": "Cho đến khi bật lại"
     },
     "description": "Bạn đang nhận được thông báo từ tất cả tin nhắn trong clan này, nhưng bạn có thể thay đổi cài đặt tại đây"
+  },
+  "toast": {
+    "error": "Cập nhật thông báo lỗi: {{error}}"
   }
 }

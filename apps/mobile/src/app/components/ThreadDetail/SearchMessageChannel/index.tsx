@@ -3,7 +3,7 @@ import { useTheme } from '@mezon/mobile-ui';
 import { DirectEntity, searchMessagesActions, selectCurrentClanId, useAppDispatch } from '@mezon/store-mobile';
 import { IChannel, SIZE_PAGE_SEARCH, SearchFilter } from '@mezon/utils';
 import { RouteProp } from '@react-navigation/native';
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, memo, useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import StatusBarHeight from '../../StatusBarHeight/StatusBarHeight';
@@ -15,6 +15,7 @@ type RootStackParamList = {
 	SearchMessageChannel: {
 		typeSearch: ETypeSearch;
 		currentChannel: IChannel | DirectEntity;
+		nameChannel?: string;
 	};
 };
 
@@ -29,7 +30,7 @@ const Backspace = 'Backspace';
 export const SearchMessageChannelContext = createContext(null);
 
 const SearchMessageChannel = ({ route }: SearchMessageChannelProps) => {
-	const { currentChannel, typeSearch } = route?.params || {};
+	const { currentChannel, typeSearch, nameChannel } = route?.params || {};
 	const { themeValue } = useTheme();
 	const [userMention, setUserMention] = useState<IUerMention>();
 	const [isSearchMessagePage, setSearchMessagePage] = useState<boolean>(true);
@@ -115,6 +116,7 @@ const SearchMessageChannel = ({ route }: SearchMessageChannelProps) => {
 					onChangeOptionFilter={handleOptionFilter}
 					userMention={userMention}
 					currentChannel={currentChannel}
+					nameChannel={nameChannel}
 				/>
 				{isSearchMessagePage ? (
 					<SearchMessagePage
@@ -137,4 +139,4 @@ const SearchMessageChannel = ({ route }: SearchMessageChannelProps) => {
 	);
 };
 
-export default SearchMessageChannel;
+export default memo(SearchMessageChannel);

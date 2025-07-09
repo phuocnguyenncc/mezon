@@ -1,27 +1,53 @@
 /* Cyber Theme CSS Variables */
 :root {
-  /* background */
-  --bg-primary: #f5f7fa;
-  --bg-secondary: oklab(0.988044 0.0000450313 0.0000197887);
+	/* background */
+	--bg-primary: #f5f7fa;
+	--bg-secondary: oklab(0.988044 0.0000450313 0.0000197887);
 
+	/* nền ngoài của phần chat */
+	--bg-outside-footer: #f0f2f5;
 
+	/* nền trong của phần footer */
+	--bg-footer: #ffffff;
 
-  /* nền ngoài của phần chat */
-  --bg-outside-footer: #f0f2f5;
+	/* màu ping member */
+	--bg-ping-member: #fff8e1;
+	--bg-tertiary: rgba(155, 155, 155, 0.12);
+	--bg-surface: #fbfbfb;
 
-  /* nền trong của phần footer */
-  --bg-footer: #ffffff;
+	--bg-accent: rgba(155, 155, 155, 0.16);
+	--bg-hover: #ebedf0;
+	--bg-modal: rgba(0, 0, 0, 0.5);
 
-  /* màu ping member */
-  --bg-ping-member: #fff8e1;
-  --bg-tertiary: rgba(155, 155, 155, 0.12);
-  --bg-surface: #fbfbfb;
+	/* input */
+	--theme-input: rgba(155, 155, 155, 0.12);
+	--theme-border-input: rgba(155, 155, 155, 0.25);
+	--theme-base-color: linear-gradient(rgba(197, 194, 194, 0.5), rgba(197, 194, 194, 0.5));
+	--theme-setting-primary: #f9f9f9;
+	--theme-setting-nav: #f0f0f0;
+	--private-theme: rgb(144, 224, 176);
+	/* button primary */
+	--bg-button-primary: hsl(234.935 calc(1 * 85.556%) 64.706% /1);
+	--text-theme-primary: oklab(0.51633 0.00309466 -0.0153829);
+	--bg-active-friend-list: #ebedf0;
+	--bg-active-button: rgba(67, 97, 238, 0.12);
+	--color-text-active-button: #4361ee;
+	--bg-button-add-friend: #4361ee;
+	--border-color-primary: #e0e0e0;
+	--bg-theme-direct-message: oklab(0.964355 0.000418752 -0.00125641);
 
-  --bg-accent: rgba(155, 155, 155, 0.16);
-  --bg-hover: #ebedf0;
-  --bg-modal: rgba(0, 0, 0, 0.5);
+	--text-theme-message: oklab(0.322425 0.00154591 -0.010555);
 
+	--text-secondary: oklab(0.310123 0.00108959 -0.00894994);
+	--border-theme-primary: rgba(155, 155, 155, 0.2);
+	--border-t-theme-primary: rgba(155, 155, 155, 0.2);
+	--border-r-t-l-theme-primary: rgba(155, 155, 155, 0.2);
+	--border-r-b-l-theme-primary: rgba(155, 155, 155, 0.2);
+	--bg-button-secondary: #f0f2f5;
+	--bg-theme-input-primary: #ffffff;
+	--text-theme-primary-hover: #4361ee;
 
+	--bg-item-hover-chat: rgba(67, 97, 238, 0.08);
   /* input */
   --theme-input: rgba(155, 155, 155, 0.12);
   --theme-border-input: rgba(155, 155, 155, 0.25);
@@ -30,7 +56,6 @@
   --theme-setting-nav: #f0f0f0;
   --private-theme: rgb(144, 224, 176);
   /* button primary */
-  --bg-button-primary: hsl(234.935 calc(1 * 85.556%) 64.706% /1);
   --text-theme-primary: oklab(0.51633 0.00309466 -0.0153829);
   --bg-active-friend-list: #ebedf0;
   --bg-active-button: rgba(67, 97, 238, 0.12);
@@ -39,66 +64,62 @@
   --border-color-primary: #e0e0e0;
   --bg-theme-direct-message: oklab(0.964355 0.000418752 -0.00125641);
 
-  --text-theme-message: oklab(0.322425 0.00154591 -0.010555);
+	--bg-item-hover: rgba(67, 97, 238, 0.08);
 
-  --text-secondary: oklab(0.310123 0.00108959 -0.00894994);
-  --border-theme-primary: rgba(155, 155, 155, 0.2);
-  --border-t-theme-primary: rgba(155, 155, 155, 0.2);
-  --border-r-t-l-theme-primary: rgba(155, 155, 155, 0.2);
-  --border-r-b-l-theme-primary: rgba(155, 155, 155, 0.2);
-  --bg-button-secondary: #f0f2f5;
-  --bg-theme-input-primary: #ffffff;
-  --text-theme-primary-hover: #4361ee;
+	/* màu click vào member channel */
+	--bg-active-member-channel: linear-gradient(rgba(78, 78, 78, 0.103), rgba(165, 165, 165, 0.151));
+	--bg-hover-select-status: #e2e6f3;
 
-  --bg-item-hover-chat: rgba(67, 97, 238, 0.08);
+	/* border */
+	--border-primary: #dadce0;
+	--border-secondary: #4361ee;
+	--border-focus: #4361ee;
+	--border-divider: #e8eaed;
+	--border-hover: #4361ee;
 
-  --bg-item-hover: rgba(67, 97, 238, 0.08);
+	/* mention */
+	--mention-primary: rgba(67, 97, 238, 0.16);
+	--mention-color: #4361ee;
+	--bg-mention-hover: rgba(67, 97, 238, 0.24);
+	--color-mention-hover: #3051d8;
+	--bg-mention-evryone: rgba(46, 176, 140, 0.16);
+	--color-mention-evryone: #2eb08c;
+	--bg-mention-everyone-hover: rgba(46, 176, 140, 0.24);
+	--color-mention-everyone-hover: #269d7c;
 
-  /* màu click vào member channel */
-  --bg-active-member-channel: linear-gradient(rgba(78, 78, 78, 0.103), rgba(165, 165, 165, 0.151));
-  --bg-hover-select-status: #e2e6f3;
+	/* highlight */
+	--bg-highlight: rgba(255, 213, 79, 0.16);
+	--bg-secondary-button-hover: #e8eaed;
 
-  /* border */
-  --border-primary: #dadce0;
-  --border-secondary: #4361ee;
-  --border-focus: #4361ee;
-  --border-divider: #e8eaed;
-  --border-hover: #4361ee;
+	/* màu contexify */
+	--bg-theme-contexify: #ffffff;
 
-  /* mention */
-  --mention-primary: rgba(67, 97, 238, 0.16);
-  --mention-color: #4361ee;
-  --bg-mention-hover: rgba(67, 97, 238, 0.24);
-  --color-mention-hover: #3051d8;
-  --bg-mention-evryone: rgba(46, 176, 140, 0.16);
-  --color-mention-evryone: #2eb08c;
-  --bg-mention-everyone-hover: rgba(46, 176, 140, 0.24);
-  --color-mention-everyone-hover: #269d7c;
+	/* màu count page */
+	--bg-count-page: #edf2ff;
+	--text-count-page: #3051d8;
+	--bg-count-page-hover: #08090a;
+	--text-count-page-hover: #2344c0;
+	--bg-count-page-active: #4361ee;
+	--text-count-page-active: #ffffff;
+	--bg-item-theme-hover: rgba(67, 97, 238, 0.08);
+	/* modal */
+	--bg-modal-theme: #ffffff;
+	/* option  */
+	--bg-option-theme: #ffffff;
+	--bg-option-active: #e6e6e8;
 
-  /* highlight */
-  --bg-highlight: rgba(255, 213, 79, 0.16);
-  --bg-secondary-button-hover: #e8eaed;
+	--bg-button-add-friend-active: hsl(240 calc(1 * 4%) 60.784% /0.12156862745098039);
+	--text-button-add-friend-active: color-mix(in oklab, hsl(228.679 calc(1 * 96.364%) 78.431% /1) 100%, #000 0%);
+	--bg-markdown-code: #f2f3f5;
 
-  /* màu contexify */
-  --bg-theme-contexify: #ffffff;
-
-  /* màu count page */
-  --bg-count-page: #edf2ff;
-  --text-count-page: #3051d8;
-  --bg-count-page-hover: #08090a;
-  --text-count-page-hover: #2344c0;
-  --bg-count-page-active: #4361ee;
-  --text-count-page-active: #ffffff;
-  --bg-item-theme-hover: rgba(67, 97, 238, 0.08);
-  /* modal */
-  --bg-modal-theme: #ffffff;
-  /* option  */
-  --bg-option-theme: #ffffff;
-  --bg-option-active: #e6e6e8;
-
-
-  --bg-button-add-friend-active: hsl(240 calc(1 * 4%) 60.784% /0.12156862745098039);
-  --text-button-add-friend-active: color-mix(in oklab, hsl(228.679 calc(1 * 96.364%) 78.431% /1) 100%, #000 0%);
-  --bg-markdown-code: #F2F3F5;
-
+	/* scroll bar */
+	--bg-scroll-bar: #b4b2ab;
+	--thread-scroll: #787881;
+	/* pop up */
+	--bg-theme-pop: color-mix(in oklab, hsl(0 calc(1 * 0%) 100% /1) 100%, #000 0%);
+	--border-highlight-react-theme: #5865f2;
+	--bg-highlight-react-theme: rgba(154, 161, 240, 0.18);
+	--bg-input-secondary: #ebebeb;
+  --bg-button-primary-hover: #4654C0;
+	--button-theme-primary: #5265EC;
 }

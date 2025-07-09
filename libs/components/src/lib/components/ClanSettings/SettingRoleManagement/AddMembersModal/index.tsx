@@ -113,16 +113,16 @@ export const AddMembersModal: React.FC<ModalProps> = ({ isOpen, RolesClan, onClo
 				className={`fixed  inset-0 flex items-center justify-center z-50 ${appearanceTheme === ThemeApp.Light && 'lightModeScrollBarMention'}`}
 			>
 				<div className="fixed inset-0 bg-black opacity-80"></div>
-				<div className="relative z-10 p-6 rounded-[5px] text-center w-[440px] flex flex-col justify-between gap-y-2">
+				<div className=" bg-theme-setting-primary text-theme-primary relative z-10 p-6 rounded-[5px] text-center w-[440px] flex flex-col justify-between gap-y-2">
 					<div>
-						<h2 className="text-2xl font-semibold">Add members</h2>
+						<h2 className="text-2xl font-semibold text-theme-primary-active">Add members</h2>
 						<p className=" text-[16px] mb-4 font-light inline-flex gap-x-2 items-center">
 							<Icons.RoleIcon defaultSize="w-5 h-[30px] min-w-5" />
 							{selectedRole?.title}
 						</p>
 						<div className="w-full flex mb-3">
 							<InputField
-								className="flex-grow rounded w-full p-2 focus:outline-none focus:border-white-500 text-base"
+								className="flex-grow rounded w-full p-2 focus:outline-none  text-base"
 								type="text"
 								placeholder="Search Permissions"
 								value={searchTerm}
@@ -152,13 +152,13 @@ export const AddMembersModal: React.FC<ModalProps> = ({ isOpen, RolesClan, onClo
 						<button
 							color="gray"
 							onClick={onClose}
-							className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 focus:outline-none focus:ring focus:border-blue-300"
+							className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 "
 						>
 							Cancel
 						</button>
 						<ButtonLoading
 							label="Add"
-							className="px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-500 focus:outline-none focus:ring focus:border-blue-300"
+							className="px-4 py-2 btn-primary-hover btn-primary  rounded-lg "
 							onClick={handleUpdateRole}
 						/>
 					</div>

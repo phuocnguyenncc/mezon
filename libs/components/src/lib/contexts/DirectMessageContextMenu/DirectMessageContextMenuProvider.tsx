@@ -144,7 +144,7 @@ export const DirectMessageContextMenuProvider: FC<DirectMessageContextMenuProps>
 		<DirectMessageContextMenuContext.Provider value={contextValue}>
 			{children}
 
-			<Menu id={contextMenuId} style={menuStyles} animation={false}>
+			<Menu id={contextMenuId} style={menuStyles} className="z-50 rounded-lg border-theme-primary" animation={false}>
 				{currentHandlers && (
 					<>
 						{isDm && <MemberMenuItem label="Profile" onClick={currentHandlers.handleViewProfile} setWarningStatus={setWarningStatus} />}

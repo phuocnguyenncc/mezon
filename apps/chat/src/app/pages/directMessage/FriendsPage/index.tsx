@@ -171,7 +171,7 @@ const FriendsPage = () => {
 					</div>
 					<Button
 						onClick={handleOpenRequestFriend}
-						className={`whitespace-nowrap  px-2 rounded-lg font-medium   ${openModalAddFriend ? ' cursor-not-allowed button-add-friend-active' : 'bg-button-primary text-white'}`}
+						className={`whitespace-nowrap  px-2 rounded-lg font-medium   ${openModalAddFriend ? ' cursor-not-allowed button-add-friend-active' : 'btn-primary btn-primary-hover '}`}
 					>
 						Add Friend
 					</Button>
@@ -220,7 +220,7 @@ const FriendsPage = () => {
 										<div className="text-red-500 dark:text-red-400 text-[14px] pb-5">You're already friends with that user!</div>
 									)}
 									<Button
-										className="absolute bg-button-primary text-white rounded-lg px-2 top-3 right-2 text-[14px] py-[5px]"
+										className="absolute btn-primary btn-primary-hover  rounded-lg px-2 top-3 right-2 text-[14px] py-[5px]"
 										disabled={!requestAddFriend.usernames?.length}
 										onClick={handleAddFriend}
 									>
