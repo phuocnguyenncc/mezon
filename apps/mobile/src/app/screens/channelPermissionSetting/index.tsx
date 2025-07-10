@@ -96,7 +96,7 @@ export const ChannelPermissionSetting = ({ navigation, route }: MenuChannelScree
 	}, [currentTab, isAdvancedEditMode, navigation, t, themeValue.white]);
 
 	return (
-		<View style={{ flex: 1, backgroundColor: themeValue.secondary, paddingHorizontal: size.s_12 }}>
+		<View style={{ flex: 1, backgroundColor: themeValue.primary, paddingHorizontal: size.s_12 }}>
 			<View
 				style={{
 					backgroundColor: themeValue.tertiary,

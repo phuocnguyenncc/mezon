@@ -8,11 +8,12 @@ import { ChannelMessage, safeJSONParse } from 'mezon-js';
 import moment from 'moment/moment';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { AppState, Platform } from 'react-native';
+import BootSplash from 'react-native-bootsplash';
 import useTabletLandscape from '../../hooks/useTabletLandscape';
 import NotificationPreferences from '../../utils/NotificationPreferences';
 import { checkNotificationPermission, processNotification, setupCallKeep } from '../../utils/pushNotificationHelpers';
 
-export const FCMNotificationLoader = () => {
+export const FCMNotificationLoader = ({ notifyInit }: { notifyInit: any }) => {
 	const navigation = useNavigation<any>();
 	const isTabletLandscape = useTabletLandscape();
 	const { onchannelmessage } = useContext(ChatContext);
@@ -77,46 +78,20 @@ export const FCMNotificationLoader = () => {
 
 	const setupNotificationListeners = async (navigation, isTabletLandscape = false) => {
 		try {
-			messaging()
-				.getInitialNotification()
-				.then(async (remoteMessage) => {
-					if (remoteMessage?.data && Platform.OS === 'ios') {
-						mapMessageNotificationToSlice([remoteMessage?.data]);
-					}
-					notifee
-						.getInitialNotification()
-						.then(async (resp) => {
-							if (resp) {
-								const store = await getStoreAsync();
-								save(STORAGE_IS_DISABLE_LOAD_BACKGROUND, true);
-								store.dispatch(appActions.setIsFromFCMMobile(true));
-								if (resp) {
-									await processNotification({
-										notification: { ...resp?.notification, data: resp?.notification?.data },
-										navigation,
-										time: 1,
-										isTabletLandscape
-									});
-								}
-							}
-						})
-						.catch((err) => {
-							console.error('*** err getInitialNotification', err);
-						});
-					if (remoteMessage) {
-						const store = await getStoreAsync();
-						save(STORAGE_IS_DISABLE_LOAD_BACKGROUND, true);
-						store.dispatch(appActions.setIsFromFCMMobile(true));
-						if (remoteMessage?.notification?.title) {
-							await processNotification({
-								notification: { ...remoteMessage?.notification, data: remoteMessage?.data },
-								navigation,
-								time: 1,
-								isTabletLandscape
-							});
-						}
-					}
+			if (notifyInit) {
+				if (notifyInit?.data && Platform.OS === 'ios') {
+					mapMessageNotificationToSlice([notifyInit?.data]);
+				}
+				const store = await getStoreAsync();
+				save(STORAGE_IS_DISABLE_LOAD_BACKGROUND, true);
+				store.dispatch(appActions.setIsFromFCMMobile(true));
+				await processNotification({
+					notification: notifyInit,
+					navigation,
+					time: 1,
+					isTabletLandscape
 				});
+			}
 
 			messaging().onNotificationOpenedApp(async (remoteMessage) => {
 				if (remoteMessage?.data && Platform.OS === 'ios') {
@@ -169,6 +144,7 @@ export const FCMNotificationLoader = () => {
 	};
 
 	const onNotificationOpenedApp = async () => {
+		await BootSplash.hide({ fade: true });
 		try {
 			if (Platform.OS === 'android') {
 				const notificationDataPushed = await NotificationPreferences.getValue('notificationDataPushed');

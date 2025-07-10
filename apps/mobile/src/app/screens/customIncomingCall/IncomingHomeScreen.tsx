@@ -126,7 +126,11 @@ const IncomingHomeScreen = memo((props: any) => {
 			}, 1000);
 		}
 
-		if (signalingData?.[signalingData?.length - 1]?.signalingData.data_type === WebrtcSignalingType.WEBRTC_SDP_QUIT) {
+		if (
+			(signalingData?.[signalingData?.length - 1]?.signalingData.data_type === WebrtcSignalingType.WEBRTC_SDP_QUIT ||
+				signalingData?.[signalingData?.length - 1]?.signalingData.data_type === WebrtcSignalingType.WEBRTC_SDP_INIT) &&
+			!isInCall
+		) {
 			stopAndReleaseSound();
 			BackHandler.exitApp();
 		}
@@ -136,7 +140,7 @@ const IncomingHomeScreen = memo((props: any) => {
 				clearTimeout(timer);
 			}
 		};
-	}, [signalingData]);
+	}, [isInCall, props?.isForceAnswer, signalingData]);
 
 	useEffect(() => {
 		if (props && props?.payload && Platform.OS === 'android') {

@@ -13,6 +13,7 @@ import MezonIconCDN from '../../../../componentUI/MezonIconCDN';
 import { IconCDN } from '../../../../constants/icon_cdn';
 import { EOverridePermissionType, ERequestStatus } from '../../types/channelPermission.enum';
 import { IMemberItemProps } from '../../types/channelPermission.type';
+import MezonAvatar from "../../../../componentUI/MezonAvatar";
 
 export const MemberItem = memo(
 	({ member, channel, isCheckbox = false, isChecked = false, onSelectMemberChange, isAdvancedSetting = false, onPress }: IMemberItemProps) => {
@@ -93,17 +94,17 @@ export const MemberItem = memo(
 		return (
 			<TouchableOpacity onPress={onPressMemberItem} disabled={disabled}>
 				<View style={{ gap: size.s_10, flexDirection: 'row', padding: size.s_10, alignItems: 'center' }}>
-					<FastImage
-						source={{
-							uri: createImgproxyUrl(member?.user?.avatar_url ?? '', { width: 100, height: 100, resizeType: 'fit' })
-						}}
-						resizeMode="cover"
-						style={{ width: size.s_40, height: size.s_40, borderRadius: 50 }}
+					<MezonAvatar
+						avatarUrl={createImgproxyUrl(member?.user?.avatar_url ?? '', { width: 100, height: 100, resizeType: 'fit' })}
+						username={member.user.username}
+						width={size.s_40}
+						height={size.s_40}
+						isBorderBoxImage
 					/>
 					<View style={{ flex: 1 }}>
 						<View style={{ flexDirection: 'row', gap: size.s_4, alignItems: 'center' }}>
 							<Text h4 color={themeValue.white}>
-								{member?.user?.display_name}
+								{member?.user?.display_name || member?.user?.username}
 							</Text>
 							{isClanOwner && <OwnerIcon width={16} height={16} />}
 						</View>

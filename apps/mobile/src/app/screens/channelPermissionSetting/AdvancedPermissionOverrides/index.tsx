@@ -1,6 +1,7 @@
 import { useMyRole } from '@mezon/core';
 import { ActionEmitEvent, isEqual } from '@mezon/mobile-components';
 import { Colors, Text, size, useTheme } from '@mezon/mobile-ui';
+import { useAppSelector } from '@mezon/store';
 import { permissionRoleChannelActions, selectAllPermissionRoleChannel, selectPermissionChannel, useAppDispatch } from '@mezon/store-mobile';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +23,7 @@ export const AdvancedPermissionOverrides = ({ navigation, route }: MenuChannelSc
 	const { themeValue } = useTheme();
 	const { t } = useTranslation(['channelSetting']);
 	const channelPermissionList = useSelector(selectPermissionChannel);
-	const changedChannelPermissionList = useSelector(selectAllPermissionRoleChannel);
+	const changedChannelPermissionList = useAppSelector((state) => selectAllPermissionRoleChannel(state, channelId));
 	const [originChannelPermissionValues, setOriginChannelPermissionValues] = useState<IPermissionSetting>();
 	const [currentChannelPermissionValues, setCurrentChannelPermissionValues] = useState<IPermissionSetting>();
 	const { maxPermissionId } = useMyRole();
@@ -179,7 +180,7 @@ export const AdvancedPermissionOverrides = ({ navigation, route }: MenuChannelSc
 	}, [channelId, dispatch, id, type, isOverrideRole]);
 
 	return (
-		<View style={{ flex: 1, backgroundColor: themeValue.secondary, paddingHorizontal: size.s_18, gap: size.s_18 }}>
+		<View style={{ flex: 1, backgroundColor: themeValue.primary, paddingHorizontal: size.s_18, gap: size.s_18 }}>
 			<Text color={themeValue.textDisabled}>{t('channelPermission.generalChannelPermission')}</Text>
 
 			<ScrollView>

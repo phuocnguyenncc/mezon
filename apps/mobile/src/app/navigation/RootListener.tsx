@@ -46,7 +46,6 @@ import { useMezon } from '@mezon/transport';
 import analytics from '@react-native-firebase/analytics';
 import { ChannelType, Session } from 'mezon-js';
 import { AppState, DeviceEventEmitter, Platform, View } from 'react-native';
-import { waitForSocketConnection } from '../../../../chat/src/app/loaders/socketUtils';
 import { getVoIPToken, handleFCMToken } from '../utils/pushNotificationHelpers';
 
 const MAX_RETRIES_SESSION = 10;
@@ -276,11 +275,11 @@ const RootListener = () => {
 	};
 
 	const mainLoader = useCallback(async () => {
-		dispatch(listChannelsByUserActions.fetchListChannelsByUser({ noCache: true }));
 		try {
 			const promises = [];
-			await dispatch(waitForSocketConnection());
+			// await dispatch(waitForSocketConnection());
 			promises.push(dispatch(listUsersByUserActions.fetchListUsersByUser({ noCache: true })));
+			promises.push(dispatch(listChannelsByUserActions.fetchListChannelsByUser({ noCache: true })));
 			promises.push(dispatch(friendsActions.fetchListFriends({ noCache: true })));
 			promises.push(dispatch(clansActions.joinClan({ clanId: '0' })));
 			promises.push(dispatch(directActions.fetchDirectMessage({ noCache: true })));

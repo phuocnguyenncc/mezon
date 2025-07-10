@@ -32,7 +32,6 @@ export const DmListItem = React.memo((props: { id: string; navigation: any; onLo
 	}, [directMessage?.last_sent_message?.sender_id]);
 
 	const redirectToMessageDetail = async () => {
-		await dispatch(directActions.setDmGroupCurrentId(directMessage?.id));
 		if (isTabletLandscape) {
 			onPress && onPress(directMessage?.id);
 		} else {
@@ -40,6 +39,7 @@ export const DmListItem = React.memo((props: { id: string; navigation: any; onLo
 				directMessageId: directMessage?.id
 			});
 		}
+		dispatch(directActions.setDmGroupCurrentId(directMessage?.id));
 	};
 
 	const isTypeDMGroup = useMemo(() => {

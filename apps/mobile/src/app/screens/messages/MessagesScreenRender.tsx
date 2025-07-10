@@ -76,9 +76,9 @@ const MessagesScreenRender = memo(({ chatList }: { chatList: string }) => {
 					keyExtractor={(dm) => dm + 'DM_MSG_ITEM'}
 					showsVerticalScrollIndicator={true}
 					removeClippedSubviews={Platform.OS === 'android'}
-					initialNumToRender={1}
-					maxToRenderPerBatch={1}
-					windowSize={2}
+					initialNumToRender={10}
+					maxToRenderPerBatch={10}
+					windowSize={10}
 					onEndReachedThreshold={0.7}
 					onMomentumScrollBegin={() => Keyboard.dismiss()}
 					keyboardShouldPersistTaps={'handled'}

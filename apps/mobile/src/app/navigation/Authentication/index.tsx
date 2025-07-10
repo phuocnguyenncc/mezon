@@ -1,116 +1,57 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ColorRoleProvider } from '@mezon/mobile-ui';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { Dimensions, Platform } from 'react-native';
-import CallingModalGroupWrapper from '../../components/CallingModalGroupWrapper';
-import CallingModalWrapper from '../../components/CallingModalWrapper';
+import notifee from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
 import useTabletLandscape from '../../hooks/useTabletLandscape';
-import HomeScreenTablet from '../../screens/home/HomeScreenTablet';
-import ChannelAppScreen from '../../screens/home/homedrawer/ChannelApp';
-import HomeDefaultWrapper from '../../screens/home/homedrawer/HomeDefaultWrapper';
-import { RenderVideoDetail } from '../../screens/home/homedrawer/components/RenderVideoDetail';
-import { DirectMessageDetailScreen } from '../../screens/messages/DirectMessageDetail';
-import { WalletScreen } from '../../screens/wallet';
+import { clanAndChannelIdLinkRegex, clanDirectMessageLinkRegex } from '../../utils/helpers';
 import { APP_SCREEN } from '../ScreenTypes';
-import { AuthenticationLoader } from './AuthenticationLoader';
-import BottomNavigatorWrapper from './BottomNavigatorWrapper';
-import { FCMNotificationLoader } from './FCMNotificationLoader';
-import { ListenerLoader } from './ListenerLoader';
-import { FriendStacks } from './stacks/FriendStacks';
-import { MenuChannelStacks } from './stacks/MenuChannelStack';
-import { MenuClanStacks } from './stacks/MenuSererStack';
-import { MenuThreadDetailStacks } from './stacks/MenuThreadDetailStacks';
-import { MessagesStacks } from './stacks/MessagesStacks';
-import { NotificationStacks } from './stacks/NotificationStacks';
-import { ServersStacks } from './stacks/ServersStacks';
-import { SettingStacks } from './stacks/SettingStacks';
-import { ShopStack } from './stacks/ShopStack';
-const RootStack = createStackNavigator();
+import { RootAuthStack } from './RootAuthStack';
 
 export const Authentication = memo(() => {
 	const isTabletLandscape = useTabletLandscape();
+	const [initRouteName, setInitRouteName] = useState<string>('');
+	const notiInitRef = useRef<any>(null);
+
+	const getInitRouterName = async () => {
+		let routeName: string = APP_SCREEN.BOTTOM_BAR;
+		try {
+			const [remoteMessage, remoteMessageNotifee] = await Promise.all([messaging().getInitialNotification(), notifee.getInitialNotification()]);
+			let notification;
+			if (remoteMessage) {
+				notification = { ...remoteMessage?.notification, data: remoteMessage?.data };
+			} else if (remoteMessageNotifee) {
+				notification = { ...remoteMessageNotifee?.notification, data: remoteMessageNotifee?.notification?.data };
+			}
+
+			if (notification?.data?.link) {
+				notiInitRef.current = notification;
+				const link = notification.data.link;
+				if (clanAndChannelIdLinkRegex.test(link)) {
+					routeName = APP_SCREEN.HOME_DEFAULT;
+				} else if (clanDirectMessageLinkRegex.test(link)) {
+					routeName = APP_SCREEN.MESSAGES.MESSAGE_DETAIL;
+				}
+			}
+
+			setInitRouteName(routeName);
+		} catch (e) {
+			console.error('log  => error getInitRouterName', e);
+			setInitRouteName(routeName);
+		}
+	};
+
+	useEffect(() => {
+		getInitRouterName();
+	}, []);
+
+	if (!initRouteName) return null;
 
 	return (
 		<BottomSheetModalProvider>
 			<ColorRoleProvider>
-				<FCMNotificationLoader />
-				<RootStack.Navigator
-					initialRouteName={APP_SCREEN.BOTTOM_BAR}
-					screenOptions={{
-						headerShown: false,
-						gestureEnabled: Platform.OS === 'ios',
-						gestureDirection: 'horizontal'
-					}}
-				>
-					<RootStack.Screen name={APP_SCREEN.BOTTOM_BAR} component={BottomNavigatorWrapper} />
-					<RootStack.Screen
-						name={APP_SCREEN.HOME_DEFAULT}
-						component={isTabletLandscape ? HomeScreenTablet : HomeDefaultWrapper}
-						options={{
-							animationEnabled: Platform.OS === 'ios',
-							headerShown: false,
-							gestureEnabled: true,
-							gestureDirection: 'horizontal',
-							gestureResponseDistance: Dimensions.get('window').width,
-							cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-						}}
-					/>
-					<RootStack.Screen
-						name={APP_SCREEN.MESSAGES.MESSAGE_DETAIL}
-						component={DirectMessageDetailScreen}
-						options={{
-							animationEnabled: Platform.OS === 'ios',
-							headerShown: false,
-							headerShadowVisible: false,
-							gestureEnabled: true,
-							gestureDirection: 'horizontal',
-							gestureResponseDistance: Dimensions.get('window').width,
-							cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
-						}}
-					/>
-					<RootStack.Screen name={APP_SCREEN.SERVERS.STACK} children={(props) => <ServersStacks {...props} />} />
-					<RootStack.Screen
-						name={APP_SCREEN.MESSAGES.STACK}
-						children={(props) => <MessagesStacks {...props} />}
-						options={{
-							animationEnabled: Platform.OS === 'ios'
-						}}
-					/>
-					<RootStack.Screen name={APP_SCREEN.NOTIFICATION.STACK} children={(props) => <NotificationStacks {...props} />} />
-					<RootStack.Screen name={APP_SCREEN.MENU_CHANNEL.STACK} children={(props) => <MenuChannelStacks {...props} />} />
-
-					<RootStack.Screen name={APP_SCREEN.MENU_THREAD.STACK} children={(props) => <MenuThreadDetailStacks {...props} />} />
-
-					<RootStack.Screen name={APP_SCREEN.MENU_CLAN.STACK} children={(props) => <MenuClanStacks {...props} />} />
-
-					<RootStack.Screen name={APP_SCREEN.SETTINGS.STACK} children={(props) => <SettingStacks {...props} />} />
-
-					<RootStack.Screen
-						name={APP_SCREEN.FRIENDS.STACK}
-						children={(props) => <FriendStacks {...props} />}
-						options={{
-							animationEnabled: Platform.OS === 'ios'
-						}}
-					/>
-
-					<RootStack.Screen
-						name={APP_SCREEN.VIDEO_DETAIL}
-						component={RenderVideoDetail}
-						options={{
-							headerShown: false,
-							headerShadowVisible: false
-						}}
-					/>
-					<RootStack.Screen name={APP_SCREEN.CHANNEL_APP} component={ChannelAppScreen} />
-					<RootStack.Screen name={APP_SCREEN.WALLET} component={WalletScreen} />
-					<RootStack.Screen name={APP_SCREEN.SHOP.STACK} children={(props) => <ShopStack {...props} />} />
-				</RootStack.Navigator>
-				<AuthenticationLoader />
-				<CallingModalWrapper />
-				<CallingModalGroupWrapper />
-				<ListenerLoader />
+				<RootAuthStack isTabletLandscape={isTabletLandscape} notifyInit={notiInitRef?.current} initRouteName={initRouteName} />
 			</ColorRoleProvider>
 		</BottomSheetModalProvider>
 	);

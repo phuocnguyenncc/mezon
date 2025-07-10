@@ -160,7 +160,7 @@ export const BasicView = memo(({ channel }: IBasicViewProps) => {
 						padding: size.s_14,
 						alignItems: 'center',
 						borderRadius: size.s_14,
-						backgroundColor: themeValue.primary,
+						backgroundColor: themeValue.secondary,
 						marginBottom: size.s_16
 					}}
 				>
@@ -183,7 +183,7 @@ export const BasicView = memo(({ channel }: IBasicViewProps) => {
 								padding: size.s_14,
 								alignItems: 'center',
 								borderRadius: size.s_14,
-								backgroundColor: themeValue.primary,
+								backgroundColor: themeValue.secondary,
 								marginVertical: size.s_16
 							}}
 						>
@@ -199,7 +199,7 @@ export const BasicView = memo(({ channel }: IBasicViewProps) => {
 
 			<View style={{ gap: size.s_10, marginBottom: size.s_10, flex: 1 }}>
 				<Text color={themeValue.textDisabled}>{t('channelPermission.whoCanAccess')}</Text>
-				<View style={{ backgroundColor: themeValue.primary, borderRadius: size.s_14, flex: 1 }}>
+				<View style={{ backgroundColor: themeValue.secondary, borderRadius: size.s_14, flex: 1 }}>
 					<FlashList
 						data={combineWhoCanAccessList}
 						keyboardShouldPersistTaps={'handled'}

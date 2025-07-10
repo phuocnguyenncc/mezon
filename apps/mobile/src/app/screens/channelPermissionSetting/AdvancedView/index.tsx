@@ -92,7 +92,7 @@ export const AdvancedView = memo(({ isAdvancedEditMode, channel }: IAdvancedView
 	);
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, backgroundColor: themeValue.primary }}>
 			{listOfRoleAndMemberInChannel.length ? (
 				<FlashList
 					data={listOfRoleAndMemberInChannel}

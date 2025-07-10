@@ -119,9 +119,9 @@ const ChannelList = () => {
 				refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
 				stickyHeaderIndices={[1]}
 				showsVerticalScrollIndicator={true}
-				initialNumToRender={10}
-				maxToRenderPerBatch={10}
-				windowSize={10}
+				initialNumToRender={15}
+				maxToRenderPerBatch={15}
+				windowSize={20}
 				updateCellsBatchingPeriod={50}
 				scrollEventThrottle={16}
 				removeClippedSubviews={Platform.OS === 'android'}
