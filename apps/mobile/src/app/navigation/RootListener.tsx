@@ -43,11 +43,12 @@ import {
 	setCurrentClanLoader
 } from '@mezon/mobile-components';
 import { useMezon } from '@mezon/transport';
-import analytics from '@react-native-firebase/analytics';
+import { getAnalytics, logEvent, setAnalyticsCollectionEnabled } from '@react-native-firebase/analytics';
+import { getApp } from '@react-native-firebase/app';
 import { ChannelType, Session } from 'mezon-js';
 import { AppState, DeviceEventEmitter, Platform, View } from 'react-native';
 import { getVoIPToken, handleFCMToken } from '../utils/pushNotificationHelpers';
-
+const analytics = getAnalytics(getApp());
 const MAX_RETRIES_SESSION = 10;
 const RootListener = () => {
 	const isLoggedIn = useSelector(selectIsLogin);
@@ -153,8 +154,8 @@ const RootListener = () => {
 
 	const logAppStarted = async () => {
 		try {
-			await analytics().setAnalyticsCollectionEnabled(true);
-			await analytics().logEvent('app_started', {
+			await setAnalyticsCollectionEnabled(analytics, true);
+			await logEvent(analytics, 'app_started_NEW', {
 				platform: Platform.OS
 			});
 		} catch (error) {
