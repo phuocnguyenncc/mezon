@@ -1,38 +1,40 @@
 {
-    "title": "Messages",
-    "addFriend": "Add Friend",
-    "friends": "Friends",
-    "blockedUserMessage": "Blocked message",
-    "menu": {
-        "leaveGroup": "Leave Group",
-        "deleteGroup": "Delete Group",
-        "profile": "Profile",
-        "closeDm": "Close DM",
-        "markAsRead": "Mark As Read",
-        "favorite": "Favorite",
-        "muteConversation": "Mute Conversation",
-        "unMuteConversation": "Unmute Conversation",
-        "notificationSettings": "Notification Settings",
-        "disableE2EE": "Disable E2EE",
-        "enableE2EE": "Enable E2EE",
-        "blockUser": "Block User",
-        "unblockUser": "Unblock User",
-        "removeFriend": "Remove Friend",
-        "addFriend": "Add Friend"
+  "title": "Messages",
+  "addFriend": "Add Friend",
+  "friends": "Friends",
+  "blockedUserMessage": "Blocked message",
+  "menu": {
+    "leaveGroup": "Leave Group",
+    "deleteGroup": "Delete Group",
+    "profile": "Profile",
+    "closeDm": "Close DM",
+    "markAsRead": "Mark As Read",
+    "favorite": "Favorite",
+    "muteConversation": "Mute Conversation",
+    "unMuteConversation": "Unmute Conversation",
+    "notificationSettings": "Notification Settings",
+    "disableE2EE": "Disable E2EE",
+    "enableE2EE": "Enable E2EE",
+    "blockUser": "Block User",
+    "unblockUser": "Unblock User",
+    "removeFriend": "Remove Friend",
+    "addFriend": "Add Friend"
+  },
+  "confirm": {
+    "title": "Leave {{groupName}}",
+    "content": "Are you sure you want to leave {{groupName}}? You won't be able to rejoin this group unless you are re-invited.",
+    "confirmText": "Yes"
+  },
+  "notification": {
+    "blockUser": {
+      "success": "User blocked successfully",
+      "error": "Failed to block user"
     },
-    "confirm": {
-        "title": "Leave {{groupName}}",
-        "content": "Are you sure you want to leave {{groupName}}? You won't be able to rejoin this group unless you are re-invited.",
-        "confirmText": "Yes"
-    },
-    "notification": {
-        "blockUser": {
-            "success": "User blocked successfully",
-            "error": "Failed to block user"
-        },
-        "unblockUser": {
-            "success": "User unblocked successfully",
-            "error": "Failed to unblock user"
-        }
+    "unblockUser": {
+      "success": "User unblocked successfully",
+      "error": "Failed to unblock user"
     }
+  },
+  "addedBy": "Added by",
+  "you": "you"
 }

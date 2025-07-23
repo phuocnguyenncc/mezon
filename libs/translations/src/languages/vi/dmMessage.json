@@ -34,5 +34,7 @@
             "success": "Bỏ chặn người dùng thành công",
             "error": "Không thể bỏ chặn người dùng"
         }
-    }
+    },
+    "addedBy": "Thêm bởi",
+    "you": "bạn"
 }
