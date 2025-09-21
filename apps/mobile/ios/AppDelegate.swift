@@ -8,7 +8,6 @@ import AVKit
 import ReactAppDependencyProvider
 import SDWebImage
 import SDWebImageWebPCoder
-import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
       // Initialize React Native
       FirebaseApp.configure()
-	  UNUserNotificationCenter.current().delegate = self
       // Configure audio session with proper error handling
       DispatchQueue.global(qos: .background).async {
         do {
@@ -77,41 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let handledByLinking = RCTLinkingManager.application(application, continue: userActivity, restorationHandler: restorationHandler)
 
     return handledByLinking
-  }
-
-  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-	  print("📱 FCM: App in BACKGROUND - Notification received")
-
-	  let appState = application.applicationState
-
-	  switch appState {
-	  case .background:
-		  print("📱 FCM: App in BACKGROUND - Notification received")
-		  incrementBadge()
-	  case .inactive:
-		  print("📱 FCM: App INACTIVE/KILLED - Notification received")
-		  incrementBadge()
-	  case .active:
-		  print("📱 FCM: App in FOREGROUND - Notification received (ignored)")
-		  // Do nothing for foreground notifications
-	  @unknown default:
-		  print("📱 FCM: UNKNOWN state - Notification received")
-		  incrementBadge()
-	  }
-
-	  completionHandler(.newData)
-  }
-
-  private func incrementBadge() {
-	  print("incrementBadge")
-
-	  DispatchQueue.main.async {
-		  let currentBadge = UIApplication.shared.applicationIconBadgeNumber
-
-		  let newBadge = currentBadge + 1
-		  UIApplication.shared.applicationIconBadgeNumber = newBadge
-		  print("FCM: Badge incremented \(currentBadge) → \(newBadge)")
-	  }
   }
 
   // Add support for orientation handling
