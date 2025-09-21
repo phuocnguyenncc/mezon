@@ -198,7 +198,12 @@ export function MyVideoConference({
 					{!focusTrack ? (
 						<div className="lk-grid-layout-wrapper bg-gray-300 dark:bg-black !h-full !py-[68px]">
 							<GridLayout tracks={tracks}>
-								<ParticipantTile roomName={room?.name} isExtCalling={isExternalCalling} activeSoundReactions={activeSoundReactions} />
+								<ParticipantTile
+									room={room}
+									roomName={room?.name}
+									isExtCalling={isExternalCalling}
+									activeSoundReactions={activeSoundReactions}
+								/>
 							</GridLayout>
 						</div>
 					) : (
@@ -208,6 +213,7 @@ export function MyVideoConference({
 								{isShowMember && (
 									<CarouselLayout tracks={tracks}>
 										<ParticipantTile
+											room={room}
 											roomName={room?.name}
 											isExtCalling={isExternalCalling}
 											activeSoundReactions={activeSoundReactions}

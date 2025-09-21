@@ -21,7 +21,7 @@ import { useAuth, usePermissionChecker } from '@mezon/core';
 import { selectMemberClanByUserName, useAppDispatch, useAppSelector, voiceActions } from '@mezon/store';
 import { Icons } from '@mezon/ui';
 import { EPermission, createImgproxyUrl } from '@mezon/utils';
-import type { Participant } from 'livekit-client';
+import type { Participant, Room } from 'livekit-client';
 import { ConnectionQuality, Track } from 'livekit-client';
 import { safeJSONParse } from 'mezon-js';
 import type { PropsWithChildren } from 'react';
@@ -64,6 +64,7 @@ export interface ParticipantTileProps extends React.HTMLAttributes<HTMLDivElemen
 	isConnectingScreen?: boolean;
 	activeSoundReactions?: Map<string, ActiveSoundReaction>;
 	roomName?: string;
+	room?: Room;
 }
 export const ParticipantTile: (props: ParticipantTileProps & React.RefAttributes<HTMLDivElement>) => React.ReactNode = forwardRef<
 	HTMLDivElement,
@@ -77,11 +78,20 @@ export const ParticipantTile: (props: ParticipantTileProps & React.RefAttributes
 		disableSpeakingIndicator,
 		isExtCalling,
 		activeSoundReactions,
+		room,
 		...htmlProps
 	}: ParticipantTileProps,
 	ref
 ) {
 	const trackReference = useEnsureTrackRef(trackRef);
+
+	const checkOpenMic = useMemo(() => {
+		const participant = room?.remoteParticipants.get(trackReference.participant.identity);
+
+		const lastPublication = participant ? [...participant.audioTrackPublications.values()].pop() : undefined;
+		const micOn = lastPublication?.track && !lastPublication.track.isMuted;
+		return micOn;
+	}, [room, trackReference]);
 
 	const { elementProps } = useParticipantTile<HTMLDivElement>({
 		htmlProps,
@@ -243,12 +253,14 @@ export const ParticipantTile: (props: ParticipantTileProps & React.RefAttributes
 					<FocusToggle className="peer w-full h-full absolute top-0 right-0 bg-transparent" trackRef={trackReference} />
 					{roomName && canMangeVoice && userProfile?.user?.id !== member?.id && (
 						<div className="hover:opacity-100 peer-hover:opacity-100 opacity-0 absolute top-2 right-2 gap-2 flex rounded-full items-center justify-center cursor-pointer">
-							<div
-								className="w-6 h-6 rounded-full hover:bg-bgSecondaryHover flex items-center justify-center"
-								onClick={handleMuteMember}
-							>
-								<Icons.VoiceMicDisabledIcon className="w-4 h-4" />
-							</div>
+							{checkOpenMic && (
+								<div
+									className="w-6 h-6 rounded-full hover:bg-bgSecondaryHover flex items-center justify-center"
+									onClick={handleMuteMember}
+								>
+									<Icons.VoiceMicDisabledIcon className="w-4 h-4" />
+								</div>
+							)}
 							<div
 								className="w-6 h-6 rounded-full hover:bg-bgSecondaryHover flex items-center justify-center"
 								onClick={handleRemoveMember}

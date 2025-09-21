@@ -29,7 +29,6 @@ import HistoryTransaction from '../../HistoryTransaction';
 import ItemProfile from './ItemProfile';
 import ItemStatus from './ItemStatus';
 import ItemStatusUpdate from './ItemStatusUpdate';
-import WalletManagementModal from './WalletManagementModal';
 
 type StatusProfileProps = {
 	userById: ChannelMembersEntity | null;
@@ -256,8 +255,6 @@ const StatusProfile = ({ userById, isDM, modalRef, onClose }: StatusProfileProps
 				className=" px-2 py-[6px] text-theme-primary-hover bg-item-theme-hover"
 			/>
 			{isShowModalHistory && <HistoryTransaction onClose={handleCloseHistoryModal} />}
-
-			<WalletManagementModal isOpen={showWalletModal} onClose={() => setShowWalletModal(false)} />
 		</>
 	);
 };

@@ -1,4 +1,5 @@
 import type { ParticipantClickEvent, TrackReferenceOrPlaceholder } from '@livekit/components-core';
+import type { Room } from 'livekit-client';
 import * as React from 'react';
 import { ParticipantTile } from '../ParticipantTile/ParticipantTile';
 
@@ -18,6 +19,7 @@ export interface FocusLayoutProps extends React.HTMLAttributes<HTMLElement> {
 	trackRef?: TrackReferenceOrPlaceholder;
 	onParticipantClick?: (evt: ParticipantClickEvent) => void;
 	isExtCalling?: boolean;
+	room?: Room;
 }
 
 export function FocusLayout({ trackRef, isExtCalling = false, ...htmlProps }: FocusLayoutProps) {
