@@ -1,5 +1,5 @@
 import { AttachmentPreviewThumbnail, FileSelectionButton, MentionReactInput, ReplyMessageBox, UserMentionList } from '@mezon/components';
-import { useChatSending, useDragAndDrop, usePermissionChecker, useReference } from '@mezon/core';
+import { useChatSending, useDragAndDrop, useReference } from '@mezon/core';
 import {
 	fetchMessages,
 	referencesActions,
@@ -19,7 +19,6 @@ import {
 import type { IMessageSendPayload } from '@mezon/utils';
 import {
 	CREATING_TOPIC,
-	EOverriddenPermission,
 	IMAGE_MAX_FILE_SIZE,
 	MAX_FILE_ATTACHMENTS,
 	MAX_FILE_SIZE,
@@ -52,7 +51,6 @@ const TopicDiscussionBox = () => {
 	const [topicDraggingState, setTopicDraggingState] = useState(false);
 	const closeMenu = useSelector(selectCloseMenu);
 	const statusMenu = useSelector(selectStatusMenu);
-	const [canSendMessage] = usePermissionChecker([EOverriddenPermission.sendMessage], currentTopicId ?? '');
 	const mode =
 		currentChannel?.type === ChannelType.CHANNEL_TYPE_THREAD ? ChannelStreamMode.STREAM_MODE_THREAD : ChannelStreamMode.STREAM_MODE_CHANNEL;
 	const handleChildContextMenu = (event: React.MouseEvent) => {
@@ -248,7 +246,7 @@ const TopicDiscussionBox = () => {
 				<div className={`relative ${isElectron() ? 'h-[calc(100%_-_50px_-_30px)]' : 'h-full'}`}>
 					<MemoizedChannelMessages
 						isPrivate={currentChannel?.channel_private}
-						channelId={currentTopicId as string}
+						channelId={currentChannelId as string}
 						clanId={currentClanId as string}
 						type={ChannelType.CHANNEL_TYPE_CHANNEL}
 						mode={mode}
@@ -289,11 +287,7 @@ const TopicDiscussionBox = () => {
 						bg-theme-surface rounded-lg relative shadow-md border-theme-primary ${checkAttachment || (dataReferences && dataReferences.message_ref_id) ? 'rounded-t-none' : 'rounded-t-lg'}
 						${closeMenu && !statusMenu ? 'max-w-wrappBoxChatViewMobile' : 'w-wrappBoxChatView'}`}
 					>
-						<FileSelectionButton
-							currentClanId={currentClanId || ''}
-							currentChannelId={currentInputChannelId}
-							hasPermissionEdit={canSendMessage}
-						/>
+						<FileSelectionButton currentChannelId={currentInputChannelId} />
 
 						<div className={`w-[calc(100%_-_58px)] bg-theme-surface gap-3 flex items-center rounded-e-md`}>
 							<div

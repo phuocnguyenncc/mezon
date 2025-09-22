@@ -461,11 +461,7 @@ const ThreadBox = () => {
 							className={`flex flex-inline items-start gap-2 box-content max-sm:mb-0 bg-theme-surface rounded-lg relative shadow-md border-theme-primary ${checkAttachment ? 'rounded-t-none' : 'rounded-t-lg'}
 						${closeMenu && !statusMenu ? 'max-w-wrappBoxChatViewMobile' : 'w-wrappBoxChatView'}`}
 						>
-							<FileSelectionButton
-								currentClanId={currentClanId || ''}
-								currentChannelId={currentInputChannelId}
-								hasPermissionEdit={true}
-							/>
+							<FileSelectionButton currentChannelId={currentInputChannelId} />
 							<div className={`w-[calc(100%_-_58px)] bg-transparent gap-3 flex items-center rounded-e-md`}>
 								<div
 									className={`w-full border-none rounded-r-lg gap-3 relative whitespace-pre-wrap`}

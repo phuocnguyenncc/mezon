@@ -2,20 +2,11 @@ import { useDragAndDrop, usePermissionChecker, useReference } from '@mezon/core'
 import { referencesActions, selectCloseMenu, selectDataReferences, selectStatusMenu, useAppDispatch } from '@mezon/store';
 import { useMezon } from '@mezon/transport';
 import { Icons } from '@mezon/ui';
-import {
-	EOverriddenPermission,
-	ILongPressType,
-	IMessageSendPayload,
-	MAX_FILE_ATTACHMENTS,
-	MentionDataProps,
-	ThreadValue,
-	UploadLimitReason,
-	generateE2eId,
-	processFile,
-	useLongPress
-} from '@mezon/utils';
-import { ApiMessageAttachment, ApiMessageMention, ApiMessageRef } from 'mezon-js/api.gen';
-import { Fragment, ReactElement, memo, useCallback, useState } from 'react';
+import type { ILongPressType, IMessageSendPayload, MentionDataProps, ThreadValue } from '@mezon/utils';
+import { EOverriddenPermission, MAX_FILE_ATTACHMENTS, UploadLimitReason, processFile, useLongPress } from '@mezon/utils';
+import type { ApiMessageAttachment, ApiMessageMention, ApiMessageRef } from 'mezon-js/api.gen';
+import type { ReactElement } from 'react';
+import { Fragment, memo, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import AttachmentPreviewThumbnail from './AttachmentPreviewThumbnail';
 import AudioRecorderControl from './AudioRecorder/AudioRecorderControl';
@@ -56,7 +47,7 @@ const MessageBox = (props: MessageBoxProps): ReactElement => {
 		async (content: string, anonymousMessage?: boolean) => {
 			const fileContent = new Blob([content], { type: 'text/plain' });
 			const now = Date.now();
-			const filename = now + '.txt';
+			const filename = `${now}.txt`;
 			const file = new File([fileContent], filename, { type: 'text/plain' });
 
 			if (attachmentFilteredByChannelId?.files?.length + 1 > MAX_FILE_ATTACHMENTS) {
@@ -157,11 +148,7 @@ const MessageBox = (props: MessageBoxProps): ReactElement => {
 			bg-theme-surface rounded-lg relative shadow-md border-theme-primary ${checkAttachment || hasReplyMessage ? 'rounded-t-none' : 'rounded-t-lg'}
 			${closeMenu && !statusMenu ? 'max-w-wrappBoxChatViewMobile' : 'w-wrappBoxChatView'}`}
 			>
-				<FileSelectionButton
-					currentClanId={currentClanId || ''}
-					currentChannelId={currentChannelId || ''}
-					hasPermissionEdit={canSendMessage}
-				/>
+				<FileSelectionButton currentChannelId={currentChannelId || ''} />
 
 				<div className={`w-[calc(100%_-_50px)] bg-theme-surface gap-3 flex items-center rounded-e-md`}>
 					<div className={`w-full rounded-r-lg  gap-3 relative whitespace-pre-wrap`} onContextMenu={handleChildContextMenu}>

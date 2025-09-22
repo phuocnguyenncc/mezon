@@ -847,7 +847,7 @@ export const selectUpdateDmGroupLoading = (channelId: string) =>
 export const selectUpdateDmGroupError = (channelId: string) => createSelector(getDirectState, (state) => state.updateDmGroupError[channelId] || null);
 
 export const selectDirectsOpenlist = createSelector(selectAllDirectMessages, selectEntitiesDirectMeta, (directMessages, directMetaEntities) => {
-	return (directMessages ?? [])
+	return directMessages
 		.filter((dm) => {
 			return dm?.active === 1;
 		})
@@ -855,21 +855,10 @@ export const selectDirectsOpenlist = createSelector(selectAllDirectMessages, sel
 			if (!dm?.channel_id) return dm;
 			const found = directMetaEntities?.[dm.channel_id];
 			if (!found) return dm;
-			const updatedMetadata = {
-				...(found ?? {}),
-				last_sent_message: {
-					...(found?.last_sent_message ?? {}),
-					...(found?.lastSentTimestamp ? { timestamp_seconds: found.lastSentTimestamp } : {})
-				},
-				last_seen_message: {
-					...(found?.last_seen_message ?? {}),
-					...(found?.lastSeenTimestamp ? { timestamp_seconds: found.lastSeenTimestamp } : {})
-				}
-			};
 			return {
 				...dm,
-				last_sent_message: { ...(dm?.last_sent_message ?? {}), ...updatedMetadata.last_sent_message },
-				last_seen_message: { ...(dm?.last_seen_message ?? {}), ...updatedMetadata.last_seen_message }
+				last_sent_message: { ...dm.last_sent_message, ...found.last_sent_message },
+				last_seen_message: { ...dm.last_seen_message, ...found.last_seen_message }
 			};
 		});
 });

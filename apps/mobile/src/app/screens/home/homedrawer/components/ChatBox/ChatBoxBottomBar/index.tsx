@@ -315,6 +315,8 @@ export const ChatBoxBottomBar = memo(
 			}
 		}, []);
 		const handleTextInputChange = async (text: string) => {
+			if (isShowOptionPaste) setIsShowOptionPaste(false);
+
 			const store = getStore();
 			if (text?.length > MIN_THRESHOLD_CHARS) {
 				if (convertRef.current) {
@@ -585,6 +587,7 @@ export const ChatBoxBottomBar = memo(
 
 		const handleInputBlur = () => {
 			chatMessageLeftAreaRef.current?.setAttachControlVisibility(false);
+			setIsShowOptionPaste(false);
 			if (modeKeyBoardBottomSheet === 'text') {
 				DeviceEventEmitter.emit(ActionEmitEvent.ON_PANEL_KEYBOARD_BOTTOM_SHEET, {
 					isShow: false,
@@ -646,7 +649,7 @@ export const ChatBoxBottomBar = memo(
 			longPressTimer.current = setTimeout(() => {
 				isLongPressed.current = true;
 				onLongPress();
-			}, 500);
+			}, 400);
 		};
 
 		const handlePressOut = () => {

@@ -5,12 +5,10 @@ import { IMAGE_MAX_FILE_SIZE, MAX_FILE_ATTACHMENTS, MAX_FILE_SIZE, UploadLimitRe
 import type { ApiMessageAttachment } from 'mezon-js/api.gen';
 
 export type FileSelectionButtonProps = {
-	currentClanId: string;
 	currentChannelId: string;
-	hasPermissionEdit: boolean;
 };
 
-function FileSelectionButton({ currentClanId, currentChannelId, hasPermissionEdit }: FileSelectionButtonProps) {
+function FileSelectionButton({ currentChannelId }: FileSelectionButtonProps) {
 	const dispatch = useAppDispatch();
 	const uploadedAttachmentsInChannel = useAppSelector((state) => selectAttachmentByChannelId(state, currentChannelId))?.files || [];
 	const { setOverUploadingState } = useDragAndDrop();

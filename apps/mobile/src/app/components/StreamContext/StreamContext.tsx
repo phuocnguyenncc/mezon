@@ -157,7 +157,7 @@ export const WebRTCStreamProvider: React.FC<WebRTCProviderProps> = ({ children }
 
 	const startSession = useCallback(
 		(sd: string) => {
-			if (pcRef.current) {
+			if (pcRef.current && pcRef.current.connectionState !== 'closed') {
 				try {
 					pcRef.current.setRemoteDescription(new RTCSessionDescription({ type: 'answer', sdp: sd }));
 				} catch (e) {
@@ -191,12 +191,26 @@ export const WebRTCStreamProvider: React.FC<WebRTCProviderProps> = ({ children }
 	}, [pcRef.current, wsSend, isSupported, initPeerConnection, addError]);
 
 	const disconnect = useCallback(() => {
-		wsRef.current?.close();
-		pcRef.current?.close();
-		pcRef.current = null;
-		wsRef.current = null;
+		// Cleanup WebSocket
+		if (wsRef.current) {
+			wsRef.current.close();
+			wsRef.current = null;
+		}
+
+		// Cleanup PeerConnection
+		if (pcRef.current) {
+			pcRef.current.close();
+			pcRef.current = null;
+		}
+
+		// Reset all states
 		setIsConnected(false);
 		setConnectionState('closed');
+		setIsStream(false);
+		setRemoteStream(null);
+		setIsRemoteVideoStream(false);
+		setErrors([]);
+		setMessages([]);
 	}, []);
 	const handleChannelClick = useCallback(
 		(clanId: string, channelId: string, userId: string, streamId: string, username: string, accessToken: string) => {
@@ -206,6 +220,12 @@ export const WebRTCStreamProvider: React.FC<WebRTCProviderProps> = ({ children }
 				const peerConnection = initPeerConnection();
 				websocket.onopen = () => {
 					const f = () => {
+						// Check if peerConnection is still valid before creating offer
+						if (!peerConnection || peerConnection.connectionState === 'closed') {
+							console.error('PeerConnection is not available or closed');
+							return;
+						}
+
 						peerConnection
 							?.createOffer({})
 							.then((d) => {
@@ -275,7 +295,7 @@ export const WebRTCStreamProvider: React.FC<WebRTCProviderProps> = ({ children }
 								}
 								break;
 							case 'ice_candidate':
-								if (data.Value && pcRef.current) {
+								if (data.Value && pcRef.current && pcRef.current.connectionState !== 'closed') {
 									pcRef.current.addIceCandidate(data.Value).catch((error) => {
 										console.error('Error adding ICE candidate:', error);
 									});
