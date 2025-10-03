@@ -23,6 +23,7 @@ export const style = (colors: Attributes) =>
 			textTransform: 'uppercase',
 			fontSize: size.s_13,
 			fontWeight: 'bold',
-			color: colors.text
+			color: colors.text,
+			flexShrink: 1
 		}
 	});

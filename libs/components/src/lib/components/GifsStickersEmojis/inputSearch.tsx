@@ -27,12 +27,13 @@ export const InputSearch: React.FC = () => {
 	};
 
 	useEffect(() => {
-		debouncedSetValueSearchGif(valueInput);
+		const trimmedValue = valueInput.trim();
+		debouncedSetValueSearchGif(trimmedValue);
 		setValueInputSearch(valueInput);
 	}, [valueInput]);
 
 	useEffect(() => {
-		if (subPanelActive === SubPanelName.GIFS && valueSearchGif !== '') {
+		if (subPanelActive === SubPanelName.GIFS && valueSearchGif.trim() !== '') {
 			fetchGifsDataSearch(valueSearchGif);
 		}
 	}, [valueSearchGif]);

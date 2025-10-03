@@ -130,6 +130,7 @@
 		"addMember": "Thêm thành viên",
 		"privateChannel": "Kênh riêng tư",
 		"basicViewDescription": "Khi bạn chuyển kênh sang chế độ riêng tư, chỉ những thành viên và vai trò được chọn mới có thể xem kênh này",
+		"ChannelCreator": "Người tạo",
 		"addMemberAndRoles": "Thêm thành viên hoặc vai trò",
 		"whoCanAccess": "Ai có thể truy cập",
 		"warningModal": {

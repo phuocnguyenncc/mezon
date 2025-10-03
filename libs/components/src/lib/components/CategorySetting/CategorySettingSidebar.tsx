@@ -1,6 +1,7 @@
 import { useCategory } from '@mezon/core';
 import { selectCurrentChannel, selectWelcomeChannelByClanId } from '@mezon/store';
-import { ICategoryChannel, IChannel, generateE2eId } from '@mezon/utils';
+import type { ICategoryChannel } from '@mezon/utils';
+import { generateE2eId } from '@mezon/utils';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -36,7 +37,7 @@ const CategorySettingSidebar: React.FC<ICategorySettingSidebarProps> = ({ onClic
 	};
 
 	const confirmDeleteCategory = async () => {
-		handleDeleteCategory({ category, currenChannel: currenChannel as IChannel });
+		handleDeleteCategory({ category });
 		setShowModal(false);
 	};
 	const hasWelcomeChannel = useMemo(() => {

@@ -203,6 +203,10 @@ export const listChannelsByUserSlice = createSlice({
 				};
 			});
 			listChannelsByUserAdapter.updateMany(state, updateList);
+		},
+
+		bulkRemove: (state, action: PayloadAction<string[]>) => {
+			listChannelsByUserAdapter.removeMany(state, action.payload);
 		}
 	},
 	extraReducers: (builder) => {

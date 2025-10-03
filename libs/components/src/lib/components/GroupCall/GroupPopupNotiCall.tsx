@@ -1,14 +1,15 @@
 import { selectIsGroupCallActive, selectJoinedCall, selectMemberDMByUserId, useAppSelector } from '@mezon/store';
 import { Icons } from '@mezon/ui';
 import { createImgproxyUrl } from '@mezon/utils';
-import { WebrtcSignalingFwd } from 'mezon-js';
+import type { WebrtcSignalingFwd } from 'mezon-js';
 import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { AvatarImage } from '../AvatarImage/AvatarImage';
 import { useGroupCallAudio } from './hooks/useGroupCallAudio';
 import { useGroupCallSignaling } from './hooks/useGroupCallSignaling';
 import { useGroupCallState } from './hooks/useGroupCallState';
-import { CallSignalingData, createQuitData, parseSignalingData } from './utils/callDataUtils';
+import type { CallSignalingData } from './utils/callDataUtils';
+import { createQuitData, parseSignalingData } from './utils/callDataUtils';
 
 interface ModalCallProps {
 	dataCall: WebrtcSignalingFwd;
@@ -72,7 +73,7 @@ const GroupPopupNotiCall = ({ dataCall, userId }: ModalCallProps) => {
 				isVideo: callData.is_video,
 				groupId: dataCall.channel_id || '',
 				callerId: userId,
-				callerName: user?.user?.display_name || user?.user?.username || '',
+				callerName: user?.display_name || user?.username || '',
 				action: 'decline'
 			}) as CallSignalingData;
 
@@ -99,13 +100,13 @@ const GroupPopupNotiCall = ({ dataCall, userId }: ModalCallProps) => {
 						<AvatarImage
 							className="w-16 h-16 rounded-full border-2 border-green-500"
 							alt="caller avatar"
-							username={user?.user?.display_name || user?.user?.username}
-							srcImgProxy={createImgproxyUrl(user?.user?.avatar_url ?? '', {
+							username={user?.display_name || user?.username}
+							srcImgProxy={createImgproxyUrl(user?.avatar_url ?? '', {
 								width: 300,
 								height: 300,
 								resizeType: 'fit'
 							})}
-							src={user?.user?.avatar_url}
+							src={user?.avatar_url}
 						/>
 						<div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
 							{isVideoCall ? <Icons.IconMeetDM className="w-4 h-4" /> : <Icons.IconPhoneDM defaultSize="size-5" />}
@@ -114,9 +115,7 @@ const GroupPopupNotiCall = ({ dataCall, userId }: ModalCallProps) => {
 				</div>
 
 				<div className="text-center">
-					<p className="font-medium text-lg text-white">
-						{user?.user?.display_name || user?.user?.username || 'Someone'} is inviting you to join
-					</p>
+					<p className="font-medium text-lg text-white">{user?.display_name || user?.username || 'Someone'} is inviting you to join</p>
 					{memberCount > 1 && <p className="text-gray-400 mt-1">{memberCount} members in this group</p>}
 				</div>
 

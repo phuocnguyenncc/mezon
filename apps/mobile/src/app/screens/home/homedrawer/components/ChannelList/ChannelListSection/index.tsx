@@ -59,7 +59,7 @@ const ChannelListSection = memo(({ data }: IChannelListSectionProps) => {
 						color={themeValue.text}
 						customStyle={[!categoryExpandState && { transform: [{ rotate: '-90deg' }] }]}
 					/>
-					<Text style={styles.channelListHeaderItemTitle}>{data?.category_name}</Text>
+					<Text style={styles.channelListHeaderItemTitle} numberOfLines={1}>{data?.category_name}</Text>
 				</View>
 			</TouchableOpacity>
 		</View>

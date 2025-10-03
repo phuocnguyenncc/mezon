@@ -10,7 +10,6 @@ import type { CacheMetadata } from '../cache-metadata';
 import { clearApiCallTracker, createApiKey, createCacheMetadata, markApiFirstCalled, shouldForceApiCall } from '../cache-metadata';
 import { selectAllUserClans, selectEntitesUserClans } from '../clanMembers/clan.members';
 import { selectClanView } from '../clans/clans.slice';
-import { selectDirectMembersMetaEntities } from '../direct/direct.members.meta';
 import type { DirectEntity } from '../direct/direct.slice';
 import { selectDirectById, selectDirectMessageEntities } from '../direct/direct.slice';
 import type { MezonValueContext } from '../helpers';
@@ -481,27 +480,6 @@ export const selectMemberIdsByChannelId = createSelector(
 	[getChannelMembersState, (state, channelId: string) => channelId],
 	(getChannelMembersState, channelId) => {
 		return getChannelMembersState?.memberChannels?.[channelId]?.ids;
-	}
-);
-
-export const selectMemberCustomStatusById = createSelector(
-	[
-		selectEntitesUserClans,
-		selectDirectMembersMetaEntities,
-		(state: RootState, userId: string, isDM?: boolean) => {
-			//DO NOT EDIT UNLESS YOU KNOW WHAT ARE YOU DOING: thanh.levan
-			return `${userId},${isDM}`;
-		}
-	],
-	(usersClanEntities, statusList, payload) => {
-		const [userId, isDM] = payload.split(',');
-		const userClan = usersClanEntities[userId];
-		if (statusList?.[userId]) {
-			return statusList?.[userId].user?.user_status || '';
-		}
-		if (userClan && (isDM === 'false' || 'undefined')) {
-			return userClan?.user?.user_status || '';
-		}
 	}
 );
 

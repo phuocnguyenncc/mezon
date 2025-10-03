@@ -862,6 +862,33 @@ export const updateChannelBadgeCountAsync = createAsyncThunk(
 	}
 );
 
+export const bulkDeleteChannelSocket = createAsyncThunk(
+	'channels/bulkDeleteChannelSocket',
+	async ({ channels, clanId }: { channels: IChannel[]; clanId: string }, thunkAPI) => {
+		try {
+			const channelIds = channels.map((channel) => channel.id);
+			const channelDeleteEvents = channels.map((channel) => ({
+				channel_id: channel.id,
+				clan_id: channel.clan_id || '',
+				deletor: 'user',
+				channel_type: channel.type || 0,
+				channel_label: channel.channel_label || '',
+				category_id: channel.category_id || '',
+				parent_id: channel.parent_id || ''
+			}));
+			thunkAPI.dispatch(channelsActions.bulkDeleteChannels({ clanId, channelIds }));
+			thunkAPI.dispatch(listChannelsByUserActions.bulkRemove(channelIds));
+			thunkAPI.dispatch(listChannelRenderAction.bulkUpdateClanBadgeRender({ channelIds, clanId }));
+			thunkAPI.dispatch(listChannelRenderAction.bulkDeleteChannelsInListRender({ channelIds, clanId }));
+
+			return { channelDeleteEvents, channelIds, clanId };
+		} catch (error) {
+			captureSentryError(error, 'channels/bulkDeleteChannelSocket');
+			return thunkAPI.rejectWithValue(error);
+		}
+	}
+);
+
 export const updateChannelPrivateSocket = createAsyncThunk(
 	'channels/updateChannelPrivateSocket',
 	async ({ action, isUserUpdate }: { action: ChannelUpdatedEvent; isUserUpdate: boolean }, thunkAPI) => {
@@ -1388,6 +1415,13 @@ export const channelsSlice = createSlice({
 				state.showScrollDownButton = {};
 			}
 			state.showScrollDownButton[channelId] = isVisible;
+		},
+
+		bulkDeleteChannels: (state, action: PayloadAction<{ clanId: string; channelIds: string[] }>) => {
+			const { clanId, channelIds } = action.payload;
+			if (state.byClans[clanId]?.entities) {
+				channelsAdapter.removeMany(state.byClans[clanId].entities, channelIds);
+			}
 		}
 	},
 	extraReducers: (builder) => {
@@ -1534,7 +1568,8 @@ export const channelsActions = {
 	addThreadSocket,
 	updateChannelBadgeCountAsync,
 	changeCategoryOfChannel,
-	updateChannelPrivateSocket
+	updateChannelPrivateSocket,
+	bulkDeleteChannelSocket
 };
 
 /*

@@ -4,18 +4,15 @@ import {
 	useDirect,
 	useEscapeKeyClose,
 	useFormatDate,
-	useMemberCustomStatus,
 	useMemberStatus,
 	useOnClickOutside,
 	useSendInviteMessage,
 	useSettingFooter,
-	useUserById,
-	useUserMetaById
+	useUserById
 } from '@mezon/core';
 import type { RootState } from '@mezon/store';
-import { EStateFriend, selectAccountCustomStatus, selectAllAccount, selectCurrentUserId, selectFriendById, useAppSelector } from '@mezon/store';
-import type { ChannelMembersEntity, IMessageWithUser } from '@mezon/utils';
-import { saveParseUserStatus } from '@mezon/utils';
+import { EStateFriend, selectAllAccount, selectFriendById, selectUserStatusById, useAppSelector } from '@mezon/store';
+import type { ChannelMembersEntity, EUserStatus, IMessageWithUser } from '@mezon/utils';
 import { ChannelStreamMode } from 'mezon-js';
 import type { RefObject } from 'react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -90,27 +87,15 @@ const ModalUserProfile = ({
 	const { userId } = useAuth();
 	const { createDirectMessageWithUser } = useDirect();
 	const { sendInviteMessage } = useSendInviteMessage();
-	const userCustomStatus = useMemberCustomStatus(userID || '', isDM);
+	const status = useMemberStatus(userID || '');
 	const userById = useUserById(userID);
-	const userStatus = useMemberStatus(userID || '');
-	const userMetaById = useUserMetaById(userID);
+	const userStatus = useAppSelector((state) => selectUserStatusById(state, userID || ''));
 	const modalRef = useRef<boolean>(false);
 	const onLoading = useRef<boolean>(false);
-	const statusOnline = useMemo(() => {
-		if (userProfile?.user?.user_status && userId === userID) {
-			const metadata = saveParseUserStatus(userProfile?.user?.user_status);
-			return metadata?.user_status;
-		}
-		if (userMetaById) {
-			return userMetaById as any;
-		}
-	}, [userID, userId, userMetaById, userProfile]);
 
 	const date = new Date(userById?.user?.create_time as string | Date);
 	const { timeFormatted } = useFormatDate({ date });
-	const currentUserId = useSelector(selectCurrentUserId);
-	const currentUserCustomStatus = useSelector(selectAccountCustomStatus);
-	const displayCustomStatus = userID === currentUserId ? currentUserCustomStatus : userCustomStatus;
+
 	const avatarByUserId = isDM ? userById?.user?.avatar_url : userById?.clan_avatar || userById?.user?.avatar_url;
 
 	const [content, setContent] = useState<string>('');
@@ -246,13 +231,13 @@ const ModalUserProfile = ({
 				avatar={avatar || avatarByUserId}
 				username={(isFooterProfile && userProfile?.user?.username) || message?.username || userById?.user?.username}
 				userToDisplay={isFooterProfile ? userProfile : userById}
-				customStatus={displayCustomStatus as string}
+				customStatus={status.user_status}
 				isAnonymous={checkAnonymous}
 				userID={userID}
 				positionType={positionType}
 				isFooterProfile={isFooterProfile}
-				userStatus={userStatus}
-				statusOnline={statusOnline}
+				userStatus={userStatus?.user_status}
+				statusOnline={userStatus?.status as EUserStatus}
 			/>
 			<div className="px-[16px]">
 				<div className=" w-full border-theme-primary p-2 my-[16px] text-theme-primary shadow rounded-[10px] flex flex-col text-justify bg-item-theme">
@@ -272,14 +257,17 @@ const ModalUserProfile = ({
 					{checkAddFriend === EStateFriend.MY_PENDING && !showPopupLeft && <PendingFriend user={userById as ChannelMembersEntity} />}
 
 					{mode !== 4 && mode !== 3 && !isFooterProfile && (
-						<UserDescription title={t(`labels.${ETileDetail.AboutMe}`)} detail={userById?.user?.about_me as string} />
+						<UserDescription
+							title={t(`labels.${ETileDetail.AboutMe}`)}
+							detail={checkUser ? (userProfile?.user?.about_me as string) : (userById?.user?.about_me as string)}
+						/>
 					)}
 					{mode !== 4 && mode !== 3 && !isFooterProfile && (
 						<UserDescription title={t(`labels.${ETileDetail.MemberSince}`)} detail={timeFormatted} />
 					)}
 
 					{isFooterProfile ? (
-						<StatusProfile userById={userById as ChannelMembersEntity} isDM={isDM} modalRef={modalRef} onClose={onClose} />
+						<StatusProfile userById={userProfile?.user as ChannelMembersEntity} isDM={isDM} modalRef={modalRef} onClose={onClose} />
 					) : (
 						mode !== 4 && mode !== 3 && !hiddenRole && userById && <RoleUserProfile userID={userID} />
 					)}

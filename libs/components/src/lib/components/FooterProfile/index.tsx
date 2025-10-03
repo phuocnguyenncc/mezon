@@ -256,8 +256,8 @@ function FooterProfile({ name, status, avatar, userId, isDM }: FooterProfileProp
 		}
 	};
 	const [openSetCustomStatus, closeSetCustomStatus] = useModal(() => {
-		return <ModalCustomStatus status={userStatus} name={name} onClose={handleCloseModalCustomStatus} />;
-	}, [userStatus]);
+		return <ModalCustomStatus status={userCustomStatus} name={name} onClose={handleCloseModalCustomStatus} />;
+	}, [userCustomStatus]);
 
 	const [openModalSendToken, closeModalSendToken] = useModal(() => {
 		return (

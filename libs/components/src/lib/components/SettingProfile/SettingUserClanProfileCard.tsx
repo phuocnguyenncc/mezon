@@ -51,14 +51,18 @@ const SettingUserClanProfileCard = (props: propProfilesform) => {
 				userToDisplay={true}
 				customStatus={userStatusProfile}
 				userID={userProfile?.user?.id}
-				userStatus={userStatus}
+				userStatus={userStatus?.user_status}
+				statusOnline={userStatus.status}
 				identifierE2E="avatar_clan_profile"
 			/>
 
 			<div className="p-4 flex flex-col gap-4">
 				<div className="bg-theme-setting-primary text-theme-primary border-theme-primary shadow w-full p-4 rounded-[10px] flex flex-col gap-y-6 xl:gap-y-7">
 					<div className="w-[300px]">
-						<p className="font-bold tracking-wider text-xl one-line" data-e2e={generateE2eId('user_setting.profile.user_profile.preview.display_name')}>
+						<p
+							className="font-bold tracking-wider text-xl one-line"
+							data-e2e={generateE2eId('user_setting.profile.user_profile.preview.display_name')}
+						>
 							{profiles.displayName || currentDisplayName || userProfile?.user?.username}
 						</p>
 						<p className="font-medium tracking-wide text-sm">{userProfile?.user?.username}</p>

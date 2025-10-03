@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import { requestMeasure } from '../fasterdom';
-import { BooleanToVoidFunction } from '../types';
-import { Signal, debounce } from '../utils';
+import type { BooleanToVoidFunction } from '../types';
+import type { Signal } from '../utils';
+import { debounce } from '../utils';
 import { useIntersectionObserver, useOnIntersect } from './useIntersectionObserver';
 import useLastCallback from './useLastCallback';
 import { useSyncEffect } from './useSyncEffect';
@@ -14,8 +15,8 @@ export enum LoadMoreDirection {
 
 export const MESSAGE_LIST_SENSITIVE_AREA = 1500;
 
-const FAB_THRESHOLD = 50;
-const NOTCH_THRESHOLD = 1;
+const FAB_THRESHOLD = 600;
+const NOTCH_THRESHOLD = 600;
 const CONTAINER_HEIGHT_DEBOUNCE = 200;
 const TOOLS_FREEZE_TIMEOUT = 350;
 
@@ -72,12 +73,11 @@ export function useScrollHooks(
 		const fabOffsetTop = fabTrigger.offsetTop;
 		const scrollBottom = Math.round(fabOffsetTop - scrollTop - offsetHeight);
 		const isNearBottom = scrollBottom <= FAB_THRESHOLD;
-		const isAtBottom = scrollBottom <= NOTCH_THRESHOLD;
 
 		if (scrollHeight === 0) return;
 
-		onScrollDownToggle(isUnread ? !isAtBottom : !isNearBottom);
-		onNotchToggle(!isAtBottom);
+		onScrollDownToggle(!isNearBottom);
+		onNotchToggle(!isNearBottom);
 	});
 
 	const { observe: observeIntersectionForHistory } = useIntersectionObserver(

@@ -71,7 +71,7 @@
     "mezon-active-windows": "0.1.38",
     "mezon-js": "2.13.4",
     "mezon-js-protobuf": "1.8.41",
-    "mmn-client-js": "1.0.5",
+    "mmn-client-js": "1.0.6",
     "minio": "^7.1.3",
     "nx-electron": "^20.0.2",
     "quill": "^2.0.3",

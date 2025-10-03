@@ -857,7 +857,14 @@ export const ChatBoxBottomBar = memo(
 						/>
 					</View>
 				</View>
-				<ChatBoxTyping textChange={textChange} mode={mode} channelId={channelId} anonymousMode={anonymousMode} isPublic={isPublic} />
+				<ChatBoxTyping
+					textChange={textChange}
+					mode={mode}
+					channelId={channelId}
+					anonymousMode={anonymousMode}
+					isPublic={isPublic}
+					topicChannelId={topicChannelId || ''}
+				/>
 			</View>
 		);
 	}

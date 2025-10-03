@@ -66,26 +66,31 @@ const ModalCustomStatus = ({ name, status, onClose }: ModalCustomStatusProps) =>
 	const menuTime = useMemo(() => {
 		const menuItems: ReactElement[] = [
 			<ItemSelect
+				key={'timeOptions.today'}
 				timeSetReset={timeSetReset}
 				children={t('timeOptions.today')}
 				onClick={() => setStatusTimer(0, false, t('timeOptions.today'))}
 			/>,
 			<ItemSelect
+				key={'timeOptions.fourHours'}
 				timeSetReset={timeSetReset}
 				children={t('timeOptions.fourHours')}
 				onClick={() => setStatusTimer(240, false, t('timeOptions.fourHours'))}
 			/>,
 			<ItemSelect
+				key={'timeOptions.oneHour'}
 				timeSetReset={timeSetReset}
 				children={t('timeOptions.oneHour')}
 				onClick={() => setStatusTimer(60, false, t('timeOptions.oneHour'))}
 			/>,
 			<ItemSelect
+				key={'timeOptions.thirtyMinutes'}
 				timeSetReset={timeSetReset}
 				children={t('timeOptions.thirtyMinutes')}
 				onClick={() => setStatusTimer(30, false, t('timeOptions.thirtyMinutes'))}
 			/>,
 			<ItemSelect
+				key={'timeOptions.dontClear'}
 				timeSetReset={timeSetReset}
 				children={t('timeOptions.dontClear')}
 				onClick={() => setStatusTimer(0, true, t('timeOptions.dontClear'))}

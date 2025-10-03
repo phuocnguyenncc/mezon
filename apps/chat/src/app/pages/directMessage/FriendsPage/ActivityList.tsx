@@ -1,6 +1,8 @@
 import { useVirtualizer } from '@mezon/components';
-import { FriendsEntity, selectAllActivities, selectAllUserDM, selectTheme } from '@mezon/store';
-import { IUserItemActivity, isLinuxDesktop, isWindowsDesktop } from '@mezon/utils';
+import type { FriendsEntity } from '@mezon/store';
+import { selectAllActivities, selectAllUserDM, selectTheme } from '@mezon/store';
+import type { IUserProfileActivity } from '@mezon/utils';
+import { isLinuxDesktop, isWindowsDesktop } from '@mezon/utils';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -14,7 +16,7 @@ type ListActivityProps = {
 };
 
 type ActivityUserItemProps = {
-	user?: IUserItemActivity;
+	user?: IUserProfileActivity;
 };
 
 const MemoizedMemberItem = memo((props: ActivityUserItemProps) => {
@@ -34,22 +36,18 @@ const ActivityList = ({ listFriend }: ListActivityProps) => {
 	const mergeListFriendAndListUserDM = useMemo(() => {
 		return [
 			...listFriend.map((friend) => ({
-				user: {
-					avatar_url: friend?.user?.avatar_url,
-					display_name: friend?.user?.display_name,
-					id: friend?.user?.id,
-					username: friend?.user?.username,
-					online: friend?.user?.online,
-					metadata: friend?.user?.metadata
-				},
-				id: friend?.id
+				avatar_url: friend?.user?.avatar_url,
+				display_name: friend?.user?.display_name,
+				id: friend?.user?.id,
+				username: friend?.user?.username,
+				online: friend?.user?.online
 			})),
 			...listUserDM
 		];
 	}, [listFriend, listUserDM]);
 
 	const listUser = Array.from(new Map(mergeListFriendAndListUserDM.map((item) => [item?.id, item])).values());
-	const userIds = listUser?.filter((user) => user?.user?.online).map((item) => item?.id);
+	const userIds = listUser?.filter((user) => user?.online).map((item) => item?.id);
 
 	const activities = useSelector(selectAllActivities);
 
@@ -108,7 +106,7 @@ const ActivityList = ({ listFriend }: ListActivityProps) => {
 			ref={parentRef}
 			className={`flex h-full flex-col overflow-y-auto w-full custom-member-list ${appearanceTheme === 'light' ? 'customSmallScrollLightMode' : 'thread-scroll'}`}
 			style={{
-				height: height,
+				height,
 				overflow: 'auto'
 			}}
 		>
@@ -147,7 +145,7 @@ const ActivityList = ({ listFriend }: ListActivityProps) => {
 										{t('activity.gaming')} - {listActivities.lolCount}
 									</p>
 								) : (
-									<MemoizedMemberItem user={user?.user} />
+									<MemoizedMemberItem user={user as IUserProfileActivity} />
 								)}
 							</div>
 						</div>

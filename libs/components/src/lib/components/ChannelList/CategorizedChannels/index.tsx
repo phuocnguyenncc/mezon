@@ -11,12 +11,13 @@ import {
 	useAppSelector
 } from '@mezon/store';
 import { Icons } from '@mezon/ui';
-import { EPermission, generateE2eId, ICategory, ICategoryChannel, IChannel, MouseButton } from '@mezon/utils';
+import type { ICategory, ICategoryChannel, IChannel } from '@mezon/utils';
+import { EPermission, generateE2eId, MouseButton } from '@mezon/utils';
 import React, { memo, useRef, useState } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useSelector } from 'react-redux';
 import { CategorySetting } from '../../CategorySetting';
-import { Coords } from '../../ChannelLink';
+import type { Coords } from '../../ChannelLink';
 import ModalConfirm from '../../ModalConfirm';
 import PanelCategory from '../../PanelCategory';
 
@@ -41,8 +42,7 @@ const DeleteCategoryModal: React.FC<DeleteCategoryModalProps> = ({ category, clo
 	const currentChannel = useSelector(selectCurrentChannel);
 	const confirmDeleteCategory = async () => {
 		await handleDeleteCategory({
-			category: { ...category, channels: [] },
-			currenChannel: currentChannel as IChannel
+			category: { ...category, channels: [] }
 		});
 		closeDeleteModal();
 	};

@@ -29,14 +29,15 @@ export const ChatBoxTyping = memo(
 		const userClanProfile = useAppSelector((state) => selectMemberClanByUserId(state, userProfile?.user?.id));
 
 		const handleTyping = async () => {
-			if (anonymousMode || !!topicChannelId) return;
+			if (anonymousMode) return;
 			dispatch(
 				messagesActions.sendTypingUser({
 					clanId: currentClanId || '',
-					channelId,
+					channelId: channelId,
 					mode,
 					isPublic,
-					username: userClanProfile?.clan_nick || userProfile?.user?.display_name || userProfile?.user?.username
+					username: userClanProfile?.clan_nick || userProfile?.user?.display_name || userProfile?.user?.username,
+					topicId: topicChannelId || ''
 				})
 			);
 		};

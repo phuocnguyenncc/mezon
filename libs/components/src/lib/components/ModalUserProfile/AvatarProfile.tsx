@@ -18,9 +18,10 @@ type AvatarProfileProps = {
 	userID?: string;
 	isFooterProfile?: boolean;
 	activityByUserId?: ApiUserActivity;
-	userStatus?: { status?: boolean; isMobile?: boolean };
+	userStatus?: string;
 	statusOnline?: EUserStatus;
 	identifierE2E?: string;
+	isMobile?: boolean;
 };
 
 const AvatarProfile = ({
@@ -35,7 +36,8 @@ const AvatarProfile = ({
 	activityByUserId,
 	userStatus,
 	statusOnline,
-	identifierE2E
+	identifierE2E,
+	isMobile
 }: AvatarProfileProps) => {
 	const currentClanId = useSelector(selectCurrentClanId);
 
@@ -63,7 +65,10 @@ const AvatarProfile = ({
 	}, [activityByUserId, customStatus, activityNames]);
 
 	return (
-		<div className=" text-theme-primary flex flex-1 flex-row gap-[6px] mt-[-50px] px-[16px]" data-e2e={generateE2eId('user_setting.profile.user_profile.preview.avatar')}>
+		<div
+			className=" text-theme-primary flex flex-1 flex-row gap-[6px] mt-[-50px] px-[16px]"
+			data-e2e={generateE2eId('user_setting.profile.user_profile.preview.avatar')}
+		>
 			<div className="relative h-fit">
 				<AvatarImage
 					alt={username || ''}
@@ -88,7 +93,7 @@ const AvatarProfile = ({
 				)}
 			</div>
 
-			{(customStatus || (userStatus?.status && activityByUserId)) && !isUserLeft && (
+			{(customStatus || (userStatus && activityByUserId)) && !isUserLeft && (
 				<div className="flex flex-col gap-[12px] mt-[30px] relative w-full h-[85px]">
 					<div className="bg-theme-surface w-[12px] h-[12px] rounded-full shadow-md"></div>
 					<div className="relative flex-1">

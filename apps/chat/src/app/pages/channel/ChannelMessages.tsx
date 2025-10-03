@@ -259,6 +259,7 @@ function ChannelMessages({
 		async (direction: LoadMoreDirection) => {
 			if (!userActiveScroll.current) return;
 			if (isLoadMore.current || !chatRef.current?.scrollHeight) return;
+
 			switch (direction) {
 				case LoadMoreDirection.Backwards:
 					currentScrollDirection.current = ELoadMoreDirection.top;
@@ -304,6 +305,12 @@ function ChannelMessages({
 
 	const handleScrollDownVisibilityChange = useCallback(
 		(isVisible: boolean) => {
+			const store = getStore();
+
+			const hasMoreBottom = selectHasMoreBottomByChannelId(store.getState() as RootState, channelId);
+
+			if (hasMoreBottom) return;
+
 			dispatch(
 				channelsActions.setScrollDownVisibility({
 					channelId,
@@ -666,17 +673,15 @@ const ChatMessageList: React.FC<ChatMessageListProps> = memo(
 				if (!userActiveScroll.current) return;
 
 				requestAnimationFrame(() => {
-					const { scrollHeight, clientHeight, scrollTop } = container;
+					const { scrollHeight, scrollTop } = container;
 
 					if (scrollTop < 1000 && messageIds.length > 0) {
 						onChange(LoadMoreDirection.Backwards);
 					}
 
-					// const bottomOffset = Math.abs(scrollHeight - clientHeight - scrollTop);
-					// const isAtBottom = bottomOffset <= BOTTOM_THRESHOLD;
-
-					const store = getStore();
-					const isAtBottom = selectShowScrollDownButton(store.getState(), channelId);
+					const isAtBottom =
+						chatRef?.current &&
+						Math.abs(chatRef.current.scrollHeight - chatRef.current.clientHeight - chatRef.current.scrollTop) <= BOTTOM_THRESHOLD;
 
 					if (isAtBottom) {
 						onChange(LoadMoreDirection.Forwards);
@@ -792,10 +797,7 @@ const ChatMessageList: React.FC<ChatMessageListProps> = memo(
 					}
 
 					const store = getStore();
-					const isAtBottom = selectShowScrollDownButton(store.getState(), channelId);
-					// const isAtBottom =
-					// 	chatRef?.current &&
-					// 	Math.abs(chatRef.current.scrollHeight - chatRef.current.clientHeight - chatRef.current.scrollTop) <= BOTTOM_THRESHOLD;
+					const isAtBottom = !selectShowScrollDownButton(store.getState(), channelId);
 
 					const isAlreadyFocusing = false;
 					if (isAtBottom && !isAlreadyFocusing) {

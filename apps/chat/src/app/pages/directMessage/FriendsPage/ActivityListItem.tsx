@@ -1,26 +1,28 @@
 import { AvatarImage } from '@mezon/components';
-import { ActivitiesEntity, selectActivityByUserId, useAppSelector } from '@mezon/store';
-import { IUserItemActivity, createImgproxyUrl } from '@mezon/utils';
+import type { ActivitiesEntity } from '@mezon/store';
+import { selectActivityByUserId, useAppSelector } from '@mezon/store';
+import type { IUserProfileActivity } from '@mezon/utils';
+import { createImgproxyUrl } from '@mezon/utils';
 
 type ActivityProps = {
-	user?: IUserItemActivity;
+	user?: IUserProfileActivity;
 };
 
 const ActivityListItem = ({ user }: ActivityProps) => {
-	const activityByUserId = useAppSelector((state) => selectActivityByUserId(state, user?.user?.id || ''));
+	const activityByUserId = useAppSelector((state) => selectActivityByUserId(state, user?.id || ''));
 
 	return (
 		<div className="border-color-primary group/list_friends">
-			<div key={user?.user?.id} className="flex justify-between items-center rounded-lg">
+			<div key={user?.id} className="flex justify-between items-center rounded-lg">
 				<ActivityItem user={user} activity={activityByUserId} />
 			</div>
 		</div>
 	);
 };
 
-const ActivityItem = ({ user, activity }: { user?: IUserItemActivity; activity?: ActivitiesEntity }) => {
-	const avatar = user?.user?.avatar_url ?? '';
-	const username = user?.user?.display_name || user?.user?.username || '';
+const ActivityItem = ({ user, activity }: { user?: IUserProfileActivity; activity?: ActivitiesEntity }) => {
+	const avatar = user?.avatar_url ?? '';
+	const username = user?.display_name || user?.username || '';
 	const activityDescription = activity?.activity_description;
 	const activityName = activity?.activity_name;
 

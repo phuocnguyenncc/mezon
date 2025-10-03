@@ -34,6 +34,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useThrottledCallback } from 'use-debounce';
 import MemoizedChannelMessages from '../channel/ChannelMessages';
+import { ChannelTyping } from '../channel/ChannelTyping';
 
 const TopicDiscussionBox = () => {
 	const dispatch = useAppDispatch();
@@ -57,7 +58,7 @@ const TopicDiscussionBox = () => {
 		event.stopPropagation();
 	};
 
-	const { sendMessage } = useChatSending({
+	const { sendMessage, sendMessageTyping } = useChatSending({
 		mode,
 		channelOrDirect: currentChannel
 			? {
@@ -96,7 +97,9 @@ const TopicDiscussionBox = () => {
 		[sendMessage, sessionUser, dispatch, currentInputChannelId]
 	);
 
-	const handleTyping = useCallback(() => {}, []);
+	const handleTyping = useCallback(() => {
+		sendMessageTyping();
+	}, [sendMessageTyping]);
 
 	const handleTypingDebounced = useThrottledCallback(handleTyping, 1000);
 
@@ -243,7 +246,7 @@ const TopicDiscussionBox = () => {
 				</div>
 			)}
 			{(isFetchMessageDone || firstMessageOfThisTopic) && (
-				<div className={`relative ${isElectron() ? 'h-[calc(100%_-_50px_-_30px)]' : 'h-full'}`}>
+				<div className={`relative flex-1 ${isElectron() ? 'h-[calc(100%_-_50px_-_30px)]' : 'h-full'}`}>
 					<MemoizedChannelMessages
 						isPrivate={currentChannel?.channel_private}
 						channelId={currentTopicId as string}
@@ -257,31 +260,31 @@ const TopicDiscussionBox = () => {
 				</div>
 			)}
 
-			<div className="flex flex-col flex-1">
-				<div className={`flex-shrink-0  flex flex-col pb-4 px-4 bg-theme-chat h-auto relative ${isElectron() ? 'pb-9' : ' pb-4'}`}>
-					{dataReferences.message_ref_id && (
-						<div className="w-full ">
-							<ReplyMessageBox channelId={currentTopicId ?? ''} dataReferences={dataReferences} />
+			<div className="flex-shrink flex flex-col bg-theme-chat h-auto relative">
+				{dataReferences.message_ref_id && (
+					<div className="w-full ">
+						<ReplyMessageBox channelId={currentTopicId ?? ''} dataReferences={dataReferences} />
+					</div>
+				)}
+				{checkAttachment && (
+					<div className={`${checkAttachment ? 'px-3  pb-1 pt-5  border-b-[1px] border-color-primary' : ''} bg-item-theme max-h-full`}>
+						<div className={`max-h-full flex gap-6 !overflow-y-hidden !overflow-x-auto thread-scroll `}>
+							{attachmentFilteredByChannelId?.files?.map((item: ApiMessageAttachment, index: number) => {
+								return (
+									<Fragment key={index}>
+										<AttachmentPreviewThumbnail
+											attachment={item}
+											channelId={currentInputChannelId}
+											onRemove={removeAttachmentByIndex}
+											indexOfItem={index}
+										/>
+									</Fragment>
+								);
+							})}
 						</div>
-					)}
-					{checkAttachment && (
-						<div className={`${checkAttachment ? 'px-3  pb-1 pt-5  border-b-[1px] border-color-primary' : ''} bg-item-theme max-h-full`}>
-							<div className={`max-h-full flex gap-6 !overflow-y-hidden !overflow-x-auto thread-scroll `}>
-								{attachmentFilteredByChannelId?.files?.map((item: ApiMessageAttachment, index: number) => {
-									return (
-										<Fragment key={index}>
-											<AttachmentPreviewThumbnail
-												attachment={item}
-												channelId={currentInputChannelId}
-												onRemove={removeAttachmentByIndex}
-												indexOfItem={index}
-											/>
-										</Fragment>
-									);
-								})}
-							</div>
-						</div>
-					)}
+					</div>
+				)}
+				<div className="mx-3 relative">
 					<div
 						className={`flex flex-inline items-start gap-2 box-content max-sm:mb-0
 						bg-theme-surface rounded-lg relative shadow-md border-theme-primary ${checkAttachment || (dataReferences && dataReferences.message_ref_id) ? 'rounded-t-none' : 'rounded-t-lg'}
@@ -310,6 +313,7 @@ const TopicDiscussionBox = () => {
 						</div>
 					</div>
 				</div>
+				{currentTopicId && <ChannelTyping channelId={currentTopicId || ''} mode={mode} isPublic isDM={false} />}
 			</div>
 		</div>
 	);

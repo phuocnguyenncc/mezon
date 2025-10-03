@@ -305,6 +305,10 @@ const ControlBar = ({
 
 	const [showEmojiPanel, setShowEmojiPanel] = useState(false);
 	const [showSoundPanel, setShowSoundPanel] = useState(false);
+	useEffect(() => {
+		setShowEmojiPanel(false);
+		setShowSoundPanel(false);
+	}, [currentChannel?.channel_id]);
 
 	useEffect(() => {
 		if (!showEmojiPanel) return;
@@ -386,7 +390,7 @@ const ControlBar = ({
 								<SoundSquare
 									channel={currentChannel as any}
 									mode={ChannelStreamMode.STREAM_MODE_CHANNEL}
-									onClose={() => {}}
+									onClose={() => setShowSoundPanel(false)}
 									onSoundSelect={handleSoundSelect}
 								/>
 							}

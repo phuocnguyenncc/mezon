@@ -1,5 +1,6 @@
+import { useMemberStatus } from '@mezon/core';
 import type { ChannelMembersEntity } from '@mezon/store';
-import { selectAccountCustomStatus, selectDirectMemberMetaUserId, selectMemberCustomStatusById, useAppSelector } from '@mezon/store';
+import { selectAccountCustomStatus, selectUserStatusById, useAppSelector } from '@mezon/store';
 import { useSelector } from 'react-redux';
 import { useDirectMessageContextMenu } from '../../contexts';
 import { BaseMemberProfile } from '../MemberProfile/MemberProfile';
@@ -15,9 +16,9 @@ export type MemberItemProps = {
 };
 
 function MemberItem({ user, directMessageId, isDM = true, isMe, createId }: MemberItemProps) {
-	const userCustomStatus = useAppSelector((state) => selectMemberCustomStatusById(state, user?.user?.id || '', isDM));
-	const userMetaById = useAppSelector((state) => selectDirectMemberMetaUserId(state, user?.user?.id || ''));
+	const userMetaById = useAppSelector((state) => selectUserStatusById(state, user?.user?.id || ''));
 	const currentUserCustomStatus = useSelector(selectAccountCustomStatus);
+	const status = useMemberStatus(user?.id);
 	const { showContextMenu, setCurrentUser, openProfileItem } = useDirectMessageContextMenu();
 	const handleClick = (event: React.MouseEvent) => {
 		setCurrentUser(user);
@@ -32,11 +33,11 @@ function MemberItem({ user, directMessageId, isDM = true, isMe, createId }: Memb
 				avatar={user.user?.avatar_url || ''}
 				username={user.user?.display_name || user.user?.username || ''}
 				userMeta={{
-					online: !!userMetaById?.user?.online || !!isMe,
-					status: userMetaById?.user?.status
+					online: !!userMetaById?.online || !!isMe,
+					status: userMetaById?.status
 				}}
 				isOwner={createId === user?.user?.id}
-				userStatus={isMe ? currentUserCustomStatus : userCustomStatus}
+				userStatus={isMe ? currentUserCustomStatus : status.user_status}
 				onContextMenu={showContextMenu}
 				onClick={handleClick}
 			/>

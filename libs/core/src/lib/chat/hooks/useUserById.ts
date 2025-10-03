@@ -6,12 +6,12 @@ import {
 	selectClanView,
 	selectCurrentChannel,
 	selectCurrentDM,
-	selectDirectMemberMetaUserId,
 	selectDmGroupCurrentId,
 	selectHashtagDmById,
 	selectMembeGroupByUserId,
 	selectMemberClanByUserId,
 	selectMemberDMByUserId,
+	selectUserStatusById,
 	useAppSelector
 } from '@mezon/store';
 import type { ChannelMembersEntity } from '@mezon/utils';
@@ -33,7 +33,7 @@ export const useUserMetaById = (userID: string | undefined): any | undefined => 
 		const isClanView = selectClanView(state);
 		return isClanView
 			? (selectClanMemberMetaUserId(state, userID ?? '')?.status as string | undefined)
-			: (selectDirectMemberMetaUserId(state, userID as string)?.user?.user_status as string | undefined);
+			: (selectUserStatusById(state, userID as string)?.user_status as string | undefined);
 	});
 };
 

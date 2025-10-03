@@ -1,15 +1,87 @@
-import { categoriesActions, selectAllCategories, selectCategoryIdSortChannel, selectChannelThreads, useAppDispatch } from '@mezon/store';
-import { ICategoryChannel, IChannel } from '@mezon/utils';
+import {
+	categoriesActions,
+	channelsActions,
+	getStore,
+	selectAllCategories,
+	selectAllChannels,
+	selectCategoryIdSortChannel,
+	selectChannelThreads,
+	selectCurrentChannelId,
+	selectCurrentClanId,
+	selectDefaultChannelIdByClanId,
+	selectWelcomeChannelByClanId,
+	useAppDispatch
+} from '@mezon/store';
+import type { ICategoryChannel, IChannel } from '@mezon/utils';
+import { checkIsThread } from '@mezon/utils';
 import { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAppNavigation } from '../../app/hooks/useAppNavigation';
 
 export function useCategory() {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const { toChannelPage, toMembersPage } = useAppNavigation();
+	const currentClanId = useSelector(selectCurrentClanId);
+	const currentChannelId = useSelector(selectCurrentChannelId);
 	const categorizedChannels = useCategorizedChannels();
+
+	const navigateAfterDeleteCategory = useCallback(
+		(categoryId: string) => {
+			const store = getStore();
+			const state = store.getState();
+			const allChannels = selectAllChannels(state);
+			const currentChannel = currentChannelId ? allChannels.find((ch) => ch.id === currentChannelId) : null;
+			if (!currentChannel || currentChannel.category_id !== categoryId) {
+				return;
+			}
+			const remainingChannels = allChannels.filter((ch) => ch.category_id !== categoryId && !checkIsThread(ch));
+			if (remainingChannels.length === 0) {
+				const membersPath = toMembersPage(currentClanId as string);
+				navigate(membersPath);
+				return;
+			}
+			const nextChannel = remainingChannels[0];
+			const channelPath = toChannelPage(nextChannel.id, currentClanId as string);
+			navigate(channelPath);
+		},
+		[currentChannelId, currentClanId, navigate, toChannelPage, toMembersPage]
+	);
+
 	const handleDeleteCategory = useCallback(
-		async ({ category, currenChannel }: { category: ICategoryChannel; currenChannel: IChannel }) => {
+		async ({ category }: { category: ICategoryChannel }) => {
+			const store = getStore();
+			const state = store.getState();
+			const channels = selectAllChannels(state);
+
+			const currentChannel = currentChannelId ? channels.find((ch) => ch.id === currentChannelId) : null;
+			const isUserInCategoryChannel = currentChannel && currentChannel.category_id === category.id;
+
+			if (isUserInCategoryChannel) {
+				const welcomeChannelId = selectWelcomeChannelByClanId(state, currentClanId as string);
+				const defaultChannelId = selectDefaultChannelIdByClanId(state, currentClanId as string);
+				const fallbackChannelId = channels.find((ch) => ch.category_id !== category.id && !checkIsThread(ch))?.id;
+
+				const redirectChannelId = welcomeChannelId || defaultChannelId || fallbackChannelId;
+
+				if (redirectChannelId) {
+					const channelPath = toChannelPage(redirectChannelId, currentClanId as string);
+					navigate(channelPath);
+					await new Promise((resolve) => setTimeout(resolve, 100));
+				}
+			}
+			const channelsInCategory = channels.filter((ch) => ch.category_id === category.id);
+
+			if (channelsInCategory.length > 0) {
+				dispatch(
+					channelsActions.bulkDeleteChannelSocket({
+						channels: channelsInCategory,
+						clanId: currentClanId as string
+					})
+				);
+			}
+
 			await dispatch(
 				categoriesActions.deleteCategory({
 					clanId: category.clan_id as string,
@@ -17,16 +89,19 @@ export function useCategory() {
 					categoryLabel: category.category_name as string
 				})
 			);
+
+			navigateAfterDeleteCategory(category.id);
 		},
-		[categorizedChannels]
+		[currentChannelId, currentClanId, navigate, toChannelPage, dispatch, navigateAfterDeleteCategory]
 	);
 
 	return useMemo(
 		() => ({
 			categorizedChannels,
-			handleDeleteCategory
+			handleDeleteCategory,
+			navigateAfterDeleteCategory
 		}),
-		[categorizedChannels, handleDeleteCategory]
+		[categorizedChannels, handleDeleteCategory, navigateAfterDeleteCategory]
 	);
 }
 

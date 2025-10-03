@@ -1,4 +1,4 @@
-import { useEscapeKeyClose, useMemberCustomStatus, useMemberStatus, useOnClickOutside, useSettingFooter, useUserById } from '@mezon/core';
+import { useEscapeKeyClose, useMemberStatus, useOnClickOutside, useSettingFooter, useUserById } from '@mezon/core';
 import type { ChannelMembersEntity, RootState } from '@mezon/store';
 import { selectCurrentClan, selectCurrentUserId, selectFriendById, selectModeResponsive, useAppSelector } from '@mezon/store';
 import { Icons } from '@mezon/ui';
@@ -59,7 +59,6 @@ const UserProfileModalInner = ({
 	const checkAddFriend = useMemo(() => {
 		return infoFriend?.state;
 	}, [infoFriend]);
-	const userCustomStatus = useMemberCustomStatus(userId || '', isDM);
 	const [openGroupIconBanner, setGroupIconBanner] = useState<OpenModalProps>(initOpenModal);
 	const [activeTab, setActiveTab] = useState<string>(typeTab.ABOUT_ME);
 	const [color, setColor] = useState<string>('');
@@ -162,9 +161,9 @@ const UserProfileModalInner = ({
 							avatar={avatar || displayAvatar}
 							username={displayUsername || notify?.content?.username}
 							userToDisplay={userById}
-							customStatus={customStatus || (userCustomStatus as string)}
+							customStatus={customStatus || (userStatus.user_status as string)}
 							userID={userId}
-							userStatus={status || userStatus}
+							userStatus={userStatus?.user_status}
 							styleAvatar="w-[120px] h-[120px] rounded-full"
 						/>
 						{isSelf ? (

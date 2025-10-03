@@ -187,9 +187,9 @@ export const accountSlice = createSlice({
 			}
 		},
 		updateUserStatus(state: AccountState, action: PayloadAction<string>) {
-			if (state.userProfile?.user?.user_status) {
+			if (state.userProfile?.user?.status) {
 				try {
-					state.userProfile.user.user_status = action.payload;
+					state.userProfile.user.status = action.payload;
 				} catch (error) {
 					console.error('Error updating user status in metadata:', error);
 				}

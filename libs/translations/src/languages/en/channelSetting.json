@@ -1,283 +1,284 @@
 {
-    "fields": {
-        "channelName": {
-            "title": "Channel Name",
-            "placeholder": "Input Channel Name",
-            "errorMessage": "Please enter a valid channel name (max 64 characters, only words, numbers, _ or -).",
-            "duplicateError": "The channel name already exists in the category. Please enter another name."
-        },
-        "threadName": {
-            "title": "Thread Name",
-            "placeholder": "Input Thread Name",
-            "errorMessage": "Please enter a valid thread name (max 64 characters, only words, numbers, _ or -).",
-            "duplicateError": "The thread name already exists in the channel. Please enter another name."
-        },
-        "channelDescription": {
-            "title": "Channel Topic",
-            "placeholder": "Let everyone know how to use this channel!"
-        },
-        "threadDescription": {
-            "title": "Thread Topic", 
-            "placeholder": "Let everyone know how to use this thread!"
-        },
-        "appUrl": {
-            "title": "App URL",
-            "invalidError": "Please enter a valid URL (e.g., https://example.com)."
-        },
-        "channelCategory": {
-            "title": "Category"
-        },
-        "channelPermission": {
-            "title": "",
-            "permission": "Channel Permission",
-            "description": "Change privacy settings and customize how members can interact with this channel."
-        },
-        "quickAction": {
-            "title": "Quick Action"
-        },
-        "privateChannelInvite": {
-            "addMember": "Add Member"
-        },
-        "channelNotifications": {
-            "title": "",
-            "notification": "Notification Settings",
-            "pinned": "Pinned Messages",
-            "invite": "Invites"
-        },
-        "channelSlowMode": {
-            "title": "Slowmode Cooldown",
-            "description": "Members will be restricted to sending one message and creating one thread per this interval, unless they have Manage Channel or Manage Messages permissions.",
-            "slowModeOff": "Slowmode is off",
-            "_5seconds": "5 seconds",
-            "_10seconds": "10 seconds",
-            "_15seconds": "15 seconds",
-            "_30seconds": "30 seconds",
-            "_1minute": "1 minute",
-            "_2minutes": "2 minutes",
-            "_5minutes": "5 minutes",
-            "_10minutes": "10 minutes",
-            "_15minutes": "15 minutes",
-            "_30minutes": "30 minutes",
-            "_1hour": "1 hour",
-            "_2hours": "2 hours",
-            "_6hours": "6 hours"
-        },
-        "channelHideInactivity": {
-            "title": "Hide After Inactivity",
-            "description": "New threads will not show in the channel list after being inactive for the specified duration",
-            "_1hour": "1 Hour",
-            "_24hours": "24 Hours",
-            "_3days": "3 Days",
-            "_1Week": "1 Week"
-        },
-        "channelWebhooks": {
-            "title": "",
-            "webhook": "Webhook"
-        },
-        "channelDelete": {
-            "title": "",
-            "delete": "Delete Channel",
-            "leave": "Leave Channel"
-        },
-        "threadDelete": {
-            "title": "",
-            "delete": "Delete Thread"
-        },
-        "threadLeave": {
-            "title": "",
-            "leave": "Leave Thread"
-        }
-    },
-    "confirm": {
-        "delete": {
-            "content": "Are you sure you want to delete #{{channelName}}?. This cannot be undone!",
-            "confirmText": "Delete",
-            "title": "Delete channel",
-            "systemChannel": "You can't delete system channel",
-            "error": "Delete channel failed: {{error}}"
-        },
-        "deleteThread": {
-            "content": "Are you sure you want to delete {{channelName}}? This cannot be undone.",
-            "confirmText": "Delete Thread",
-            "title": "Delete Thread"
-        },
-        "deleteChannel": {
-            "content": "Are you sure you want to delete {{channelName}}? This cannot be undone.",
-            "confirmText": "Delete Channel", 
-            "title": "Delete Channel"
-        },
-        "cancel": "Cancel",
-        "leave": {
-            "content": "Are you sure you want to leave #{{channelName}}?. This cannot be undone!",
-            "confirmText": "Leave",
-            "title": "Leave channel"
-        },
-        "save": "Save"
-    },
-    "toast": {
-        "updated": "Update successfully"
-    },
-    "channelPermission": {
-        "permissionOverrides": "Permission Overrides",
-        "save": "Save",
-        "generalChannelPermission": "GENERAL CHANNEL PERMISSION",
-        "title": "Permissions",
-        "basicView": "Basic View",
-        "advancedView": "Advanced View",
-        "roles": "Roles",
-        "members": "Members",
-        "edit": "Edit",
-        "done": "Done",
-        "addRole": "Add Role",
-        "addMember": "Add Member",
-        "privateChannel": "Private Channel",
-        "basicViewDescription": "By making a channel private, only select members and roles will be able to view this channel",
-        "addMemberAndRoles": "Add members or roles",
-        "whoCanAccess": "Who can access",
-        "warningModal": {
-            "publicChannelTitle": "Make this channel open to everyone?",
-            "privateChannelTitle": "Make this channel private?",
-            "publicChannelContent": "{{channelLabel}} will become available to all members",
-            "privateChannelContent": "{{channelLabel}} will become private and visible to select members and roles",
-            "confirm": "Yes"
-        },
-        "warningChangeSettingModal": {
-            "title": "You have unsaved settings",
-            "content": "Do you want to save the changes?",
-            "confirm": "Yes, Save"
-        },
-        "description": {
-            "viewChannel": "Allows members to view this channel by default. Disabling this for @everyone will make this channel private.",
-            "manageChannel": "Allows members to change this channel's name, description, and text settings. They can also delete the channel.",
-            "manageThread": "Allows members to rename, delete, close, and turn on slow mode for threads in this channel. They can also view private threads.",
-            "sendMessage": "Allows members to send messages in this channel",
-            "deleteMessage": "Allows members to delete messages in this channel"
-        },
-        "bottomSheet": {
-            "addMembersOrRoles": "Add members or roles",
-            "add": "Add",
-            "roles": "ROLES",
-            "members": "MEMBERS"
-        },
-        "toast": {
-            "success": "Save Successfully",
-            "failed": "Save Failed"
-        },
-        "roleAndMemberEmpty": "There are no roles and members to override permissions",
-        "header": {
-            "title": "Channel Permissions",
-            "description": "Use permissions to customise who can do what in this channel.",
-            "syncedWithCategory": "Permissions synced with category:"
-        }
-    },
-    "quickAction": {
-        "title": "Quick Actions",
-        "description": "Manage flash messages and quick menus for this channel",
-        "keyTitle": "Key (Example: hello)",
-        "valueTitle": "Content (Example: Good morning, Have a good day !)",
-        "save": "Save",
-        "cancel": "Cancel",
-        "create": "Create",
-        "update": "Update",
-        "delete": "Delete",
-        "deleteModal": "DELETE ACTION",
-        "deleteTitle": "Are you sure you want to delete {{command}}? This action cannot be undone.",
-        "flashMessage": "Flash Message",
-        "flashMessages": "Flash Messages",
-        "quickMenu": "Quick Menu", 
-        "quickMenus": "Quick Menus",
-        "menuName": "Menu Name",
-        "commandName": "Command Name",
-        "menuNameHelper": "The name for this quick menu item",
-        "commandNameHelper": "The name users will type after the slash",
-        "botEventTrigger": "Bot Event Trigger",
-        "botEventDescription": "This quick menu will automatically trigger a bot event when selected.",
-        "createQuickMenu": "Create Quick Menu",
-        "createFlashMessage": "Create Flash Message",
-        "editQuickMenu": "Edit Quick Menu",
-        "editFlashMessage": "Edit Flash Message",
-        "emptyFlashMessage": "No flash messages yet",
-        "emptyFlashMessageDescription": "Get started by creating your first flash message command",
-        "emptyQuickMenu": "No quick menus yet",
-        "emptyQuickMenuDescription": "Get started by creating your first quick menu",
-        "addFlashMessage": "Add Flash Message",
-        "addQuickMenu": "Add Quick Menu",
-        "editCommand": "Edit command",
-        "deleteCommand": "Delete command",
-        "triggersBot": "Triggers bot event",
-        "messageContent": "Message Content",
-        "messageContentPlaceholder": "Message to be sent quickly",
-        "messageContentDescription": "Message content that will be sent when this flash message command is used",
-        "menuAction": "Menu Action",
-        "menuActionPlaceholder": "Action to be executed",
-        "menuActionDescription": "Action that will be executed when this quick menu is selected"
-    },
-    "changeCategory": {
-        "title": "Change Category",
-        "label": "MOVE FROM {{currentChannel}} TO",
-        "confirmFirstContent": "Are you sure you want to move",
-        "confirmLastContent": "to category",
-        "confirm": "Confirm",
-        "error": "Change category failed"
-    },
-    "overview": {
-        "title": "Overview",
-        "ageRestricted": {
-            "title": "Age-Restricted Channel",
-            "description": "Users will need to confirm they are of legal age to view the content in this channel. Age-restricted channels are exempt from the explicit content filter."
-        },
-        "e2ee": {
-            "title": "End-to-End Encryption",
-            "description": "Enable end-to-end encryption for this channel to secure all messages."
-        }
-    },
-    "tabs": {
-        "overview": "Overview",
-        "permissions": "Permissions", 
-        "invites": "Invites",
-        "integrations": "Integrations",
-        "category": "Category",
-        "quickMenu": "Quick Menu"
-    },
-    "categoryManagement": {
-        "title": "Category",
-        "channelName": "Channel name",
-        "category": "Category"
-    },
-    "unsavedChanges": {
-        "warning": "Carefull - you have unsaved changes!",
-        "reset": "Reset",
-        "saveChanges": "Save Changes"
-    },
-    "addMembersRoles": {
-        "title": "Add members or roles",
-        "placeholder": "e.g. Moderators, @wumpus",
-        "instruction": "Add individual members by starting with @ or type a role name",
-        "roles": "Roles",
-        "members": "Members",
-        "cancel": "Cancel",
-        "done": "Done"
-    },
-    "table": {
-        "columnHeaders": {
-            "name": "Name",
-            "members": "Members",
-            "messagesCount": "Messages count",
-            "lastSent": "Last Sent",
-            "creator": "Creator"
-        },
-        "pagination": {
-            "show": "Show",
-            "channelOf": "channel of"
-        },
-        "memberModal": {
-            "listMember": "List Member"
-        },
-        "threads": {
-            "noThreads": "There is no threads in this channel"
-        },
-        "members": {
-            "allMembers": "(All Members)"
-        }
-    }
+	"fields": {
+		"channelName": {
+			"title": "Channel Name",
+			"placeholder": "Input Channel Name",
+			"errorMessage": "Please enter a valid channel name (max 64 characters, only words, numbers, _ or -).",
+			"duplicateError": "The channel name already exists in the category. Please enter another name."
+		},
+		"threadName": {
+			"title": "Thread Name",
+			"placeholder": "Input Thread Name",
+			"errorMessage": "Please enter a valid thread name (max 64 characters, only words, numbers, _ or -).",
+			"duplicateError": "The thread name already exists in the channel. Please enter another name."
+		},
+		"channelDescription": {
+			"title": "Channel Topic",
+			"placeholder": "Let everyone know how to use this channel!"
+		},
+		"threadDescription": {
+			"title": "Thread Topic",
+			"placeholder": "Let everyone know how to use this thread!"
+		},
+		"appUrl": {
+			"title": "App URL",
+			"invalidError": "Please enter a valid URL (e.g., https://example.com)."
+		},
+		"channelCategory": {
+			"title": "Category"
+		},
+		"channelPermission": {
+			"title": "",
+			"permission": "Channel Permission",
+			"description": "Change privacy settings and customize how members can interact with this channel."
+		},
+		"quickAction": {
+			"title": "Quick Action"
+		},
+		"privateChannelInvite": {
+			"addMember": "Add Member"
+		},
+		"channelNotifications": {
+			"title": "",
+			"notification": "Notification Settings",
+			"pinned": "Pinned Messages",
+			"invite": "Invites"
+		},
+		"channelSlowMode": {
+			"title": "Slowmode Cooldown",
+			"description": "Members will be restricted to sending one message and creating one thread per this interval, unless they have Manage Channel or Manage Messages permissions.",
+			"slowModeOff": "Slowmode is off",
+			"_5seconds": "5 seconds",
+			"_10seconds": "10 seconds",
+			"_15seconds": "15 seconds",
+			"_30seconds": "30 seconds",
+			"_1minute": "1 minute",
+			"_2minutes": "2 minutes",
+			"_5minutes": "5 minutes",
+			"_10minutes": "10 minutes",
+			"_15minutes": "15 minutes",
+			"_30minutes": "30 minutes",
+			"_1hour": "1 hour",
+			"_2hours": "2 hours",
+			"_6hours": "6 hours"
+		},
+		"channelHideInactivity": {
+			"title": "Hide After Inactivity",
+			"description": "New threads will not show in the channel list after being inactive for the specified duration",
+			"_1hour": "1 Hour",
+			"_24hours": "24 Hours",
+			"_3days": "3 Days",
+			"_1Week": "1 Week"
+		},
+		"channelWebhooks": {
+			"title": "",
+			"webhook": "Webhook"
+		},
+		"channelDelete": {
+			"title": "",
+			"delete": "Delete Channel",
+			"leave": "Leave Channel"
+		},
+		"threadDelete": {
+			"title": "",
+			"delete": "Delete Thread"
+		},
+		"threadLeave": {
+			"title": "",
+			"leave": "Leave Thread"
+		}
+	},
+	"confirm": {
+		"delete": {
+			"content": "Are you sure you want to delete #{{channelName}}?. This cannot be undone!",
+			"confirmText": "Delete",
+			"title": "Delete channel",
+			"systemChannel": "You can't delete system channel",
+			"error": "Delete channel failed: {{error}}"
+		},
+		"deleteThread": {
+			"content": "Are you sure you want to delete {{channelName}}? This cannot be undone.",
+			"confirmText": "Delete Thread",
+			"title": "Delete Thread"
+		},
+		"deleteChannel": {
+			"content": "Are you sure you want to delete {{channelName}}? This cannot be undone.",
+			"confirmText": "Delete Channel",
+			"title": "Delete Channel"
+		},
+		"cancel": "Cancel",
+		"leave": {
+			"content": "Are you sure you want to leave #{{channelName}}?. This cannot be undone!",
+			"confirmText": "Leave",
+			"title": "Leave channel"
+		},
+		"save": "Save"
+	},
+	"toast": {
+		"updated": "Update successfully"
+	},
+	"channelPermission": {
+		"permissionOverrides": "Permission Overrides",
+		"save": "Save",
+		"generalChannelPermission": "GENERAL CHANNEL PERMISSION",
+		"title": "Permissions",
+		"basicView": "Basic View",
+		"advancedView": "Advanced View",
+		"roles": "Roles",
+		"members": "Members",
+		"edit": "Edit",
+		"done": "Done",
+		"addRole": "Add Role",
+		"addMember": "Add Member",
+		"privateChannel": "Private Channel",
+		"basicViewDescription": "By making a channel private, only select members and roles will be able to view this channel",
+		"addMemberAndRoles": "Add members or roles",
+		"ChannelCreator": "Creator",
+		"whoCanAccess": "Who can access",
+		"warningModal": {
+			"publicChannelTitle": "Make this channel open to everyone?",
+			"privateChannelTitle": "Make this channel private?",
+			"publicChannelContent": "{{channelLabel}} will become available to all members",
+			"privateChannelContent": "{{channelLabel}} will become private and visible to select members and roles",
+			"confirm": "Yes"
+		},
+		"warningChangeSettingModal": {
+			"title": "You have unsaved settings",
+			"content": "Do you want to save the changes?",
+			"confirm": "Yes, Save"
+		},
+		"description": {
+			"viewChannel": "Allows members to view this channel by default. Disabling this for @everyone will make this channel private.",
+			"manageChannel": "Allows members to change this channel's name, description, and text settings. They can also delete the channel.",
+			"manageThread": "Allows members to rename, delete, close, and turn on slow mode for threads in this channel. They can also view private threads.",
+			"sendMessage": "Allows members to send messages in this channel",
+			"deleteMessage": "Allows members to delete messages in this channel"
+		},
+		"bottomSheet": {
+			"addMembersOrRoles": "Add members or roles",
+			"add": "Add",
+			"roles": "ROLES",
+			"members": "MEMBERS"
+		},
+		"toast": {
+			"success": "Save Successfully",
+			"failed": "Save Failed"
+		},
+		"roleAndMemberEmpty": "There are no roles and members to override permissions",
+		"header": {
+			"title": "Channel Permissions",
+			"description": "Use permissions to customise who can do what in this channel.",
+			"syncedWithCategory": "Permissions synced with category:"
+		}
+	},
+	"quickAction": {
+		"title": "Quick Actions",
+		"description": "Manage flash messages and quick menus for this channel",
+		"keyTitle": "Key (Example: hello)",
+		"valueTitle": "Content (Example: Good morning, Have a good day !)",
+		"save": "Save",
+		"cancel": "Cancel",
+		"create": "Create",
+		"update": "Update",
+		"delete": "Delete",
+		"deleteModal": "DELETE ACTION",
+		"deleteTitle": "Are you sure you want to delete {{command}}? This action cannot be undone.",
+		"flashMessage": "Flash Message",
+		"flashMessages": "Flash Messages",
+		"quickMenu": "Quick Menu",
+		"quickMenus": "Quick Menus",
+		"menuName": "Menu Name",
+		"commandName": "Command Name",
+		"menuNameHelper": "The name for this quick menu item",
+		"commandNameHelper": "The name users will type after the slash",
+		"botEventTrigger": "Bot Event Trigger",
+		"botEventDescription": "This quick menu will automatically trigger a bot event when selected.",
+		"createQuickMenu": "Create Quick Menu",
+		"createFlashMessage": "Create Flash Message",
+		"editQuickMenu": "Edit Quick Menu",
+		"editFlashMessage": "Edit Flash Message",
+		"emptyFlashMessage": "No flash messages yet",
+		"emptyFlashMessageDescription": "Get started by creating your first flash message command",
+		"emptyQuickMenu": "No quick menus yet",
+		"emptyQuickMenuDescription": "Get started by creating your first quick menu",
+		"addFlashMessage": "Add Flash Message",
+		"addQuickMenu": "Add Quick Menu",
+		"editCommand": "Edit command",
+		"deleteCommand": "Delete command",
+		"triggersBot": "Triggers bot event",
+		"messageContent": "Message Content",
+		"messageContentPlaceholder": "Message to be sent quickly",
+		"messageContentDescription": "Message content that will be sent when this flash message command is used",
+		"menuAction": "Menu Action",
+		"menuActionPlaceholder": "Action to be executed",
+		"menuActionDescription": "Action that will be executed when this quick menu is selected"
+	},
+	"changeCategory": {
+		"title": "Change Category",
+		"label": "MOVE FROM {{currentChannel}} TO",
+		"confirmFirstContent": "Are you sure you want to move",
+		"confirmLastContent": "to category",
+		"confirm": "Confirm",
+		"error": "Change category failed"
+	},
+	"overview": {
+		"title": "Overview",
+		"ageRestricted": {
+			"title": "Age-Restricted Channel",
+			"description": "Users will need to confirm they are of legal age to view the content in this channel. Age-restricted channels are exempt from the explicit content filter."
+		},
+		"e2ee": {
+			"title": "End-to-End Encryption",
+			"description": "Enable end-to-end encryption for this channel to secure all messages."
+		}
+	},
+	"tabs": {
+		"overview": "Overview",
+		"permissions": "Permissions",
+		"invites": "Invites",
+		"integrations": "Integrations",
+		"category": "Category",
+		"quickMenu": "Quick Menu"
+	},
+	"categoryManagement": {
+		"title": "Category",
+		"channelName": "Channel name",
+		"category": "Category"
+	},
+	"unsavedChanges": {
+		"warning": "Carefull - you have unsaved changes!",
+		"reset": "Reset",
+		"saveChanges": "Save Changes"
+	},
+	"addMembersRoles": {
+		"title": "Add members or roles",
+		"placeholder": "e.g. Moderators, @wumpus",
+		"instruction": "Add individual members by starting with @ or type a role name",
+		"roles": "Roles",
+		"members": "Members",
+		"cancel": "Cancel",
+		"done": "Done"
+	},
+	"table": {
+		"columnHeaders": {
+			"name": "Name",
+			"members": "Members",
+			"messagesCount": "Messages count",
+			"lastSent": "Last Sent",
+			"creator": "Creator"
+		},
+		"pagination": {
+			"show": "Show",
+			"channelOf": "channel of"
+		},
+		"memberModal": {
+			"listMember": "List Member"
+		},
+		"threads": {
+			"noThreads": "There is no threads in this channel"
+		},
+		"members": {
+			"allMembers": "(All Members)"
+		}
+	}
 }

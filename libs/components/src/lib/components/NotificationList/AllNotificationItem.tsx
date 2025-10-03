@@ -1,10 +1,8 @@
 import { getShowName, useColorsRoleById, useGetPriorityNameFromUserClan, useNotification } from '@mezon/core';
 import { selectChannelById, selectClanById, selectMemberDMByUserId, useAppSelector } from '@mezon/store';
+import type { IMentionOnMessage, IMessageWithUser, INotification } from '@mezon/utils';
 import {
 	DEFAULT_MESSAGE_CREATOR_NAME_DISPLAY_COLOR,
-	IMentionOnMessage,
-	IMessageWithUser,
-	INotification,
 	NotificationCategory,
 	TOPBARS_MAX_WIDTH,
 	TypeMessage,
@@ -57,10 +55,7 @@ function AllNotificationItem({ notify }: NotifyMentionProps) {
 
 	const topicId = parseNotify?.content?.topic_id;
 
-	const isTopic =
-		Number(topicId) !== 0 ||
-		parseNotify?.content?.code === TypeMessage.Topic ||
-		parseNotify?.message?.code === TypeMessage.Topic;
+	const isTopic = Number(topicId) !== 0 || parseNotify?.content?.code === TypeMessage.Topic || parseNotify?.message?.code === TypeMessage.Topic;
 
 	const { handleClickJump } = useNotificationJump({
 		messageId,
@@ -68,9 +63,8 @@ function AllNotificationItem({ notify }: NotifyMentionProps) {
 		clanId,
 		topicId,
 		isTopic,
-		mode,
+		mode
 	});
-
 
 	const { deleteNotify } = useNotification();
 	const handleDeleteNotification = (
@@ -92,14 +86,11 @@ function AllNotificationItem({ notify }: NotifyMentionProps) {
 	return (
 		<div className=" bg-transparent rounded-[8px] relative group">
 			<button
-				onClick={(event) =>
-					handleDeleteNotification(event, parseNotify.id, parseNotify.category as NotificationCategory)
-				}
+				onClick={(event) => handleDeleteNotification(event, parseNotify.id, parseNotify.category as NotificationCategory)}
 				className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 rounded-full bg-item-theme-hover text-theme-primary hover:text-red-500 text-sm font-bold shadow-md transition-all  hover:scale-110 active:scale-95"
 			>
 				✕
 			</button>
-
 
 			{parseNotify.category === NotificationCategory.MENTIONS && (
 				<button
@@ -159,12 +150,12 @@ function AllTabContent({ message, subject, category, senderId }: IMentionTabCont
 					alt="user avatar"
 					className="w-10 h-10 min-w-10"
 					username={message?.username}
-					srcImgProxy={createImgproxyUrl((priorityAvatar ? priorityAvatar : message.avatar || user?.user?.avatar_url) ?? '', {
+					srcImgProxy={createImgproxyUrl((priorityAvatar ? priorityAvatar : message.avatar || user?.avatar_url) ?? '', {
 						width: 300,
 						height: 300,
 						resizeType: 'fit'
 					})}
-					src={priorityAvatar ? priorityAvatar : message.avatar || user?.user?.avatar_url}
+					src={priorityAvatar ? priorityAvatar : message.avatar || user?.avatar_url}
 				/>
 
 				<div className="h-full w-full">
@@ -173,9 +164,7 @@ function AllTabContent({ message, subject, category, senderId }: IMentionTabCont
 							clan?.clan_name ? (
 								<div className="flex flex-col text-sm min-w-0">
 									<div className="flex items-center gap-1 min-w-0">
-										<span className="uppercase truncate max-w-[120px] overflow-hidden whitespace-nowrap">
-											{clan.clan_name}
-										</span>
+										<span className="uppercase truncate max-w-[120px] overflow-hidden whitespace-nowrap">{clan.clan_name}</span>
 										<span>{'>'}</span>
 										<span className="truncate max-w-[130px] overflow-hidden whitespace-nowrap uppercase">
 											{isChannel ? message.category_name : parentChannel.category_name}
@@ -226,7 +215,7 @@ function AllTabContent({ message, subject, category, senderId }: IMentionTabCont
 					) : (
 						<div className="flex flex-col gap-1">
 							<div>
-								<span className="font-bold">{user?.user?.display_name || username}</span>
+								<span className="font-bold">{user?.display_name || username}</span>
 								<span>{subjectText}</span>
 							</div>
 							<span className="text-zinc-400 text-[11px]">{convertTimeString(message?.create_time as string)}</span>

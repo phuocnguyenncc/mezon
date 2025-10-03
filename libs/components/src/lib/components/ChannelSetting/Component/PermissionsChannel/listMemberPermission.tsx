@@ -1,8 +1,11 @@
 import { useAppNavigation, useAuth, useCustomNavigate } from '@mezon/core';
-import { channelUsersActions, removeChannelUsersPayload, selectAllUserChannel, selectCurrentClanId, useAppDispatch } from '@mezon/store';
+import type { removeChannelUsersPayload } from '@mezon/store';
+import { channelUsersActions, selectAllUserChannel, selectCurrentClanId, useAppDispatch } from '@mezon/store';
 import { Icons } from '@mezon/ui';
-import { IChannel, createImgproxyUrl, generateE2eId, getAvatarForPrioritize, getNameForPrioritize } from '@mezon/utils';
+import type { IChannel } from '@mezon/utils';
+import { createImgproxyUrl, generateE2eId, getAvatarForPrioritize, getNameForPrioritize } from '@mezon/utils';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { AvatarImage } from '../../../AvatarImage/AvatarImage';
 
@@ -22,7 +25,7 @@ const ListMemberPermission = (props: ListMemberPermissionProps) => {
 	const deleteMember = async (userId: string) => {
 		const body: removeChannelUsersPayload = {
 			channelId: channel.id,
-			userId: userId,
+			userId,
 			channelType: channel.type,
 			clanId: currentClanId as string
 		};
@@ -79,6 +82,7 @@ const ItemMemberPermission = (props: ItemMemberPermissionProps) => {
 			onDelete();
 		}
 	};
+	const { t } = useTranslation('channelSetting');
 
 	return (
 		<div
@@ -99,7 +103,7 @@ const ItemMemberPermission = (props: ItemMemberPermissionProps) => {
 				<p className=" font-light">{username}</p>
 			</div>
 			<div className="flex items-center gap-x-2">
-				<p className="text-xs ">{channelOwner && 'Channel Owner'}</p>
+				<p className="text-xs ">{channelOwner && t('channelPermission.ChannelCreator')}</p>
 				<div onClick={handleDelete} role="button" className={`${channelOwner ? 'cursor-not-allowed' : 'cursor-pointer hover:text-red-500'}`}>
 					<Icons.EscIcon defaultSize={` size-[15px]`} defaultFill={channelOwner ? 'text-theme-primary-active' : ''} />
 				</div>
