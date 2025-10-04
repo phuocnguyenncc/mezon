@@ -198,7 +198,7 @@ export const fetchDirectMessage = createAsyncThunk(
 			thunkAPI.dispatch(directMetaActions.setDirectMetaEntities(channels));
 			thunkAPI.dispatch(directActions.setAll(channels));
 			const users = mapChannelsToUsers(channels);
-			thunkAPI.dispatch(statusActions.updateBulkMetadata(users));
+			thunkAPI.dispatch(statusActions.updateBulkStatus(users));
 			return channels;
 		} catch (error) {
 			captureSentryError(error, 'direct/fetchDirectMessage');

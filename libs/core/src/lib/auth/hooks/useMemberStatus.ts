@@ -6,6 +6,7 @@ export function useMemberStatus(memberId: string) {
 	return {
 		status: memberStatus?.online ? (memberStatus.user_status as EUserStatus) : EUserStatus.INVISIBLE,
 		user_status: memberStatus?.user_status,
-		isMobile: false
+		isMobile: false,
+		online: !!memberStatus?.online
 	};
 }

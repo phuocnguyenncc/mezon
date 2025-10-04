@@ -18,7 +18,6 @@ import {
 	channelMetaActions,
 	channelsActions,
 	channelsSlice,
-	clanMembersMetaActions,
 	clansActions,
 	clansSlice,
 	decreaseChannelBadgeCount,
@@ -508,7 +507,6 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({ children }) =
 					}));
 
 					if (combinedStatus.length) {
-						dispatch(clanMembersMetaActions.setManyStatusUser(combinedStatus));
 						dispatch(directActions.updateStatusByUserId(combinedStatus));
 						dispatch(friendsActions.setManyStatusUser(combinedStatus));
 					}
@@ -2036,10 +2034,8 @@ const ChatContextProvider: React.FC<ChatContextProviderProps> = ({ children }) =
 	const onuserstatusevent = useCallback(
 		async (userStatusEvent: UserStatusEvent) => {
 			if (userStatusEvent.user_id !== userId) {
-				dispatch(clanMembersMetaActions.updateUserStatus({ userId: userStatusEvent.user_id, user_status: userStatusEvent.custom_status }));
 				dispatch(friendsActions.updateUserStatus({ userId: userStatusEvent.user_id, user_status: userStatusEvent.custom_status }));
 			} else {
-				dispatch(clanMembersMetaActions.updateUserStatus({ userId: userId || '', user_status: userStatusEvent.custom_status }));
 				dispatch(accountActions.updateUserStatus(userStatusEvent.custom_status));
 			}
 		},

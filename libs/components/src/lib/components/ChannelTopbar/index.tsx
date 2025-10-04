@@ -225,9 +225,11 @@ const TopBarChannelText = memo(() => {
 							avatar={dmUserAvatar}
 							avatarName={currentDmGroup?.channel_label?.at(0)}
 						/>
-						<div className="absolute top-6 left-5">
-							<UserStatusIconDM status={currentDmGroup?.onlines?.[0] ? EUserStatus.ONLINE : EUserStatus.INVISIBLE} />
-						</div>
+						{currentDmGroup?.type !== ChannelType.CHANNEL_TYPE_GROUP && (
+							<div className="absolute top-6 left-5">
+								<UserStatusIconDM status={currentDmGroup?.onlines?.[0] ? EUserStatus.ONLINE : EUserStatus.INVISIBLE} />
+							</div>
+						)}
 						<div
 							key={`${channelDmGroupLabel}_${currentDmGroup?.channel_id as string}_display`}
 							className={`flex items-center gap-2 overflow-hidden whitespace-nowrap text-ellipsis none-draggable-area group ${

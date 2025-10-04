@@ -1349,6 +1349,7 @@ export type IUserProfileActivity = {
 	online?: boolean;
 	status?: string;
 	user_status?: string;
+	is_mobile?: boolean;
 };
 
 export type UserStatus = {

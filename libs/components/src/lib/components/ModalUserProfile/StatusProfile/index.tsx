@@ -3,7 +3,6 @@ import type { ChannelMembersEntity } from '@mezon/store';
 import {
 	accountActions,
 	authActions,
-	clanMembersMetaActions,
 	clansActions,
 	clearApiCallTracker,
 	giveCoffeeActions,
@@ -108,7 +107,6 @@ const StatusProfile = ({ userById, isDM, modalRef, onClose }: StatusProfileProps
 				until_turn_on: untilTurnOn
 			})
 		);
-		dispatch(clanMembersMetaActions.updateUserStatus({ userId: userProfile?.user?.id || '', user_status: status }));
 		dispatch(accountActions.updateUserStatus(status));
 	};
 

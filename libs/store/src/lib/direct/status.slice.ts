@@ -1,6 +1,7 @@
-import type { IUserProfileActivity } from '@mezon/utils';
+import { EUserStatus, type IUserProfileActivity, type UsersClanEntity } from '@mezon/utils';
 import type { EntityState, PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '../store';
 
 export const USER_STATUS_FEATURE_KEY = 'USER_STATUS_FEATURE_KEY';
 
@@ -13,6 +14,18 @@ const statusAdapter = createEntityAdapter({
 	selectId: (user: IUserProfileActivity) => user.id
 });
 
+export function convertStatusClan(user: UsersClanEntity, state: RootState): IUserProfileActivity {
+	const isMe = state?.account?.userProfile?.user?.id === user?.user?.id;
+	const isUserInvisible = user?.user?.user_status === EUserStatus.INVISIBLE;
+	return {
+		id: user.id,
+		online: (!isUserInvisible && !!user?.user?.online) || (!isUserInvisible && isMe),
+		is_mobile: !isUserInvisible && !!user?.user?.is_mobile,
+		status: user?.user?.online ? user?.user?.status : EUserStatus.INVISIBLE,
+		user_status: user?.user?.user_status
+	};
+}
+
 export const initialUsetStatusState: UserStatusState = statusAdapter.getInitialState({
 	loadingStatus: 'not loaded',
 	error: null
@@ -22,7 +35,7 @@ export const statusSlice = createSlice({
 	name: USER_STATUS_FEATURE_KEY,
 	initialState: initialUsetStatusState,
 	reducers: {
-		updateBulkMetadata: (state, action: PayloadAction<IUserProfileActivity[]>) => {
+		updateBulkStatus: (state, action: PayloadAction<IUserProfileActivity[]>) => {
 			statusAdapter.upsertMany(state, action.payload);
 		}
 	}

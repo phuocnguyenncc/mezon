@@ -1,6 +1,6 @@
+import { useMemberStatus } from '@mezon/core';
 import {
 	selectAllChannelMembersClan,
-	selectClanMemberMetaUserId,
 	selectClanMemberWithStatusIds,
 	selectCurrentChannelId,
 	selectCurrentClan,
@@ -30,7 +30,7 @@ type TempMemberItemProps = {
 
 const TempMemberItem = memo(({ id, isOwner }: TempMemberItemProps) => {
 	const user = useAppSelector((state) => selectMemberClanByUserId(state, id));
-	const userMeta = useAppSelector((state) => selectClanMemberMetaUserId(state, id));
+	const userMeta = useMemberStatus(id);
 	const currentChannelID = useAppSelector(selectCurrentChannelId);
 	const userCustomStatus = useAppSelector((state) => selectMemberCustomStatusByUserId(state, user.user?.id || ''));
 	const avatar = user.clan_avatar ? user.clan_avatar : (user?.user?.avatar_url ?? '');
@@ -68,7 +68,7 @@ type MemberClanProps = {
 const MemoizedMemberItem = memo((props: MemberClanProps) => {
 	const { id, isOwner, temp } = props;
 	const user = useAppSelector((state) => selectMemberClanByUserId(state, id));
-	const userMeta = useAppSelector((state) => selectClanMemberMetaUserId(state, id));
+	const userMeta = useMemberStatus(id);
 	const userCustomStatus = useAppSelector((state) => selectMemberCustomStatusByUserId(state, user?.user?.id || ''));
 	const userVoiceStatus = useAppSelector((state) => selectStatusInVoice(state, user.user?.id || ''));
 	const avatar = user.clan_avatar ? user.clan_avatar : (user?.user?.avatar_url ?? '');
@@ -95,7 +95,10 @@ const MemoizedMemberItem = memo((props: MemberClanProps) => {
 				</>
 			}
 			user={user}
-			userMeta={userMeta}
+			userMeta={{
+				status: userMeta.status,
+				online: userMeta.online
+			}}
 			avatar={avatar}
 			username={username}
 			id={id}

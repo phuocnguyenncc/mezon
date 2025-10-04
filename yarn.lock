@@ -4537,13 +4537,6 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
-"@types/bip39@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@types/bip39/-/bip39-3.0.4.tgz#19e0a12821462b56ad99a05274b8cffd397f23e6"
-  integrity sha512-kgmgxd14vTUMqcKu/gRi7adMchm7teKnOzdkeP0oQ5QovXpbUJISU0KUtBt84DdxCws/YuNlSCIoZqgXexe6KQ==
-  dependencies:
-    bip39 "*"
-
 "@types/body-parser@*":
   version "1.19.5"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.5.tgz#04ce9a3b677dc8bd681a17da1ab9835dc9d3ede4"
@@ -6064,7 +6057,7 @@ axe-core@=4.7.0:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.7.0.tgz#34ba5a48a8b564f67e103f0aa5768d76e15bbbbf"
   integrity sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==
 
-axios@^1.6.0, axios@^1.7.4, axios@^1.8.2, axios@^1.8.3:
+axios@^1.6.0, axios@^1.6.2, axios@^1.7.4, axios@^1.8.2, axios@^1.8.3:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.9.0.tgz#25534e3b72b54540077d33046f77e3b8d7081901"
   integrity sha512-re4CqKTJaURpzbLHtIi6XpDv20/CnpXOtjRY5/CU32L8gU8ek9UIivcfvSWvmKEngmVbrUtPpdDwWDWL7DNHvg==
@@ -6249,6 +6242,11 @@ bare-events@^2.2.0:
   resolved "https://registry.yarnpkg.com/bare-events/-/bare-events-2.5.4.tgz#16143d435e1ed9eafd1ab85f12b89b3357a41745"
   integrity sha512-+gFfDkR8pj4/TrWCGUGWmJIkBwuxPS5F+a5yWjOHQt2hHvNZd5YLzadjmDUtFmMM4y429bnKLa8bYBMHcYdnQA==
 
+base-x@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/base-x/-/base-x-4.0.1.tgz#817fb7b57143c501f649805cb247617ad016a885"
+  integrity sha512-uAZ8x6r6S3aUM9rbHGVOIsR15U/ZSc82b3ymnCPsT45Gk1DDvhDPdIgB5MrhirZWt+5K0EEPQH985kNqZgNPFw==
+
 base64-arraybuffer@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#1c37589a7c4b0746e34bd1feb951da2df01c1bdc"
@@ -6309,7 +6307,7 @@ binary-extensions@^2.0.0, binary-extensions@^2.3.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
-bip39@*, bip39@^3.1.0:
+bip39@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/bip39/-/bip39-3.1.0.tgz#c55a418deaf48826a6ceb34ac55b3ee1577e18a3"
   integrity sha512-c9kiwdk45Do5GL0vJMe7tS95VjCii65mYAH7DfWl3uW8AVzXKQVUm64i3hzVybBDMp9r7j9iNxR85+ul8MdN/A==
@@ -6493,6 +6491,13 @@ bs-logger@^0.2.6:
   integrity sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==
   dependencies:
     fast-json-stable-stringify "2.x"
+
+bs58@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/bs58/-/bs58-5.0.0.tgz#865575b4d13c09ea2a84622df6c8cbeb54ffc279"
+  integrity sha512-r+ihvQJvahgYT50JD05dyJNKlmmSlMoOGwn1lCcEzanPglg7TxYjioQUYehQ9mAR/+hOSd2jRc/Z2y5UxBymvQ==
+  dependencies:
+    base-x "^4.0.0"
 
 bser@2.1.1:
   version "2.1.1"
@@ -7519,6 +7524,11 @@ crypto-browserify@^3.12.0:
     public-encrypt "^4.0.3"
     randombytes "^2.1.0"
     randomfill "^1.0.4"
+
+crypto-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
+  integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
 
 css-declaration-sorter@^7.2.0:
   version "7.2.0"
@@ -12644,17 +12654,17 @@ mezon-active-windows@0.1.38:
   dependencies:
     node-addon-api "^1.7.2"
 
-mezon-js-protobuf@1.8.36:
-  version "1.8.36"
-  resolved "https://registry.yarnpkg.com/mezon-js-protobuf/-/mezon-js-protobuf-1.8.36.tgz#7930dba33d239d90f5db124eac55dd8028f59cc7"
-  integrity sha512-ksxReP/ZEA7u95wZc7zqVfq3eswJDEt7tAEuj2sepwCIG9cZOnDNbLxAU6EdGJ1N/OIwzUpz1Z5jKi02Fy/YNw==
+mezon-js-protobuf@1.8.41:
+  version "1.8.41"
+  resolved "https://registry.yarnpkg.com/mezon-js-protobuf/-/mezon-js-protobuf-1.8.41.tgz#754bf3aa0e2f8160eae6ef27712b8373e5d86d9c"
+  integrity sha512-5MKPFeH488kpuuVrHRRHjX4mzkR1K21dsoCBEw6TzzbKLKS5yj8AIa9qBw9OQb+o4iU6vb99dR2tQ1htZEe0Mg==
   dependencies:
     "@scarf/scarf" "^1.1.1"
 
-mezon-js@2.12.94:
-  version "2.12.94"
-  resolved "https://registry.yarnpkg.com/mezon-js/-/mezon-js-2.12.94.tgz#07a44c7f685e3dc1922b0b175a95d18f5a6619e5"
-  integrity sha512-esuaVJ3aONrnL3N774DFRPl42u/2NJHzuMArLC1og8/9QYLjtFLVJh+eUtKdi0YVZ2CLukOjwPk5ce6Ta9dmUQ==
+mezon-js@2.13.4:
+  version "2.13.4"
+  resolved "https://registry.yarnpkg.com/mezon-js/-/mezon-js-2.13.4.tgz#1f7322c881a9396a5c54e856438ec49309dcca6a"
+  integrity sha512-GJmltCqLhMnq0ZgUzJ6QPkY6JfOaIpu46kuACxtmh66yiD3n2d8VfDuJE23NWyFqaifRMI4SMUAvWxv+D3yaVw==
   dependencies:
     "@scarf/scarf" "^1.1.1"
     base64-arraybuffer "^1.0.2"
@@ -12932,6 +12942,17 @@ mkdirp@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-3.0.1.tgz#e44e4c5607fb279c168241713cc6e0fea9adcb50"
   integrity sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==
+
+mmn-client-js@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/mmn-client-js/-/mmn-client-js-1.0.5.tgz#83ea8bb48b74d228b387f9db5425ba29d0195928"
+  integrity sha512-oMcVXMcAc5KugUIfIQBoS3zcPre+Si3hvYD7fzCGfzrM/Fr8uhwpvfJjTHH9NgjTTaCGKn/rnqDmdd3vXzIIig==
+  dependencies:
+    axios "^1.6.2"
+    bip39 "^3.1.0"
+    bs58 "^5.0.0"
+    crypto-js "^4.2.0"
+    tweetnacl "^1.0.3"
 
 mrmime@^2.0.0:
   version "2.0.1"
@@ -17252,6 +17273,11 @@ tunnel-agent@^0.6.0:
   integrity sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==
   dependencies:
     safe-buffer "^5.0.1"
+
+tweetnacl@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-1.0.3.tgz#ac0af71680458d8a6378d0d0d050ab1407d35596"
+  integrity sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
