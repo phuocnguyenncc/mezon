@@ -220,7 +220,7 @@ export const getDmEntityByChannelId = createAsyncThunk('channels/getChannelEntit
 
 export const updateDmGroup = createAsyncThunk(
 	'direct/updateDmGroup',
-	async (body: { channel_id: string; channel_label?: string; topic?: string }, thunkAPI) => {
+	async (body: { channel_id: string; channel_label?: string; channel_avatar?: string }, thunkAPI) => {
 		try {
 			const mezon = await ensureSession(getMezonCtx(thunkAPI));
 
@@ -232,10 +232,10 @@ export const updateDmGroup = createAsyncThunk(
 			} else if (typeof current?.channel_label !== 'undefined') {
 				updatePayload.channel_label = current.channel_label;
 			}
-			if (typeof body.topic !== 'undefined') {
-				updatePayload.topic = body.topic;
-			} else if (typeof current?.topic !== 'undefined') {
-				updatePayload.topic = current.topic;
+			if (typeof body.channel_avatar !== 'undefined') {
+				updatePayload.channel_avatar = body.channel_avatar;
+			} else if (typeof current?.channel_avatar !== 'undefined') {
+				updatePayload.channel_avatar = current.channel_avatar;
 			}
 
 			const response = await mezon.client.updateChannelDesc(mezon.session, body.channel_id, updatePayload);
@@ -245,7 +245,7 @@ export const updateDmGroup = createAsyncThunk(
 					directActions.updateOne({
 						channel_id: body.channel_id,
 						...(typeof body.channel_label !== 'undefined' ? { channel_label: body.channel_label } : {}),
-						...(typeof body.topic !== 'undefined' ? { topic: body.topic } : {})
+						...(typeof body.channel_avatar !== 'undefined' ? { channel_avatar: body.channel_avatar } : {})
 					})
 				);
 			}

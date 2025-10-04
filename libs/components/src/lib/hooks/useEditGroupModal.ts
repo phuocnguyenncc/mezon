@@ -70,7 +70,7 @@ export const useEditGroupModal = ({ channelId, currentGroupName = '', currentAva
 				if (result) {
 					setAvatarState({
 						preview: result,
-						file: file,
+						file,
 						action: 'upload'
 					});
 				}
@@ -125,9 +125,9 @@ export const useEditGroupModal = ({ channelId, currentGroupName = '', currentAva
 				}
 			}
 
-			const payload: { channel_id: string; channel_label?: string; topic?: string } = { channel_id: channelId };
+			const payload: { channel_id: string; channel_label?: string; channel_avatar?: string } = { channel_id: channelId };
 			if (hasNameChanged) payload.channel_label = value;
-			if (avatarState.action !== 'none') payload.topic = avatarUrl;
+			if (avatarState.action !== 'none') payload.channel_avatar = avatarUrl;
 
 			dispatch(directActions.updateDmGroup(payload));
 		}
