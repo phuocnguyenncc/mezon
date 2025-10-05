@@ -6,6 +6,7 @@ import type { ApiAllUsersAddChannelResponse } from 'mezon-js/api.gen';
 import type { CacheMetadata } from '../cache-metadata';
 import { createApiKey, createCacheMetadata, markApiFirstCalled, shouldForceApiCall } from '../cache-metadata';
 import { selectAllUserClans, selectEntitesUserClans } from '../clanMembers/clan.members';
+import { convertStatusGroup, statusActions } from '../direct/status.slice';
 import type { MezonValueContext } from '../helpers';
 import { ensureSession, fetchDataWithSocketFallback, getMezonCtx } from '../helpers';
 import type { RootState } from '../store';
@@ -86,6 +87,7 @@ export const fetchUserChannels = createAsyncThunk(
 					fromCache: response.fromCache || true
 				};
 			}
+			thunkAPI.dispatch(statusActions.updateBulkStatus(convertStatusGroup(response as ApiAllUsersAddChannelResponse)));
 			return {
 				channelId,
 				user_ids: response,

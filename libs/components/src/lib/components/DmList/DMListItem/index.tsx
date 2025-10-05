@@ -89,7 +89,7 @@ function DMListItem({ id, currentDmGroupId, joinToChatAndNavigate, navigateToFri
 			<DmItemProfile
 				avatar={isTypeDMGroup ? directMessage?.channel_avatar || 'assets/images/avatar-group.png' : (directMessage?.avatars?.at(0) ?? '')}
 				name={directMessage?.channel_label || ''}
-				number={(directMessage?.member_count || 0) + 1}
+				number={directMessage?.member_count || 0}
 				isTypeDMGroup={isTypeDMGroup}
 				highlight={isUnReadChannel || currentDmGroupId === id}
 				userStatus={user?.user_status}

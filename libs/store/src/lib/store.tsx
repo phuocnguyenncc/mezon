@@ -288,14 +288,6 @@ const persistedsettingClanStickerReducer = persistReducer(
 	settingStickerReducer
 );
 
-const persisteduserChannelsReducer = persistReducer(
-	{
-		key: 'allUsersByAddChannel',
-		storage
-	},
-	userChannelsReducer
-);
-
 const persistedOnboardingReducer = persistReducer(
 	{
 		key: ONBOARDING_FEATURE_KEY,
@@ -347,7 +339,7 @@ const reducer = {
 	channels: persistedChannelReducer,
 	channelmeta: persistedChannelMetaReducer,
 	settingSticker: persistedsettingClanStickerReducer,
-	allUsersByAddChannel: persisteduserChannelsReducer,
+	allUsersByAddChannel: userChannelsReducer,
 	listchannelbyusers: persistedListchannelsByUserReducer,
 	listpermissionroleschannel: persistedPermissionRoleChannelReducer,
 	channelMembers: channelMembersReducer,

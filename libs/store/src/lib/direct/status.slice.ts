@@ -1,6 +1,7 @@
 import { EUserStatus, type IUserProfileActivity, type UsersClanEntity } from '@mezon/utils';
 import type { EntityState, PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
+import type { ApiAllUsersAddChannelResponse } from 'mezon-js/api.gen';
 import type { RootState } from '../store';
 
 export const USER_STATUS_FEATURE_KEY = 'USER_STATUS_FEATURE_KEY';
@@ -24,6 +25,22 @@ export function convertStatusClan(user: UsersClanEntity, state: RootState): IUse
 		status: user?.user?.online ? user?.user?.status : EUserStatus.INVISIBLE,
 		user_status: user?.user?.user_status
 	};
+}
+
+export function convertStatusGroup(users: ApiAllUsersAddChannelResponse): IUserProfileActivity[] {
+	const listGroup: IUserProfileActivity[] = [];
+	users.user_ids?.map((id, index) => {
+		if (id) {
+			listGroup.push({
+				id,
+				avatar_url: users.avatars?.[index] || '',
+				display_name: users.display_names?.[index] || '',
+				online: users.onlines?.[index],
+				username: users.usernames?.[index] || ''
+			});
+		}
+	});
+	return listGroup;
 }
 
 export const initialUsetStatusState: UserStatusState = statusAdapter.getInitialState({
