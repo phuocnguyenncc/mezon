@@ -226,7 +226,7 @@ const TopBarChannelText = memo(() => {
 							avatarName={currentDmGroup?.channel_label?.at(0)}
 						/>
 						{currentDmGroup?.type !== ChannelType.CHANNEL_TYPE_GROUP && (
-							<div className="absolute top-6 left-5">
+							<div className="absolute top-6 left-5 w-3 h-3">
 								<UserStatusIconDM status={currentDmGroup?.onlines?.[0] ? EUserStatus.ONLINE : EUserStatus.INVISIBLE} />
 							</div>
 						)}
