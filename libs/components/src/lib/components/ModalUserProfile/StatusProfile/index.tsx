@@ -96,7 +96,7 @@ const StatusProfile = ({ userById, isDM, modalRef, onClose }: StatusProfileProps
 			case EUserStatus.INVISIBLE:
 				return <Icons.OfflineStatus />;
 			default:
-				return <Icons.OnlineStatus />;
+				return <Icons.OfflineStatus />;
 		}
 	};
 	const updateUserStatus = (status: string, minutes: number, untilTurnOn: boolean) => {

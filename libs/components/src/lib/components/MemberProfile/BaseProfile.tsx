@@ -1,5 +1,5 @@
 import { createImgproxyUrl, EUserStatus, generateE2eId } from '@mezon/utils';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { AvatarImage } from '../AvatarImage/AvatarImage';
 import { UserStatusIconClan } from './IconStatus';
 
@@ -9,7 +9,7 @@ const BaseProfile = ({
 	status,
 	hideIcon = false,
 	userMeta,
-	displayName,
+	displayName
 }: {
 	avatar: string;
 	name?: string;
@@ -29,7 +29,7 @@ const BaseProfile = ({
 				src={avatar}
 			/>
 			{!hideIcon && (
-				<div className="rounded-full left-7 absolute bottom-1 inline-flex items-center justify-center gap-1 p-[3px] text-sm text-theme-primary">
+				<div className="rounded-full left-5 absolute bottom-0 inline-flex items-center justify-center gap-1 p-[3px] text-sm text-theme-primary">
 					<UserStatusIconClan status={userMeta?.user_status} online={userMeta?.user_status !== EUserStatus.INVISIBLE} />
 				</div>
 			)}

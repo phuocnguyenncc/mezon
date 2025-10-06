@@ -12,7 +12,8 @@ import {
 } from '@mezon/core';
 import type { RootState } from '@mezon/store';
 import { EStateFriend, selectAllAccount, selectFriendById, selectUserStatusById, useAppSelector } from '@mezon/store';
-import type { ChannelMembersEntity, EUserStatus, IMessageWithUser } from '@mezon/utils';
+import type { ChannelMembersEntity, IMessageWithUser } from '@mezon/utils';
+import { EUserStatus } from '@mezon/utils';
 import { ChannelStreamMode } from 'mezon-js';
 import type { RefObject } from 'react';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -89,7 +90,17 @@ const ModalUserProfile = ({
 	const { sendInviteMessage } = useSendInviteMessage();
 	const status = useMemberStatus(userID || '');
 	const userById = useUserById(userID);
-	const userStatus = useAppSelector((state) => selectUserStatusById(state, userID || ''));
+	const userStatusById = useAppSelector((state) => selectUserStatusById(state, userID || ''));
+	const userStatus = useMemo(() => {
+		if (userID === userID) {
+			return {
+				status: userProfile?.user?.status || EUserStatus.ONLINE,
+				user_status: userProfile?.user?.user_status || ''
+			};
+		}
+		return userStatusById;
+	}, [userStatusById]);
+
 	const modalRef = useRef<boolean>(false);
 	const onLoading = useRef<boolean>(false);
 

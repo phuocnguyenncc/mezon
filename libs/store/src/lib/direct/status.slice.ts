@@ -1,6 +1,7 @@
 import { EUserStatus, type IUserProfileActivity, type UsersClanEntity } from '@mezon/utils';
 import type { EntityState, PayloadAction } from '@reduxjs/toolkit';
 import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
+import type { UserStatusEvent } from 'mezon-js';
 import type { ApiAllUsersAddChannelResponse } from 'mezon-js/api.gen';
 import type { RootState } from '../store';
 
@@ -54,6 +55,16 @@ export const statusSlice = createSlice({
 	reducers: {
 		updateBulkStatus: (state, action: PayloadAction<IUserProfileActivity[]>) => {
 			statusAdapter.upsertMany(state, action.payload);
+		},
+		updateStatus: (state, action: PayloadAction<UserStatusEvent>) => {
+			const user = action.payload;
+
+			statusAdapter.updateOne(state, {
+				id: user.user_id,
+				changes: {
+					status: user.custom_status
+				}
+			});
 		}
 	}
 });
