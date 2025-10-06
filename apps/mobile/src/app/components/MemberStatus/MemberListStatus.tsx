@@ -1,10 +1,19 @@
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import { DirectEntity, getStore, selectAllChannelMembers, selectAllUserClans, selectGrouplMembers, useAppSelector } from '@mezon/store-mobile';
+import {
+	DirectEntity,
+	fetchUserChannels,
+	getStore,
+	selectAllUserClans,
+	selectGrouplMembers,
+	selectMemberByGroupId,
+	useAppDispatch,
+	useAppSelector
+} from '@mezon/store-mobile';
 import { ChannelMembersEntity, UsersClanEntity } from '@mezon/utils';
 import { useNavigation } from '@react-navigation/native';
 import { ChannelType } from 'mezon-js';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, Pressable, SectionList, Text, TouchableOpacity, View } from 'react-native';
 import MezonIconCDN from '../../componentUI/MezonIconCDN';
@@ -29,6 +38,7 @@ export const MemberListStatus = React.memo(() => {
 	const styles = style(themeValue);
 	const currentChannel = useContext(threadDetailContext);
 	const navigation = useNavigation<any>();
+	const dispatch = useAppDispatch();
 
 	const [selectedUser, setSelectedUser] = useState<ChannelMembersEntity | null>(null);
 	const { t } = useTranslation();
@@ -41,6 +51,20 @@ export const MemberListStatus = React.memo(() => {
 	const isDMThread = useMemo(() => {
 		return [ChannelType.CHANNEL_TYPE_DM, ChannelType.CHANNEL_TYPE_GROUP].includes(currentChannel?.type);
 	}, [currentChannel]);
+
+	useEffect(() => {
+		if (isDMThread && currentChannel?.type === ChannelType.CHANNEL_TYPE_GROUP) {
+			const fetchMemberGroup = async () => {
+				dispatch(
+					fetchUserChannels({
+						channelId: currentChannel?.channel_id
+					})
+				);
+			};
+			fetchMemberGroup();
+		}
+	}, [currentChannel?.channel_id, currentChannel?.type, dispatch, isDMThread]);
+
 	const handleAddOrInviteMembers = useCallback((action: EActionButton) => {
 		if (action === EActionButton.InviteMembers) {
 			const data = {
@@ -52,13 +76,33 @@ export const MemberListStatus = React.memo(() => {
 		if (action === EActionButton.AddMembers) navigateToNewGroupScreen();
 	}, []);
 
-	const userChannels = useAppSelector((state) => selectAllChannelMembers(state, currentChannel?.channel_id));
+	const rawMembers = useAppSelector((state) => selectMemberByGroupId(state, currentChannel?.channel_id));
 
 	const listMembersChannelGroupDM = useMemo(() => {
 		const store = getStore();
-		const members = isDMThread
-			? selectGrouplMembers(store.getState(), currentChannel?.channel_id as string)
-			: selectAllUserClans(store.getState() as any);
+		const userGroup: ChannelMembersEntity[] = [];
+		if (currentChannel?.type === ChannelType.CHANNEL_TYPE_GROUP) {
+			rawMembers?.user_ids?.map((id, index) => {
+				if (id) {
+					userGroup.push({
+						id,
+						user: {
+							id,
+							display_name: rawMembers.display_names?.[index] || '',
+							username: rawMembers.usernames?.[index] || '',
+							avatar_url: rawMembers.avatars?.[index] || '',
+							online: rawMembers.onlines?.[index] || false
+						}
+					});
+				}
+			});
+		}
+		const members =
+			userGroup && currentChannel?.type === ChannelType.CHANNEL_TYPE_GROUP
+				? userGroup
+				: isDMThread
+					? selectGrouplMembers(store.getState(), currentChannel?.channel_id as string)
+					: selectAllUserClans(store.getState() as any);
 
 		if (!members) {
 			return {
@@ -81,37 +125,10 @@ export const MemberListStatus = React.memo(() => {
 			online: onlineUsers?.map((item) => item),
 			offline: offlineUsers?.map((item) => item)
 		};
-	}, [currentChannel?.channel_id, isDMThread]);
+	}, [currentChannel?.channel_id, currentChannel?.type, isDMThread, rawMembers]);
 
-	const lisMembers = useMemo(() => {
-		if (!userChannels || !listMembersChannelGroupDM) {
-			return {
-				onlineMembers: [],
-				offlineMembers: []
-			};
-		}
-		const users = new Map(userChannels.map((item) => [item.id, true]));
-		let onlineMembers = listMembersChannelGroupDM?.online?.filter((m) => users.has(m?.id)) || [];
-		let offlineMembers = listMembersChannelGroupDM?.offline?.filter((m) => users.has(m?.id)) || [];
-
-		// If all members are removed, keep the group owner in the online list
-		if (onlineMembers?.length === 0 && offlineMembers?.length === 0 && currentChannel?.creator_id) {
-			const store = getStore();
-			const allClanUsers = selectAllUserClans(store.getState() as any) as UsersClanEntity[];
-			const owner = allClanUsers?.find((u) => u?.user?.id === currentChannel?.creator_id);
-			if (owner) {
-				onlineMembers = [owner];
-				offlineMembers = [];
-			}
-		}
-
-		return {
-			onlineMembers,
-			offlineMembers
-		};
-	}, [currentChannel?.creator_id, listMembersChannelGroupDM, userChannels]);
-
-	const { onlineMembers, offlineMembers } = lisMembers;
+	const { online, offline } = listMembersChannelGroupDM;
+	console.log("log => online: ", online);
 
 	const navigateToNewGroupScreen = () => {
 		navigation.navigate(APP_SCREEN.MESSAGES.STACK, {
@@ -174,17 +191,17 @@ export const MemberListStatus = React.memo(() => {
 				</Pressable>
 			) : null}
 
-			{onlineMembers?.length > 0 || offlineMembers?.length > 0 ? (
+			{online?.length > 0 || offline?.length > 0 ? (
 				<SectionList
 					sections={[
-						{ title: t('common:members'), data: onlineMembers, key: 'onlineMembers' },
-						{ title: t('common:offlines'), data: offlineMembers, key: 'offlineMembers' }
+						{ title: t('common:members'), data: online, key: 'onlineMembers' },
+						{ title: t('common:offlines'), data: offline, key: 'offlineMembers' }
 					]}
 					keyExtractor={(item, index) => `channelMember[${index}]_${item?.id}`}
 					renderItem={renderMemberItem}
 					renderSectionHeader={({ section: { title } }) => (
 						<Text style={styles.text}>
-							{title} - {title === t('common:members') ? onlineMembers?.length : offlineMembers?.length}
+							{title} - {title === t('common:members') ? online?.length : offline?.length}
 						</Text>
 					)}
 					contentContainerStyle={{ paddingBottom: size.s_60 }}

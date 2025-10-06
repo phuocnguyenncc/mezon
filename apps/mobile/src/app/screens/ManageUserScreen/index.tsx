@@ -1,12 +1,7 @@
-import { useAuth, useChannelMembersActions, usePermissionChecker } from '@mezon/core';
+import { useChannelMembersActions, usePermissionChecker } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import {
-	selectCurrentChannel,
-	selectCurrentClan,
-	selectCurrentClanId,
-	selectMemberIdsByChannelId
-} from '@mezon/store-mobile';
+import { selectAllAccount, selectCurrentChannel, selectCurrentClan, selectCurrentClanId, selectMemberIdsByChannelId } from '@mezon/store-mobile';
 import { EPermission } from '@mezon/utils';
 import { useNavigation } from '@react-navigation/native';
 import { ChannelType } from 'mezon-js';
@@ -29,7 +24,7 @@ const ManageUserScreen = ({ route }: ManageUserScreenProps) => {
 	const { themeValue } = useTheme();
 	const navigation = useNavigation();
 	const { t } = useTranslation('clanOverviewSetting');
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const { removeMemberClan } = useChannelMembersActions();
 	const currentClan = useSelector(selectCurrentClan);
 	const currentChannel = useSelector(selectCurrentChannel);
@@ -51,22 +46,25 @@ const ManageUserScreen = ({ route }: ManageUserScreenProps) => {
 		return memberIds.includes(user.user.id);
 	}, [isThread, memberIds, user?.user?.id]);
 
-	const handleActionSettings = useCallback((action?: EActionSettingUserProfile) => {
-		switch (action) {
-			case EActionSettingUserProfile.Kick:
-				confirmKickUserClan();
-				break;
-			case EActionSettingUserProfile.TransferOwnership:
-				DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });
-				(navigation as any).navigate(APP_SCREEN.MENU_CLAN.STACK, {
-					screen: APP_SCREEN.MENU_CLAN.TRANSFER_OWNERSHIP,
-					params: { user }
-				});
-				break;
-			default:
-				break;
-		}
-	}, [navigation, user]);
+	const handleActionSettings = useCallback(
+		(action?: EActionSettingUserProfile) => {
+			switch (action) {
+				case EActionSettingUserProfile.Kick:
+					confirmKickUserClan();
+					break;
+				case EActionSettingUserProfile.TransferOwnership:
+					DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });
+					(navigation as any).navigate(APP_SCREEN.MENU_CLAN.STACK, {
+						screen: APP_SCREEN.MENU_CLAN.TRANSFER_OWNERSHIP,
+						params: { user }
+					});
+					break;
+				default:
+					break;
+			}
+		},
+		[navigation, user]
+	);
 
 	const memberSettings: IProfileSetting[] = useMemo(() => {
 		const settingList = [
@@ -91,7 +89,7 @@ const ManageUserScreen = ({ route }: ManageUserScreenProps) => {
 	const confirmKickUserClan = useCallback(() => {
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });
 		const data = {
-			children: <KickUserClanModal onRemoveUserClan={handleRemoveUserClans} user={user} />,
+			children: <KickUserClanModal onRemoveUserClan={handleRemoveUserClans} user={user} />
 		};
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_MODAL, { isDismiss: false, data });
 	}, [user]);
@@ -131,13 +129,7 @@ const ManageUserScreen = ({ route }: ManageUserScreenProps) => {
 		navigation.goBack();
 	}, [navigation]);
 
-	return (
-		<ManageUser
-			user={user}
-			onClose={exitSetting}
-			memberSettings={memberSettings}
-		/>
-	);
+	return <ManageUser user={user} onClose={exitSetting} memberSettings={memberSettings} />;
 };
 
 export default ManageUserScreen;

@@ -1,4 +1,3 @@
-import { useAuth } from '@mezon/core';
 import {
 	ActionEmitEvent,
 	STORAGE_CHANNEL_CURRENT_CACHE,
@@ -14,6 +13,7 @@ import {
 	directActions,
 	getStoreAsync,
 	messagesActions,
+	selectAllAccount,
 	selectCurrentChannel,
 	selectCurrentClan,
 	selectCurrentLanguage,
@@ -48,7 +48,7 @@ import { APP_SCREEN } from '../ScreenTypes';
 const messaging = getMessaging(getApp());
 export const AuthenticationLoader = () => {
 	const navigation = useNavigation<any>();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const currentClan = useSelector(selectCurrentClan);
 	const mezon = useMezon();
 	const isTabletLandscape = useTabletLandscape();

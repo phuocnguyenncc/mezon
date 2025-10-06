@@ -1,9 +1,10 @@
-import { useAuth, useChannelMembersActions, usePermissionChecker } from '@mezon/core';
+import { useChannelMembersActions, usePermissionChecker } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
 import {
 	ChannelMembersEntity,
 	channelUsersActions,
+	selectAllAccount,
 	selectCurrentChannel,
 	selectCurrentClan,
 	selectCurrentClanId,
@@ -12,13 +13,13 @@ import {
 } from '@mezon/store-mobile';
 import { EPermission } from '@mezon/utils';
 import { useNavigation } from '@react-navigation/native';
-import MezonConfirm from 'apps/mobile/src/app/componentUI/MezonConfirm';
 import { ChannelType } from 'mezon-js';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, Text, TouchableOpacity, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { useSelector } from 'react-redux';
+import MezonConfirm from '../../../../../../../componentUI/MezonConfirm';
 import MezonIconCDN from '../../../../../../../componentUI/MezonIconCDN';
 import { IconCDN } from '../../../../../../../constants/icon_cdn';
 import { APP_SCREEN, AppStackScreenProps } from '../../../../../../../navigation/ScreenTypes';
@@ -31,16 +32,13 @@ interface IUserSettingProfileProps {
 	showActionOutside?: boolean;
 }
 
-const UserSettingProfile = ({
-	user,
-	showActionOutside = true
-}: IUserSettingProfileProps) => {
+const UserSettingProfile = ({ user, showActionOutside = true }: IUserSettingProfileProps) => {
 	const dispatch = useAppDispatch();
 	const navigation = useNavigation<AppStackScreenProps<typeof APP_SCREEN.HOME>['navigation']>();
 	const { themeValue } = useTheme();
 	const styles = style(themeValue);
 	const { t } = useTranslation('clanOverviewSetting');
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const { removeMemberClan } = useChannelMembersActions();
 	const currentClan = useSelector(selectCurrentClan);
 	const currentChannel = useSelector(selectCurrentChannel);
@@ -64,7 +62,6 @@ const UserSettingProfile = ({
 	}, [isThread, memberIds, user?.user?.id]);
 
 	const dangerActions = [EActionSettingUserProfile.Kick, EActionSettingUserProfile.ThreadRemove, EActionSettingUserProfile.TransferOwnership];
-
 
 	const handleSettingUserProfile = useCallback((action?: EActionSettingUserProfile) => {
 		switch (action) {
@@ -235,7 +232,6 @@ const UserSettingProfile = ({
 	);
 
 	const handleCloseRemoveFromThread = () => DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_MODAL, { isDismiss: true });
-
 
 	const confirmRemoveFromThread = () => {
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });

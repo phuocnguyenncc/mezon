@@ -1,11 +1,11 @@
-import { useAuth } from '@mezon/core';
 import { ActionEmitEvent, changeClan, getUpdateOrAddClanChannelCache, save, STORAGE_DATA_CLAN_CHANNEL_CACHE } from '@mezon/mobile-components';
-import type { ChannelsEntity } from '@mezon/store-mobile';
 import {
 	channelsActions,
+	ChannelsEntity,
 	directActions,
 	getStore,
 	getStoreAsync,
+	selectAllAccount,
 	selectAllRolesClan,
 	selectAllUserClans,
 	selectCurrentClanId,
@@ -18,6 +18,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ChannelType } from 'mezon-js';
 import React, { useCallback, useEffect } from 'react';
 import { DeviceEventEmitter, Keyboard, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import { APP_SCREEN } from '../../../navigation/ScreenTypes';
 import JoinChannelVoiceBS from './components/ChannelVoice/JoinChannelVoiceBS';
 import JoinStreamingRoomBS from './components/StreamingRoom/JoinStreamingRoomBS';
@@ -27,7 +28,7 @@ const ChannelMessageListener = React.memo(() => {
 	const store = getStore();
 	const navigation = useNavigation<any>();
 	const dispatch = useAppDispatch();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 
 	const onMention = useCallback(
 		async (mentionedUser: string) => {

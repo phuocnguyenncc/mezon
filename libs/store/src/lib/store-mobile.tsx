@@ -39,12 +39,11 @@ import { channelMetaReducer } from './channels/channelmeta.slice';
 import { hashtagDmReducer } from './channels/hashtagDm.slice';
 import { CHANNEL_LIST_RENDER, listChannelRenderReducer } from './channels/listChannelRender.slice';
 import { listUsersByUserReducer } from './channels/listUsers.slice';
-import { clanMembersMetaReducer } from './clanMembers/clan.members.meta';
 import { integrationClanWebhookReducer } from './clanWebhook/clanWebhook.slide';
 import { settingChannelReducer } from './clans/clanSettingChannel.slice';
 import { COMPOSE_FEATURE_KEY, composeReducer } from './compose/compose.slice';
 import { directMetaReducer } from './direct/directmeta.slice';
-import { directMembersMetaReducer } from './direct/status.slice';
+import { USER_STATUS_FEATURE_KEY, statusReducer } from './direct/status.slice';
 import { audioCallReducer } from './dmcall/audioCall.slice';
 import { DMCallReducer } from './dmcall/dmcall.slice';
 import { dragAndDropReducer } from './dragAndDrop/dragAndDrop.slice';
@@ -488,8 +487,6 @@ const reducer = {
 	systemMessages: systemMessageReducer,
 	giveCoffee: giveCoffeeReducer,
 	settingClanChannel: settingChannelReducer,
-	clanMembersMeta: clanMembersMetaReducer,
-	directmembersmeta: directMembersMetaReducer,
 	[ONBOARDING_FEATURE_KEY]: persistedOnboardingReducer,
 	dmcall: DMCallReducer,
 	[E2EE_FEATURE_KEY]: e2eeReducer,
@@ -500,7 +497,8 @@ const reducer = {
 	groupCall: groupCallReducer,
 	[QUICK_MENU_FEATURE_KEY]: quickMenuReducer,
 	[TRANSACTION_HISTORY_FEATURE_KEY]: transactionHistoryReducer,
-	[WALLET_FEATURE_KEY]: persistedWalletStore
+	[WALLET_FEATURE_KEY]: persistedWalletStore,
+	[USER_STATUS_FEATURE_KEY]: statusReducer
 };
 
 let storeInstance = configureStore({

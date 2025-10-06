@@ -190,5 +190,12 @@
 		"noQuestions": "Bạn chưa có câu hỏi nào. Hãy thiết lập câu hỏi cho clan này trước !!",
 		"noRules": "Bạn chưa có quy tắc nào. Hãy thiết lập quy tắc cho clan này trước !!",
 		"noMissions": "Bạn chưa có nhiệm vụ nào. Hãy thiết lập nhiệm vụ cho clan này trước !!"
+	},
+	"updateUsername": {
+		"enterUsername": "Nhập tên Mezon",
+		"yourName": "Tên của bạn...",
+		"usernamePlaceholder": "Hãy dùng tên thật để mọi người dễ nhận ra bạn",
+		"update": "Cập nhật",
+		"errorDuplicate": "Có sự cố hoặc tên đã tồn tại, vui lòng chọn tên khác."
 	}
 }

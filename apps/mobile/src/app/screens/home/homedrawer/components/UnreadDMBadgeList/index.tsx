@@ -2,7 +2,6 @@ import { useTheme } from '@mezon/mobile-ui';
 import { DirectEntity, directActions, selectDirectById, selectDirectsUnreadlist, useAppDispatch, useAppSelector } from '@mezon/store-mobile';
 import { createImgproxyUrl } from '@mezon/utils';
 import { useNavigation } from '@react-navigation/native';
-import ImageNative from 'apps/mobile/src/app/components/ImageNative';
 import { ChannelType } from 'mezon-js';
 import React, { memo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -11,6 +10,7 @@ import { useSelector } from 'react-redux';
 import MezonIconCDN from '../../../../../../../src/app/componentUI/MezonIconCDN';
 import { IconCDN } from '../../../../../../../src/app/constants/icon_cdn';
 import { APP_SCREEN } from '../../../../../../app/navigation/ScreenTypes';
+import ImageNative from '../../../../../components/ImageNative';
 import useTabletLandscape from '../../../../../hooks/useTabletLandscape';
 import { UnreadDMLoading } from './UnreadDMLoading';
 import { style } from './styles';
@@ -27,10 +27,10 @@ const UnreadDMBadgeItem = memo(({ dmId, numUnread }: { dmId: string; numUnread: 
 			case ChannelType.CHANNEL_TYPE_DM:
 				return (
 					<View style={styles.avatarWrapper}>
-						{dm?.channel_avatar?.[0] ? (
+						{dm?.avatars?.[0] ? (
 							<FastImage
 								source={{
-									uri: createImgproxyUrl(dm?.channel_avatar?.[0] ?? '', { width: 100, height: 100, resizeType: 'fit' })
+									uri: createImgproxyUrl(dm?.avatars?.[0] ?? '', { width: 100, height: 100, resizeType: 'fit' })
 								}}
 								resizeMode="cover"
 								style={styles.groupAvatar}
@@ -50,10 +50,10 @@ const UnreadDMBadgeItem = memo(({ dmId, numUnread }: { dmId: string; numUnread: 
 			case ChannelType.CHANNEL_TYPE_GROUP:
 				return (
 					<View style={styles.avatarWrapper}>
-						{dm?.topic && !dm?.topic?.includes('avatar-group.png') ? (
+						{dm?.channel_avatar && !dm?.channel_avatar?.includes('avatar-group.png') ? (
 							<View style={styles.groupAvatarWrapper}>
 								<ImageNative
-									url={createImgproxyUrl(dm?.topic ?? '')}
+									url={createImgproxyUrl(dm?.channel_avatar ?? '')}
 									style={{ width: '100%', height: '100%' }}
 									resizeMode={'cover'}
 								/>

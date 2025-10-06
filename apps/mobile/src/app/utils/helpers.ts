@@ -55,10 +55,6 @@ export const resetCachedChatbox = (channelId: string) => {
 	}
 };
 
-export const getUserStatusByMetadata = (metadata: string | { status: string; user_status: string }) => {
-	return typeof metadata === 'string' ? safeJSONParse(metadata)?.user_status : metadata?.user_status;
-};
-
 export function combineMessageReactions(reactions: any[], message_id: string): any[] {
 	const dataCombined: Record<string, EmojiDataOptionals> = {};
 

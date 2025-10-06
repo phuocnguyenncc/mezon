@@ -15,9 +15,7 @@ export const style = (colors: Attributes) =>
 		},
 		wrapperCreateClanModal: {
 			flex: 1,
-			backgroundColor: colors.primary,
 			paddingHorizontal: size.s_20,
-			paddingTop: size.s_50,
 			width: '100%',
 			height: '100%'
 		},

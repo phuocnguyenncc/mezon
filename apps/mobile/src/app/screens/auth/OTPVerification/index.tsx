@@ -1,6 +1,6 @@
 import { useAuth } from '@mezon/core';
 import { baseColor, size } from '@mezon/mobile-ui';
-import { authActions } from '@mezon/store';
+import { appActions, authActions } from '@mezon/store';
 import { useAppDispatch } from '@mezon/store-mobile';
 import type { ApiLinkAccountConfirmRequest } from 'mezon-js/api.gen';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -139,7 +139,7 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ navigatio
 			try {
 				if (otpConfirm?.length === 6) {
 					setIsLoading(true);
-					const resp = await confirmEmailOTP({ otp_code: otpConfirm, req_id: reqIdSent });
+					const resp: any = await confirmEmailOTP({ otp_code: otpConfirm, req_id: reqIdSent });
 
 					if (!resp) {
 						Toast.show({
@@ -150,6 +150,11 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ navigatio
 							}
 						});
 						setIsError(true);
+					} else {
+						// If the account is newly created or a username is missing, prompt for username update
+						if (!resp?.username || resp?.username === phoneNumber) {
+							dispatch(appActions.setIsShowUpdateUsername(true));
+						}
 					}
 
 					setIsLoading(false);
@@ -166,7 +171,7 @@ const OTPVerificationScreen: React.FC<OTPVerificationScreenProps> = ({ navigatio
 				});
 			}
 		},
-		[confirmEmailOTP, reqIdSent]
+		[confirmEmailOTP, dispatch, phoneNumber, reqIdSent]
 	);
 
 	const handleResendOTP = async () => {

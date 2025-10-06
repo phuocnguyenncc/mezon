@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { useAuth, useFriends } from '@mezon/core';
+import { useFriends } from '@mezon/core';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
 import {
 	EStateFriend,
 	friendsActions,
 	getStoreAsync,
+	selectAllAccount,
 	selectChannelById,
 	selectDmGroupCurrent,
 	selectFriendById,
@@ -19,6 +20,7 @@ import { ChannelType } from 'mezon-js';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 import MezonAvatar from '../../../componentUI/MezonAvatar';
 import MezonIconCDN from '../../../componentUI/MezonIconCDN';
 import ImageNative from '../../../components/ImageNative';
@@ -36,12 +38,12 @@ const useCurrentChannel = (channelId: string) => {
 	return dmGroup || channel;
 };
 
-const WelcomeMessage = React.memo(({ channelId, uri }: IWelcomeMessage) => {
+const WelcomeMessage = React.memo(({ channelId }: IWelcomeMessage) => {
 	const { themeValue } = useTheme();
 	const styles = style(themeValue);
 	const { t } = useTranslation(['userProfile', 'dmMessage']);
 	const currenChannel = useCurrentChannel(channelId) as IChannel;
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const currentUserId = userProfile?.user?.id;
 	const targetUserId = currenChannel?.user_ids?.[0];
 	const infoFriend = useAppSelector((state) => selectFriendById(state, targetUserId || ''));

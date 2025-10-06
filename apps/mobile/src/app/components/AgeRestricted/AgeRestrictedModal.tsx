@@ -1,7 +1,6 @@
-import { useAuth } from '@mezon/core';
 import { STORAGE_AGE_RESTRICTED_CHANNEL_IDS, load } from '@mezon/mobile-components';
 import { useTheme } from '@mezon/mobile-ui';
-import { ChannelsEntity, selectCurrentChannel } from '@mezon/store-mobile';
+import { ChannelsEntity, selectAllAccount, selectCurrentChannel } from '@mezon/store-mobile';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -11,7 +10,7 @@ import AgeRestrictedForm from './AgeRestrictedForm';
 const AgeRestrictedModal = () => {
 	const [isShowAgeRestricted, setIsShowAgeRestricted] = useState(false);
 	const currentChannel = useSelector(selectCurrentChannel);
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const { themeValue } = useTheme();
 	useEffect(() => {
 		const savedChannelIds = load(STORAGE_AGE_RESTRICTED_CHANNEL_IDS) || [];

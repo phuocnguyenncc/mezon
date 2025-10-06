@@ -1,13 +1,13 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { useAuth } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import { emojiRecentActions, useAppDispatch } from '@mezon/store-mobile';
+import { emojiRecentActions, selectAllAccount, useAppDispatch } from '@mezon/store-mobile';
 import { ITEM_TYPE, getSrcEmoji } from '@mezon/utils';
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, Image, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 import MezonConfirm from '../../../componentUI/MezonConfirm';
 import MezonIconCDN from '../../../componentUI/MezonIconCDN';
 import { IconCDN } from '../../../constants/icon_cdn';
@@ -33,7 +33,7 @@ const ProductDetailModal = ({ product, isHaveUnlock }: ProductDetailModalProps) 
 	const styles = style(themeValue);
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation(['token']);
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 
 	const closeModal = () => DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_MODAL, { isDismiss: true });
 

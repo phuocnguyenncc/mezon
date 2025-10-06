@@ -1,17 +1,16 @@
-import { useAuth, useFriends } from '@mezon/core';
+import { useFriends } from '@mezon/core';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import { RootState, friendsActions, getStore, requestAddFriendParam, selectStatusSentMobile } from '@mezon/store-mobile';
-import StatusBarHeight from 'apps/mobile/src/app/components/StatusBarHeight/StatusBarHeight';
-import MezonIconCDN from 'apps/mobile/src/app/componentUI/MezonIconCDN';
-import { IconCDN } from 'apps/mobile/src/app/constants/icon_cdn';
+import { RootState, friendsActions, getStore, requestAddFriendParam, selectAllAccount, selectStatusSentMobile } from '@mezon/store-mobile';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Platform, StatusBar, Text, TextInput, View } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import Toast from 'react-native-toast-message';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MezonButton from '../../../../../componentUI/MezonButton';
+import MezonIconCDN from '../../../../../componentUI/MezonIconCDN';
 import { MezonModal } from '../../../../../componentUI/MezonModal';
+import { IconCDN } from '../../../../../constants/icon_cdn';
 import { style } from './styles';
 interface IAddFriendModal {
 	isShow: boolean;
@@ -22,7 +21,7 @@ export const AddFriendModal = React.memo((props: IAddFriendModal) => {
 	const { themeValue } = useTheme();
 	const styles = style(themeValue);
 	const { isShow, onClose } = props;
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const { addFriend } = useFriends();
 	const dispatch = useDispatch();
 	const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -122,7 +121,6 @@ export const AddFriendModal = React.memo((props: IAddFriendModal) => {
 					keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : StatusBar.currentHeight + 5}
 					style={styles.fill}
 				>
-					<StatusBarHeight />
 					<View style={[styles.fill, { paddingVertical: 20 }]}>
 						<View style={styles.fill}>
 							<Text style={styles.defaultText}>{t('addFriend.whoYouWantToAddFriend')}</Text>

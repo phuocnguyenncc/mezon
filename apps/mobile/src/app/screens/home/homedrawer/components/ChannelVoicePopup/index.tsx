@@ -1,4 +1,3 @@
-import { useAuth } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { size } from '@mezon/mobile-ui';
 import {
@@ -6,6 +5,7 @@ import {
 	generateMeetToken,
 	getStoreAsync,
 	handleParticipantVoiceState,
+	selectAllAccount,
 	selectIsPiPMode,
 	selectVoiceInfo,
 	selectVoiceJoined,
@@ -17,6 +17,7 @@ import { ParticipantMeetState, sleep } from '@mezon/utils';
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, BackHandler, DeviceEventEmitter, Dimensions, Keyboard, PanResponder } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 import ChannelVoice from '../ChannelVoice';
 
 const MINIMIZED_WIDTH = size.s_100 * 2;
@@ -34,7 +35,7 @@ const ChannelVoicePopup = ({ isFromNativeCall = false }) => {
 	const isPiPMode = useAppSelector((state) => selectIsPiPMode(state));
 	const [isGroupCall, setIsGroupCall] = useState(false);
 	const [participantsCount, setParticipantsCount] = useState(0);
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 
 	const resetPosition = useCallback(() => {
 		if (!isFullScreen.current && !isPiPMode) {

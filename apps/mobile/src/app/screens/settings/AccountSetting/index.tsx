@@ -1,4 +1,3 @@
-import { useAuth } from '@mezon/core';
 import {
 	remove,
 	STORAGE_CHANNEL_CURRENT_CACHE,
@@ -15,6 +14,7 @@ import {
 	clansActions,
 	getStoreAsync,
 	messagesActions,
+	selectAllAccount,
 	selectBlockedUsers,
 	useAppDispatch
 } from '@mezon/store-mobile';
@@ -50,7 +50,7 @@ interface IAccountOption {
 type AccountSettingScreen = typeof APP_SCREEN.SETTINGS.ACCOUNT;
 export const AccountSetting = ({ navigation }: SettingScreenProps<AccountSettingScreen>) => {
 	const { themeValue } = useTheme();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const styles = style(themeValue);
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation('accountSetting');

@@ -1,9 +1,10 @@
 import { useParticipants, useRoomContext, useTracks, VideoTrack } from '@livekit/react-native';
-import { useAuth, usePermissionChecker } from '@mezon/core';
+import { usePermissionChecker } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { size, useTheme } from '@mezon/mobile-ui';
 import {
 	getStore,
+	selectAllAccount,
 	selectCurrentClanId,
 	selectIsPiPMode,
 	selectMemberClanByUserName,
@@ -17,6 +18,7 @@ import { RoomEvent, Track } from 'livekit-client';
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import MezonIconCDN from '../../../../../../../../src/app/componentUI/MezonIconCDN';
 import { IconCDN } from '../../../../../../../../src/app/constants/icon_cdn';
 import MezonAvatar from '../../../../../../componentUI/MezonAvatar';
@@ -279,7 +281,7 @@ const ParticipantScreen = ({ setFocusedScreenShare, activeSoundReactions, isGrou
 		}
 		return false;
 	}, [clanId, currentClanId, canMangeVoice]);
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const { name } = useRoomContext();
 
 	const sortedParticipantsRef = useRef<Participant[]>([]);

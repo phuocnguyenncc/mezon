@@ -1,4 +1,3 @@
-import { useAuth } from '@mezon/core';
 import {
 	ActionEmitEvent,
 	remove,
@@ -7,7 +6,7 @@ import {
 	STORAGE_KEY_TEMPORARY_ATTACHMENT,
 	STORAGE_KEY_TEMPORARY_INPUT_MESSAGES
 } from '@mezon/mobile-components';
-import { appActions, authActions, channelsActions, clansActions, messagesActions, selectHasInternetMobile } from '@mezon/store';
+import { appActions, authActions, channelsActions, clansActions, messagesActions, selectAllAccount, selectHasInternetMobile } from '@mezon/store';
 import { getStoreAsync } from '@mezon/store-mobile';
 import React, { useCallback, useEffect } from 'react';
 import { DeviceEventEmitter, Platform } from 'react-native';
@@ -15,7 +14,7 @@ import { useSelector } from 'react-redux';
 import MezonConfirm from '../../componentUI/MezonConfirm';
 
 const ExpiredSessionModal = () => {
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const hasInternet = useSelector(selectHasInternetMobile);
 
 	const logout = useCallback(async () => {

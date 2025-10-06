@@ -1,6 +1,5 @@
-import { useAuth } from '@mezon/core';
 import { size } from '@mezon/mobile-ui';
-import { canvasAPIActions, selectCanvasIdsByChannelId, useAppDispatch, useAppSelector } from '@mezon/store-mobile';
+import { canvasAPIActions, selectAllAccount, selectCanvasIdsByChannelId, useAppDispatch, useAppSelector } from '@mezon/store-mobile';
 import { normalizeString } from '@mezon/utils';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +8,7 @@ import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 import { APP_SCREEN } from '../../navigation/ScreenTypes';
 import CanvasItem from './CanvasItem';
 import CanvasSearch from './CanvasSearch';
@@ -17,7 +17,7 @@ import { style } from './styles';
 const Canvas = memo(({ channelId, clanId }: { channelId: string; clanId: string }) => {
 	const styles = style();
 	const navigation = useNavigation<any>();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const dispatch = useAppDispatch();
 	const [searchText, setSearchText] = useState('');
 

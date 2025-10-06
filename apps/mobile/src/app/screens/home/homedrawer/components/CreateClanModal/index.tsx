@@ -7,7 +7,7 @@ import { MAX_FILE_SIZE_1MB } from '@mezon/utils';
 import MezonClanAvatar from 'apps/mobile/src/app/componentUI/MezonClanAvatar';
 import React, { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DeviceEventEmitter, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { DeviceEventEmitter, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import RNFS from 'react-native-fs';
 import type { CameraOptions } from 'react-native-image-picker';
 import * as ImagePicker from 'react-native-image-picker';
@@ -21,6 +21,8 @@ import { IconCDN } from '../../../../../constants/icon_cdn';
 import useCheckClanLimit from '../../../../../hooks/useCheckClanLimit';
 import { validInput } from '../../../../../utils/validate';
 import { style } from './CreateClanModal.styles';
+import StatusBarHeight from '../../../../../components/StatusBarHeight/StatusBarHeight';
+import LinearGradient from 'react-native-linear-gradient';
 
 const CreateClanModal = memo(() => {
 	const { themeValue } = useTheme();
@@ -125,6 +127,13 @@ const CreateClanModal = memo(() => {
 
 	return (
 		<View style={styles.wrapperCreateClanModal}>
+			<StatusBarHeight />
+			<LinearGradient
+				start={{ x: 1, y: 0 }}
+				end={{ x: 0, y: 0 }}
+				colors={[themeValue.primary, themeValue?.primaryGradiant || themeValue.primary]}
+				style={[StyleSheet.absoluteFillObject]}
+			/>
 			<Pressable onPress={onClose}>
 				<MezonIconCDN icon={IconCDN.closeIcon} color={themeValue.textStrong} height={size.s_30} width={size.s_30} />
 			</Pressable>

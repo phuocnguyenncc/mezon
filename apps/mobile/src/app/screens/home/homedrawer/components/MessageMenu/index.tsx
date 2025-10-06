@@ -1,8 +1,8 @@
-import { useAuth, useFriends } from '@mezon/core';
+import { useFriends } from '@mezon/core';
 import { ActionEmitEvent, ENotificationActive, ENotificationChannelId } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import type { DirectEntity } from '@mezon/store-mobile';
 import {
+	DirectEntity,
 	EStateFriend,
 	deleteChannel,
 	directActions,
@@ -11,6 +11,7 @@ import {
 	markAsReadProcessing,
 	notificationSettingActions,
 	removeMemberChannel,
+	selectAllAccount,
 	selectCurrentClan,
 	selectCurrentUserId,
 	selectFriendById,
@@ -49,7 +50,7 @@ function MessageMenu({ messageInfo }: IServerMenuProps) {
 	const dispatch = useAppDispatch();
 	const navigation = useNavigation<any>();
 	const currentClan = useSelector(selectCurrentClan);
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const currentUserId = useAppSelector(selectCurrentUserId);
 	const infoFriend = useAppSelector((state) => selectFriendById(state, messageInfo?.user_ids?.[0] || ''));
 	const didIBlockUser = useMemo(() => {

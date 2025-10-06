@@ -1,13 +1,13 @@
-import { useAuth } from '@mezon/core';
 import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
-import { emojiRecentActions, useAppDispatch } from '@mezon/store-mobile';
+import { emojiRecentActions, selectAllAccount, useAppDispatch } from '@mezon/store-mobile';
 import { IEmoji, ITEM_TYPE, getSrcEmoji } from '@mezon/utils';
 import React, { FC, memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, FlatList, TouchableOpacity, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Toast from 'react-native-toast-message';
+import { useSelector } from 'react-redux';
 import MezonConfirm from '../../../../../../../../componentUI/MezonConfirm';
 import MezonIconCDN from '../../../../../../../../componentUI/MezonIconCDN';
 import { IconCDN } from '../../../../../../../../constants/icon_cdn';
@@ -39,7 +39,7 @@ const EmojiItem = memo(({ item, onPress }: { item: IEmoji; onPress: (emoji: IEmo
 const EmojisPanel: FC<EmojisPanelProps> = ({ emojisData, onEmojiSelect }) => {
 	const { t } = useTranslation(['token']);
 	const dispatch = useAppDispatch();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const COLUMNS = 9;
 	const ITEM_HEIGHT = 40;
 

@@ -1,6 +1,5 @@
-import { useAuth } from '@mezon/core';
 import { size, useTheme } from '@mezon/mobile-ui';
-import { appActions, clansActions, selectLogoCustom, useAppDispatch } from '@mezon/store-mobile';
+import { appActions, clansActions, selectAllAccount, selectLogoCustom, useAppDispatch } from '@mezon/store-mobile';
 import { MAX_FILE_SIZE_1MB } from '@mezon/utils';
 import React, { memo } from 'react';
 import { Text, View } from 'react-native';
@@ -15,7 +14,7 @@ export const DirectMessageLogo = memo(() => {
 	const styles = style(themeValue);
 	const logoCustom = useSelector(selectLogoCustom);
 	const dispatch = useAppDispatch();
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 
 	const handleOnLoad = async (url) => {
 		if (url) {

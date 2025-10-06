@@ -2,10 +2,13 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ColorRoleProvider } from '@mezon/mobile-ui';
+import { selectIsShowUpdateUsername } from '@mezon/store-mobile';
 import notifee from '@notifee/react-native';
 import { getApp } from '@react-native-firebase/app';
 import { getInitialNotification, getMessaging } from '@react-native-firebase/messaging';
 import { Platform } from 'react-native';
+import { useSelector } from 'react-redux';
+import UpdateUserName from '../../components/UpdateUserName';
 import useTabletLandscape from '../../hooks/useTabletLandscape';
 import { clanAndChannelIdLinkRegex, clanDirectMessageLinkRegex } from '../../utils/helpers';
 import { APP_SCREEN } from '../ScreenTypes';
@@ -15,7 +18,7 @@ export const Authentication = memo(() => {
 	const isTabletLandscape = useTabletLandscape();
 	const [initRouteName, setInitRouteName] = useState<string>('');
 	const notiInitRef = useRef<any>(null);
-
+	const isShowUpdateUsername = useSelector(selectIsShowUpdateUsername);
 	const getInitRouterName = async () => {
 		let routeName: string = APP_SCREEN.BOTTOM_BAR;
 		try {
@@ -44,6 +47,7 @@ export const Authentication = memo(() => {
 
 	if (!initRouteName) return null;
 
+	if (isShowUpdateUsername) return <UpdateUserName />;
 	return (
 		<BottomSheetModalProvider>
 			<ColorRoleProvider>

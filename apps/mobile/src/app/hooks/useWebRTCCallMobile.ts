@@ -1,7 +1,7 @@
 import { MediaStream, RTCIceCandidate, RTCPeerConnection, RTCSessionDescription, mediaDevices } from '@livekit/react-native-webrtc';
-import { useAuth, useChatSending } from '@mezon/core';
+import { useChatSending } from '@mezon/core';
 import { ActionEmitEvent, sessionConstraints } from '@mezon/mobile-components';
-import { DMCallActions, RootState, audioCallActions, selectDmGroupCurrent, useAppDispatch } from '@mezon/store-mobile';
+import { DMCallActions, RootState, audioCallActions, selectAllAccount, selectDmGroupCurrent, useAppDispatch } from '@mezon/store-mobile';
 import { useMezon } from '@mezon/transport';
 import type { IMessageSendPayload } from '@mezon/utils';
 import { IMessageTypeCallLog, sleep } from '@mezon/utils';
@@ -72,7 +72,7 @@ export function useWebRTCCallMobile({ dmUserId, channelId, userId, isVideoCall, 
 	const currentDmGroup = useSelector(selectDmGroupCurrent(channelId));
 	const mode = currentDmGroup?.type === ChannelType.CHANNEL_TYPE_DM ? ChannelStreamMode.STREAM_MODE_DM : ChannelStreamMode.STREAM_MODE_GROUP;
 	const { sendMessage } = useChatSending({ channelOrDirect: currentDmGroup, mode });
-	const { userProfile } = useAuth();
+	const userProfile = useSelector(selectAllAccount);
 	const sessionUser = useSelector((state: RootState) => state.auth?.session);
 	const dialToneRef = useRef<Sound | null>(null);
 	const trackEventTimeoutRef = useRef<NodeJS.Timeout | null>(null);
