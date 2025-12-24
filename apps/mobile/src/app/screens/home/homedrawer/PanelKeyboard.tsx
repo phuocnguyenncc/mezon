@@ -45,7 +45,15 @@ const PanelKeyboard = React.memo((props: IProps) => {
 			const validHeight = Math.max(0, height);
 			heightKeyboardShowRef.current = validHeight;
 			setHeightKeyboardShow(validHeight);
-			bottomPickerRef?.current?.present();
+			if (
+				typeKeyboardBottomSheetRef.current !== 'advanced' &&
+				!!typeKeyboardBottomSheetRef?.current &&
+				typeKeyboardBottomSheetRef.current !== 'emoji' &&
+				typeKeyboardBottomSheetRef.current !== 'attachment'
+			) {
+				bottomPickerRef?.current?.dismiss();
+				bottomPickerRef?.current?.close();
+			}
 
 			Animated.timing(spacerHeightAnim, {
 				toValue: validHeight,
@@ -55,7 +63,7 @@ const PanelKeyboard = React.memo((props: IProps) => {
 		});
 
 		const hideSub = Keyboard.addListener(hideEvent, () => {
-			if (typeKeyboardBottomSheetRef.current !== 'text') {
+			if (typeKeyboardBottomSheetRef.current !== 'text' && !!typeKeyboardBottomSheetRef?.current) {
 				return;
 			}
 			heightKeyboardShowRef.current = 0;
@@ -76,11 +84,12 @@ const PanelKeyboard = React.memo((props: IProps) => {
 	const onShowKeyboardBottomSheet = useCallback(
 		async (isShow: boolean, type?: string) => {
 			const keyboardHeight = heightKeyboardShowRef.current ? heightKeyboardShowRef.current : Platform.OS === 'ios' ? 365 : 300;
-			const validHeight = Math.max(0, keyboardHeight); // Ensure non-negative
-
-			if (isShow) {
-				typeKeyboardBottomSheetRef.current = type;
+			const validHeight = Math.max(0, keyboardHeight);
+			if (type !== 'force') {
 				setTypeKeyboardBottomSheet(type);
+				typeKeyboardBottomSheetRef.current = type;
+			}
+			if (isShow) {
 				heightKeyboardShowRef.current = validHeight;
 				setHeightKeyboardShow(validHeight);
 				Animated.timing(spacerHeightAnim, {
@@ -119,7 +128,7 @@ const PanelKeyboard = React.memo((props: IProps) => {
 
 	const onClose = useCallback(
 		(isFocusKeyboard = true) => {
-			onShowKeyboardBottomSheet(false, 'text');
+			onShowKeyboardBottomSheet(false, 'force');
 			isFocusKeyboard && DeviceEventEmitter.emit(ActionEmitEvent.SHOW_KEYBOARD, {});
 		},
 		[onShowKeyboardBottomSheet]
