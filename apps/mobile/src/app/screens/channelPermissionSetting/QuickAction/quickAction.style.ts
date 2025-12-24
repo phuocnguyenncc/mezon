@@ -1,4 +1,5 @@
-import { Attributes, baseColor, Metrics, size } from '@mezon/mobile-ui';
+import type { Attributes } from '@mezon/mobile-ui';
+import { baseColor, Metrics, size } from '@mezon/mobile-ui';
 import { StyleSheet } from 'react-native';
 
 export const style = (colors: Attributes) =>
@@ -122,7 +123,7 @@ export const style = (colors: Attributes) =>
 		},
 		createButtonText: {
 			textAlign: 'center',
-			color: 'white',
+			color: baseColor.white,
 			fontWeight: 'bold'
 		},
 		backdrop: {
@@ -154,16 +155,20 @@ export const style = (colors: Attributes) =>
 			color: colors.text
 		},
 		activeTabTitle: {
-			color: 'white'
+			color: baseColor.white
 		},
 		headerTitleText: {
 			fontSize: size.s_18,
 			marginLeft: 0,
-			marginRight: 0
+			marginRight: 0,
+			fontWeight: 'bold',
+			color: colors.white
 		},
 		containerView: {
 			flex: 1,
-			paddingHorizontal: size.s_12
+			paddingHorizontal: size.s_12,
+			marginTop: size.s_12,
+			backgroundColor: colors.primary
 		},
 		loadingView: {
 			flex: 1,

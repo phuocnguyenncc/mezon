@@ -13,6 +13,7 @@ import {
 	giveCoffeeActions,
 	messagesActions,
 	notificationActions,
+	selectAnonymousMode,
 	selectCurrentChannel,
 	selectCurrentChannelId,
 	selectCurrentClanId,
@@ -85,6 +86,7 @@ export const ContainerMessageActionModal = React.memo((props: IReplyBottomSheet)
 	const currentChannel = useSelector(selectCurrentChannel);
 	const currentDmGroup = useSelector(selectDmGroupCurrent(currentDmId ?? ''));
 	const currentTopicId = useSelector(selectCurrentTopicId);
+	const anonymousMode = useSelector(selectAnonymousMode);
 	const navigation = useNavigation<any>();
 	const { createDirectMessageWithUser } = useDirect();
 	const { sendInviteMessage } = useSendInviteMessage();
@@ -95,6 +97,7 @@ export const ContainerMessageActionModal = React.memo((props: IReplyBottomSheet)
 		message?.code === TypeMessage.CreatePin ||
 		message?.code === TypeMessage.AuditLog;
 	const isAnonymous = message?.sender_id === process.env.NX_CHAT_APP_ANNONYMOUS_USER_ID;
+
 	const onClose = useCallback(() => {
 		DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_BOTTOM_SHEET, { isDismiss: true });
 	}, []);
@@ -689,7 +692,8 @@ export const ContainerMessageActionModal = React.memo((props: IReplyBottomSheet)
 			!canSendMessage ||
 			currentChannelId !== message?.channel_id ||
 			isMessageSystem ||
-			message?.code === TypeMessage.MessageBuzz;
+			message?.code === TypeMessage.MessageBuzz ||
+			anonymousMode;
 		const listOfActionOnlyMyMessage = [EMessageActionType.EditMessage];
 		const isHideActionImage = !(message?.attachments?.length === 1 && message?.attachments?.[0]?.filetype?.includes('image'));
 		const isHideActionMedia =

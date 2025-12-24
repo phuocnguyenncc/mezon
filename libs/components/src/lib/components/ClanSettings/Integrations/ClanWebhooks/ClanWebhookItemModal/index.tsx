@@ -128,10 +128,12 @@ const ExpendedClanWebhookModal = ({ webhookItem }: IExpendedClanWebhookModal) =>
 			if (!file) return;
 			if (file.size > MAX_FILE_SIZE_8MB) {
 				setOpenModal(true);
+				e.target.value = '';
 				return;
 			}
 			if (!fileTypeImage.includes(file.type)) {
 				setOpenTypeModal(true);
+				e.target.value = '';
 				return;
 			}
 			const client = clientRef.current;

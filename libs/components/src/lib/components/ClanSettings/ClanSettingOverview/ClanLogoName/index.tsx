@@ -38,6 +38,7 @@ const ClanLogoName = ({ onUpload, onGetClanName, resetTrigger, onResetComplete, 
 		if (!file) return;
 		if (file.size > MAX_FILE_SIZE_1MB) {
 			setOpenSizeModal(true);
+			e.target.value = null;
 			return;
 		}
 		if (!client || !session) {

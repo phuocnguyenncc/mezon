@@ -5,8 +5,9 @@ import { DEFAULT_MESSAGE_CREATOR_NAME_DISPLAY_COLOR, convertTimeString } from '@
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, Text, View } from 'react-native';
-import MezonAvatar from '../../../../../../componentUI/MezonAvatar';
+import MezonClanAvatar from '../../../../../../componentUI/MezonClanAvatar';
 import MezonIconCDN from '../../../../../../componentUI/MezonIconCDN';
+import ImageNative from '../../../../../../components/ImageNative';
 import { IconCDN } from '../../../../../../constants/icon_cdn';
 import { EmbedMessage } from '../../EmbedMessage';
 import { MessageAttachment } from '../../MessageAttachment';
@@ -26,6 +27,10 @@ const TopicHeader = memo(({ currentChannelId, handleBack }: TopicHeaderProps) =>
 
 	const { priorityAvatar, namePriority } = useGetPriorityNameFromUserClan(firstMessage?.sender_id || '');
 	const userRolesClan = useColorsRoleById(firstMessage?.sender_id || '');
+
+	const senderUsername = useMemo(() => {
+		return firstMessage?.user?.username || firstMessage?.username || '';
+	}, [firstMessage?.user?.username, firstMessage?.username]);
 
 	const colorSenderName = useMemo(() => {
 		return (
@@ -50,9 +55,18 @@ const TopicHeader = memo(({ currentChannelId, handleBack }: TopicHeaderProps) =>
 			</View>
 			{firstMessage && (
 				<View style={styles.userInfo}>
-					<MezonAvatar avatarUrl={priorityAvatar} username={namePriority || firstMessage?.display_name || ''} />
+					<View style={styles.avatarWrapper}>
+						<MezonClanAvatar alt={senderUsername} image={priorityAvatar} />
+					</View>
+
 					<View>
-						<Text style={[styles.name, { color: colorSenderName }]}>{namePriority || firstMessage?.display_name || ''}</Text>
+						<View style={styles.nameWrapper}>
+							<Text style={[styles.name, { color: colorSenderName }]}>{namePriority || firstMessage?.display_name || ''}</Text>
+
+							{userRolesClan?.highestPermissionRoleIcon && (
+								<ImageNative url={userRolesClan.highestPermissionRoleIcon} style={styles.roleIcon} resizeMode={'contain'} />
+							)}
+						</View>
 						{firstMessage?.create_time && <Text style={styles.dateText}>{convertTimeString(firstMessage.create_time as string, t)}</Text>}
 					</View>
 				</View>

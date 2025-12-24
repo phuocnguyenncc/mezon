@@ -1,4 +1,5 @@
 import { DndContext, PointerSensor, closestCenter, useSensor, useSensors, type DragEndEvent, type DragStartEvent } from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { usePermissionChecker } from '@mezon/core';
 import {
@@ -374,7 +375,7 @@ const RowVirtualizerDynamic = memo(({ permissions }: { permissions: IChannelLink
 	const handleCategoryDragEnd = useCallback(
 		(event: DragEndEvent) => {
 			const { active, over } = event;
-			if (!over || active.id === over.id || !listChannelRender) {
+			if (!over || active.id === over.id || !listChannelRender || active.id === FAVORITE_CATEGORY_ID || over.id === FAVORITE_CATEGORY_ID) {
 				return;
 			}
 
@@ -387,15 +388,18 @@ const RowVirtualizerDynamic = memo(({ permissions }: { permissions: IChannelLink
 
 			const reordered = arrayMove(categories, oldIndex, newIndex);
 
-			const categoriesOrderChanges: ApiCategoryOrderUpdate[] = reordered.map((category: ICategoryChannel, index: number) => ({
-				category_id: category.category_id as string,
-				order: index + 1
-			}));
+			let orderCounter = 1;
+			const categoriesOrderChanges: ApiCategoryOrderUpdate[] = reordered
+				.filter((category: ICategoryChannel) => category.id !== FAVORITE_CATEGORY_ID && category.category_id !== 'favorCate')
+				.map((category: ICategoryChannel) => ({
+					category_id: category.category_id as string,
+					order: orderCounter++
+				}));
 
 			dispatch(
 				categoriesActions.updateCategoriesOrder({
 					clan_id: currentClanId as string,
-					categories: categoriesOrderChanges.filter((item) => item.category_id !== 'favorCate')
+					categories: categoriesOrderChanges
 				})
 			);
 
@@ -410,7 +414,13 @@ const RowVirtualizerDynamic = memo(({ permissions }: { permissions: IChannelLink
 	);
 
 	return (
-		<DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleCategoryDragStart} onDragEnd={handleCategoryDragEnd}>
+		<DndContext
+			sensors={sensors}
+			collisionDetection={closestCenter}
+			onDragStart={handleCategoryDragStart}
+			onDragEnd={handleCategoryDragEnd}
+			modifiers={[restrictToVerticalAxis]}
+		>
 			<SortableContext items={categoryIds} strategy={verticalListSortingStrategy}>
 				<div
 					ref={parentRef}

@@ -83,10 +83,12 @@ const ModalEditGroup: React.FC<ModalEditGroupProps> = ({
 		if (!file) return;
 		if (file.size > MAX_FILE_SIZE_8MB) {
 			setOpenModal(true);
+			event.target.value = '';
 			return;
 		}
 		if (!fileTypeImage.includes(file.type)) {
 			setOpenTypeModal(true);
+			event.target.value = '';
 			return;
 		}
 		if (file && onImageUpload) {

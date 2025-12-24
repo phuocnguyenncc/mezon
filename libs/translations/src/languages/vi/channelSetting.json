@@ -181,7 +181,7 @@
 		"create": "Tạo",
 		"update": "Cập nhật",
 		"delete": "Xóa",
-		"deleteModal": "XÓA TÁC VỤ",
+		"deleteModal": "Xóa menu nhanh",
 		"deleteTitle": "Bạn có chắc chắn muốn xóa {{command}} không? Hành động này không thể hoàn tác.",
 		"flashMessage": "Tin nhắn nhanh",
 		"flashMessages": "Tin nhắn nhanh",

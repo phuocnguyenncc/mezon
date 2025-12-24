@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { ModalDownload } from '../homepage/mezonpage/components';
 import Footer from '../homepage/mezonpage/footer';
 import HeaderMezon from '../homepage/mezonpage/header';
+import { SideBarMezon } from '../homepage/mezonpage/sidebar';
 
 const TextChannelPage = () => {
 	const { t } = useTranslation('textchannel');
@@ -20,6 +21,7 @@ const TextChannelPage = () => {
 	const [openFAQ, setOpenFAQ] = useState<number | null>(0);
 	const [isMobile, setIsMobile] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [sideBarIsOpen, setSideBarIsOpen] = useState(false);
 
 	const slides = (t('discover.slides', { returnObjects: true }) as Array<{ title: string; description: string }>).map((slide, index) => ({
 		...slide,
@@ -92,6 +94,15 @@ const TextChannelPage = () => {
 
 	const goToNext = () => {
 		setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1));
+	};
+
+	const toggleSideBar = () => {
+		setSideBarIsOpen((prev) => !prev);
+	};
+
+	const scrollToSection = (id: string, event: React.MouseEvent) => {
+		event.preventDefault();
+		setSideBarIsOpen(false);
 	};
 
 	const animationStyles = `
@@ -175,21 +186,23 @@ const TextChannelPage = () => {
   `;
 
 	return (
-		<div className="min-h-screen bg-white">
+		<div className="min-h-screen bg-white relative">
 			<style>{animationStyles}</style>
-			<HeaderMezon
-				sideBarIsOpen={false}
-				toggleSideBar={() => {
-					('');
-				}}
-				scrollToSection={() => {
-					('');
-				}}
+			<HeaderMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+			<SideBarMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+
+			<div
+				className={`fixed inset-0 z-30 bg-black transition-opacity duration-300 ease-in-out max-lg:block hidden ${
+					sideBarIsOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'
+				}`}
+				onClick={toggleSideBar}
+				style={{ top: '72px' }}
 			/>
 
 			<section
 				ref={section1Ref}
-				className="section-animate relative w-full bg-white pt-[120px] pb-20 2xl:pt-[273px] 2xl:pb-[193px] max-md:pt-[100px] max-md:pb-12 overflow-hidden"
+				className={`section-animate relative w-full bg-white pt-[120px] pb-20 2xl:pt-[273px] 2xl:pb-[193px] max-md:pt-[100px] max-md:pb-12 overflow-hidden
+				}`}
 			>
 				<div className="max-w-[1600px] 2xl:max-w-[2400px] mx-auto px-10">
 					<div className="flex items-center justify-between 2xl:justify-around max-lg:flex-col-reverse max-lg:gap-12 gap-8 lg:gap-12 xl:gap-16">

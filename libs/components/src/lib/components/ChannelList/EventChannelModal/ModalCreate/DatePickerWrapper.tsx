@@ -5,6 +5,7 @@ type DatePickerWrapperProps = {
 	onChange: (date: Date) => void;
 	dateFormat: string;
 	minDate?: Date;
+	maxDate?: Date;
 	className?: string;
 	wrapperClassName?: string;
 	open?: boolean;

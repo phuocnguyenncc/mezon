@@ -125,16 +125,22 @@ const HeaderMezon = memo((props: HeaderProps) => {
 							</a>
 						</div>
 					</div>
-					<div className={`w-fit lg:pl-5 min-[1505px]:pl-0`}>
+					<div className={`w-fit lg:pl-5 min-[1505px]:pl-0 flex items-center`}>
 						<Link
-							className=" hidden lg:block px-[16px] py-[10px] bg-[url(assets/button_openmezon.png)] bg-no-repeat rounded-xl text-[#6E4A9E] text-[16px] leading-[24px] font-bold whitespace-nowrap hover:opacity-90 transition-opacity"
+							className="hidden lg:block px-[16px] py-[10px] bg-[url(assets/button_openmezon.png)] bg-no-repeat rounded-xl text-[#6E4A9E] text-[16px] leading-[24px] font-bold whitespace-nowrap hover:opacity-90 transition-opacity"
 							to={'/mezon'}
 							onClick={() => trackHeaderLoginClick(isLogin ? 'Open Mezon' : 'Login')}
 							data-e2e={generateE2eId('homepage.header.button.login')}
 						>
 							{isLogin ? t('header.openMezon') : t('header.login')}
 						</Link>
-						<Icons.HomepageMenu className="hidden w-[40px] max-lg:block cursor-pointer" onClick={toggleSideBar} />
+						<div className="hidden max-lg:flex w-[40px] h-[40px] items-center justify-center">
+							{sideBarIsOpen ? (
+								<Icons.MenuClose className="w-[26px] h-[26px] cursor-pointer text-white" onClick={toggleSideBar} />
+							) : (
+								<Icons.HomepageMenu className="w-[40px] cursor-pointer" onClick={toggleSideBar} />
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

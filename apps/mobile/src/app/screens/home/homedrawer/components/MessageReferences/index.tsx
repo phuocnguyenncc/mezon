@@ -75,7 +75,7 @@ export const MessageReferences = ({ messageReferences, preventAction, channelId,
 					username={messageReferences?.message_sender_username}
 					height={size.s_20}
 					width={size.s_20}
-					isMsgReply={true}
+					customFontSizeAvatarCharacter={size.h8}
 				/>
 				<View style={styles.replyContentWrapper}>
 					<Text style={styles.replyDisplayName}>

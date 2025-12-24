@@ -13,7 +13,7 @@ import {
 import type { QuickMenuType } from '@mezon/utils';
 import { QUICK_MENU_TYPE } from '@mezon/utils';
 import type { ApiQuickMenuAccess } from 'mezon-js/api.gen';
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, Platform, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import MezonConfirm from '../../../componentUI/MezonConfirm';
@@ -24,43 +24,6 @@ import { IconCDN } from '../../../constants/icon_cdn';
 import ModalQuickMenu from './ModalQuickMenu';
 import { style } from './quickAction.style';
 
-const TabButton = React.memo(
-	({
-		tab,
-		selectedTab,
-		onPress,
-		styles
-	}: {
-		tab: { title: string; type: QuickMenuType };
-		selectedTab: QuickMenuType;
-		onPress: (type: QuickMenuType) => void;
-		styles: any;
-	}) => {
-		const isActive = selectedTab === tab.type;
-
-		return (
-			<Pressable onPress={() => onPress(tab.type)} style={[styles.tab, isActive && styles.activeTab]}>
-				<Text style={[styles.tabTitle, isActive && styles.activeTabTitle]}>{tab.title}</Text>
-			</Pressable>
-		);
-	}
-);
-
-const HeaderTitle = React.memo(({ title, themeValue }: { title: string; themeValue: any }) => {
-	const styles = style(themeValue);
-	return (
-		<View>
-			<Text style={[styles.headerTitleText, { color: themeValue.white }]}>{title}</Text>
-		</View>
-	);
-});
-
-const AddButton = React.memo(({ onPress, themeValue }: { onPress: () => void; themeValue: any }) => (
-	<TouchableOpacity style={style(themeValue).addButton} onPress={onPress}>
-		<MezonIconCDN icon={IconCDN.addAction} height={size.s_40} width={size.s_40} color={themeValue.textStrong} />
-	</TouchableOpacity>
-));
-
 export function QuickAction({ navigation, route }) {
 	const { channelId } = route.params;
 	const [selectedTab, setSelectedTab] = useState<QuickMenuType>(QUICK_MENU_TYPE.FLASH_MESSAGE);
@@ -68,7 +31,7 @@ export function QuickAction({ navigation, route }) {
 
 	const dispatch = useAppDispatch();
 	const { themeValue } = useTheme();
-
+	const styles = style(themeValue);
 	const flashMessages = useAppSelector((state) => selectFlashMessagesByChannelId(state as any, channelId));
 	const quickMenus = useAppSelector((state) => selectQuickMenusByChannelId(state as any, channelId));
 	const channel = useAppSelector((state) => selectChannelById(state, channelId || ''));
@@ -79,9 +42,6 @@ export function QuickAction({ navigation, route }) {
 		[selectedTab, flashMessages, quickMenus]
 	);
 
-	const clanId = useMemo(() => channel?.clan_id, [channel?.clan_id]);
-	const styles = useMemo(() => style(themeValue), [themeValue]);
-
 	const quickActionTabs = useMemo(
 		() => [
 			{ title: t('quickAction.flashMessage'), type: QUICK_MENU_TYPE.FLASH_MESSAGE },
@@ -90,11 +50,9 @@ export function QuickAction({ navigation, route }) {
 		[t]
 	);
 
-	const headerTitle = useMemo(() => t('quickAction.title'), [t]);
-
 	useEffect(() => {
 		dispatch(listQuickMenuAccess({ channelId, menuType: selectedTab }));
-	}, [channelId, dispatch, selectedTab]);
+	}, [channelId, selectedTab]);
 
 	const openModal = useCallback(
 		(item: ApiQuickMenuAccess | null = null) => {
@@ -105,31 +63,31 @@ export function QuickAction({ navigation, route }) {
 						initialFormValue={item?.action_msg || ''}
 						editKey={item?.id}
 						channelId={channelId}
-						clanId={clanId}
+						clanId={channel?.clan_id}
 						menuType={selectedTab}
 					/>
 				)
 			};
 			DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_MODAL, { isDismiss: false, data });
 		},
-		[channelId, clanId, selectedTab]
+		[channelId, channel?.clan_id, selectedTab]
 	);
 
 	const deleteItem = useCallback(
 		async (id: string) => {
 			try {
-				await dispatch(deleteQuickMenuAccess({ id, channelId, clanId }));
+				await dispatch(deleteQuickMenuAccess({ id, channelId, clanId: channel?.clan_id }));
 				await dispatch(listQuickMenuAccess({ channelId, menuType: selectedTab }));
 				DeviceEventEmitter.emit(ActionEmitEvent.ON_TRIGGER_MODAL, { isDismiss: true });
 			} catch (error) {
-				console.error(error.message);
+				console.error('Error deleting quick menu item:', error);
 			}
 		},
-		[dispatch, channelId, selectedTab, clanId]
+		[channelId, selectedTab, channel?.clan_id]
 	);
 
 	const handlePressDeleteCategory = useCallback(
-		(id: string, item: any) => {
+		(id: string, item: ApiQuickMenuAccess) => {
 			const data = {
 				children: (
 					<MezonConfirm
@@ -151,22 +109,24 @@ export function QuickAction({ navigation, route }) {
 		setSelectedTab(type);
 	}, []);
 
-	const handleAddPress = useCallback(() => {
-		openModal(null);
-	}, [openModal]);
-
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerStatusBarHeight: Platform.OS === 'android' ? 0 : undefined,
-			headerTitle: () => <HeaderTitle title={headerTitle} themeValue={themeValue} />
+			headerTitle: () => (
+				<View>
+					<Text style={styles.headerTitleText}>{t('quickAction.title')}</Text>
+				</View>
+			)
 		});
-	}, [navigation, headerTitle, themeValue]);
+	}, [navigation, t]);
 
 	return (
-		<View style={[styles.containerView, { backgroundColor: themeValue.primary }]}>
+		<View style={styles.containerView}>
 			<View style={styles.toggleWrapper}>
 				{quickActionTabs.map((tab) => (
-					<TabButton key={tab.type} tab={tab} selectedTab={selectedTab} onPress={handleTabPress} styles={styles} />
+					<Pressable onPress={() => handleTabPress(tab.type)} style={[styles.tab, selectedTab === tab.type && styles.activeTab]}>
+						<Text style={[styles.tabTitle, selectedTab === tab.type && styles.activeTabTitle]}>{tab.title}</Text>
+					</Pressable>
 				))}
 			</View>
 			{isLoading === 'loading' ? (
@@ -182,7 +142,9 @@ export function QuickAction({ navigation, route }) {
 					selectedTab={selectedTab}
 				/>
 			)}
-			<AddButton onPress={handleAddPress} themeValue={themeValue} />
+			<TouchableOpacity style={styles.addButton} onPress={() => openModal(null)}>
+				<MezonIconCDN icon={IconCDN.addAction} height={size.s_40} width={size.s_40} color={themeValue.textStrong} />
+			</TouchableOpacity>
 		</View>
 	);
 }

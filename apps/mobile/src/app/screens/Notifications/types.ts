@@ -1,8 +1,8 @@
-import { IMessageWithUser, INotification } from '@mezon/utils';
+import type { IMessageWithUser, INotification } from '@mezon/utils';
 export type NotifyProps = {
 	readonly notify: INotification;
 	onLongPressNotify?: (type: ENotifyBsToShow, notify: INotification) => void;
-	onPressNotify?: (notify: INotification) => void;
+	onPressNotify?: (notify: INotification) => void | Promise<void>;
 };
 
 export interface IMessageNotifyProps {

@@ -67,6 +67,7 @@ export * from './lib/policies/overriddenPolicies.slice';
 export * from './lib/policies/policies.slice';
 export * from './lib/quickMenu/quickMenu.slice';
 export * from './lib/reactionMessage/reactionMessage.slice';
+export * from './lib/reportMessage/reportMessage.slice';
 export * from './lib/roleclan/roleclan.slice';
 export * from './lib/searchmessages/searchmessage.slice';
 export * from './lib/settingSticker/settingSticker.slice';

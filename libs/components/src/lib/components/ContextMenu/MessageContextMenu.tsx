@@ -90,6 +90,7 @@ type MessageContextMenuProps = {
 	isTopic: boolean;
 	openDeleteMessageModal: () => void;
 	openPinMessageModal: () => void;
+	openReportMessageModal: () => void;
 	linkContent?: string;
 	isLinkContent?: boolean;
 };
@@ -121,6 +122,7 @@ function MessageContextMenu({
 	isTopic,
 	openPinMessageModal,
 	openDeleteMessageModal,
+	openReportMessageModal,
 	linkContent,
 	isLinkContent
 }: MessageContextMenuProps) {
@@ -857,21 +859,16 @@ function MessageContextMenu({
 				}
 			});
 		});
-
-		// builder.when(checkPos, (builder) => {
-		// 	builder.addMenuItem('apps', 'Apps', () => console.log('apps'), <Icons.RightArrowRightClick defaultSize="w-4 h-4" />);
-		// });
-
-		// builder.when(enableReportMessageItem, (builder) => {
-		// 	builder.addMenuItem(
-		// 		'reportMessage',
-		// 		'Report Message',
-		// 		() => {
-		// 			console.log('report message');
-		// 		},
-		// 		<Icons.ReportMessageRightClick defaultSize="w-4 h-4" />
-		// 	);
-		// });
+		builder.when(enableReportMessageItem, (builder) => {
+			builder.addMenuItem(
+				'reportMessage',
+				t('reportMessage'),
+				() => {
+					openReportMessageModal();
+				},
+				<Icons.ReportMessageRightClick defaultSize="w-4 h-4" />
+			);
+		});
 
 		builder.when(enableCopyImageItem, (builder) => {
 			builder.addMenuItem('copyImage', t('copyImage'), async () => {

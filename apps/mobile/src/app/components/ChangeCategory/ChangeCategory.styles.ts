@@ -1,4 +1,5 @@
-import { Attributes, size, verticalScale } from '@mezon/mobile-ui';
+import type { Attributes } from '@mezon/mobile-ui';
+import { size } from '@mezon/mobile-ui';
 import { StyleSheet } from 'react-native';
 
 export const style = (colors: Attributes) =>
@@ -12,7 +13,7 @@ export const style = (colors: Attributes) =>
 			fontWeight: 'bold'
 		},
 		headerTitle: {
-			fontSize: verticalScale(18),
+			fontSize: size.s_18,
 			marginLeft: 0,
 			marginRight: 0,
 			fontWeight: 'bold',

@@ -18,7 +18,7 @@ interface IMezonClanAvatarProps {
 	lightMode?: boolean;
 	imageHeight?: number;
 	imageWidth?: number;
-	isMsgReply?: boolean;
+	customFontSizeAvatarCharacter?: number;
 }
 
 export default memo(function MezonClanAvatar({
@@ -30,11 +30,11 @@ export default memo(function MezonClanAvatar({
 	lightMode,
 	imageHeight = 100,
 	imageWidth = 100,
-	isMsgReply = false
+	customFontSizeAvatarCharacter
 }: IMezonClanAvatarProps) {
 	const { themeValue } = useTheme();
 
-	const styles = style(themeValue, isMsgReply);
+	const styles = style(themeValue, customFontSizeAvatarCharacter);
 
 	if (image) {
 		return (

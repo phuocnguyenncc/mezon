@@ -7,6 +7,7 @@ import {
 	gifsStickerEmojiActions,
 	selectAnonymousMode,
 	selectCurrentChannel,
+	selectCurrentClanPreventAnonymous,
 	selectCurrentTopicId,
 	selectDmGroupCurrent,
 	selectIsShowCreateTopic,
@@ -67,7 +68,8 @@ function EmojiPicker({ onDone, bottomSheetRef, directMessageId = '', messageActi
 	const styles = style(themeValue);
 	const currentChannel = useSelector(selectCurrentChannel);
 	const currentDirectMessage = useSelector(selectDmGroupCurrent(directMessageId)); //Note: prioritize DM first
-	const anonymousMode = useSelector(selectAnonymousMode);
+	const anonymousMode = useSelector((state) => selectAnonymousMode(state, currentChannel?.clan_id));
+	const currentClanPreventAnonymous = useSelector(selectCurrentClanPreventAnonymous);
 	const [mode, setMode] = useState<ExpressionType>('emoji');
 	const [searchText, setSearchText] = useState<string>('');
 	const { t } = useTranslation('message');
@@ -106,9 +108,9 @@ function EmojiPicker({ onDone, bottomSheetRef, directMessageId = '', messageActi
 			attachments?: Array<ApiMessageAttachment>,
 			references?: Array<ApiMessageRef>
 		) => {
-			sendMessage(content, mentions, attachments, references, dmMode ? false : anonymousMode, false, true);
+			sendMessage(content, mentions, attachments, references, dmMode ? false : anonymousMode && !currentClanPreventAnonymous, false, true);
 		},
-		[anonymousMode, dmMode, sendMessage]
+		[anonymousMode, currentClanPreventAnonymous, dmMode, sendMessage]
 	);
 
 	function handleSelected(type: ExpressionType, data: any) {

@@ -3,7 +3,7 @@ import { appActions, canvasActions, canvasAPIActions, selectIdCanvas, useAppDisp
 import { ICanvas } from '@mezon/utils';
 import { ButtonCopy } from '@mezon/components';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 type GroupCanvasProps = {
 	canvas: ICanvas;
 	channelId?: string;
@@ -19,6 +19,7 @@ const GroupCanvas = ({ canvas, channelId, clanId, onClose, creatorIdChannel, sel
 	const currentIdCanvas = useSelector(selectIdCanvas);
 	const { userProfile } = useAuth();
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const isDisableDelCanvas = Boolean(
 		canvas.creator_id && canvas.creator_id !== userProfile?.user?.id && creatorIdChannel !== userProfile?.user?.id
 	);
@@ -47,6 +48,11 @@ const GroupCanvas = ({ canvas, channelId, clanId, onClose, creatorIdChannel, sel
 			dispatch(canvasAPIActions.removeOneCanvas({ channelId, canvasId }));
 			if (currentIdCanvas === canvasId) {
 				dispatch(appActions.setIsShowCanvas(false));
+				const redirectPath =
+					canvas.parent_id && canvas.parent_id !== '0'
+						? `/chat/clans/${clanId}/threads/${channelId}`
+						: `/chat/clans/${clanId}/channels/${channelId}`;
+				navigate(redirectPath);
 			}
 		}
 	};

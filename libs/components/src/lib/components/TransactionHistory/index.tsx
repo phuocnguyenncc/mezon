@@ -62,7 +62,7 @@ const TransactionHistory = ({ onClose }: IProps) => {
 					fetchLoadMoreTransaction({
 						address: walletAddress || '',
 						filter: API_FILTER_PARAMS[filter],
-						timeStamp: page === 1 ? undefined : new Date(currentData[currentData.length - 1]?.transaction_timestamp * 1000).toISOString(),
+						timeStamp: page === 1 ? undefined : new Date(lastItem?.transaction_timestamp * 1000).toISOString(),
 						lastHash: page === 1 ? undefined : lastItem?.hash
 					})
 				);
@@ -90,8 +90,8 @@ const TransactionHistory = ({ onClose }: IProps) => {
 	}, [activeFilter, currentPage, hasMoreData, isLoadingMore, isLoading, fetchTransactions]);
 
 	useEffect(() => {
-		fetchTransactions(activeFilter);
-	}, [activeFilter, fetchTransactions]);
+		fetchTransactions(activeFilter, 1);
+	}, [activeFilter]);
 
 	// Infinite scroll handler
 	const handleScroll = useCallback(() => {

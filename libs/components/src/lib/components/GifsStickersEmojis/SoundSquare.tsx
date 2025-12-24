@@ -87,16 +87,12 @@ function SoundSquare({ mode, onClose, isTopic = false, onSoundSelect }: ChannelM
 		}));
 	}, [allSoundsInStore]);
 
-	const allSounds = useMemo(() => {
-		return [...userSounds];
-	}, [userSounds]);
-
 	const [searchedSounds, setSearchSounds] = useState<ExtendedApiMessageAttachment[]>([]);
 
 	useEffect(() => {
-		const result = searchSounds(allSounds, valueInputToCheckHandleSearch ?? '');
+		const result = searchSounds(userSounds, valueInputToCheckHandleSearch ?? '');
 		setSearchSounds(result);
-	}, [valueInputToCheckHandleSearch, subPanelActive, allSounds]);
+	}, [valueInputToCheckHandleSearch, subPanelActive, userSounds]);
 
 	const handleSend = useCallback(
 		(
@@ -112,14 +108,14 @@ function SoundSquare({ mode, onClose, isTopic = false, onSoundSelect }: ChannelM
 
 	// get list clan logo to show on leftside
 	const categoryLogo = useMemo(() => {
-		return allSounds
+		return userSounds
 			.map((sound) => ({
 				id: sound.clan_id,
 				type: sound.clan_name,
 				url: sound.logo
 			}))
 			.filter((sound, index, self) => index === self.findIndex((s) => s.id === sound.id));
-	}, [allSounds]);
+	}, [userSounds]);
 
 	const [selectedType, setSelectedType] = useState('');
 	const categoryRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -216,7 +212,7 @@ function SoundSquare({ mode, onClose, isTopic = false, onSoundSelect }: ChannelM
 								>
 									<CategorizedSounds
 										valueInputToCheckHandleSearch={valueInputToCheckHandleSearch}
-										soundList={allSounds}
+										soundList={userSounds}
 										onClickSendSound={onClickSendSound}
 										categoryName={avt.type || ''}
 										key={avt.id}

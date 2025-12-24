@@ -16,7 +16,6 @@ export const style = (colors: Attributes) =>
 		},
 		name: {
 			fontSize: size.medium,
-			marginRight: size.s_10,
 			fontWeight: '700'
 		},
 		title: {
@@ -49,5 +48,20 @@ export const style = (colors: Attributes) =>
 		},
 		spacer: {
 			width: size.s_50
+		},
+		avatarWrapper: {
+			width: size.s_40,
+			height: size.s_40,
+			borderRadius: size.s_40,
+			overflow: 'hidden'
+		},
+		nameWrapper: {
+			flexDirection: 'row',
+			gap: size.s_4,
+			alignItems: 'center'
+		},
+		roleIcon: {
+			width: size.s_16,
+			height: size.s_16
 		}
 	});

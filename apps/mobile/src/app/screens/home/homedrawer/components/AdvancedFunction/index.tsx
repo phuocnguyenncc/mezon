@@ -3,17 +3,20 @@ import { ActionEmitEvent } from '@mezon/mobile-components';
 import { baseColor, size, useTheme } from '@mezon/mobile-ui';
 import {
 	accountActions,
-	type ChannelsEntity,
+	getStoreAsync,
 	referencesActions,
 	selectAnonymousMode,
 	selectChannelById,
+	selectCurrentClanPreventAnonymous,
 	selectCurrentDM,
-	selectDmGroupCurrent
-} from '@mezon/store';
-import { getStoreAsync, useAppDispatch, useAppSelector } from '@mezon/store-mobile';
-import { checkIsThread, getMaxFileSize, isFileSizeExceeded, isImageFile, TypeMessage } from '@mezon/utils';
+	selectDmGroupCurrent,
+	useAppDispatch,
+	useAppSelector,
+	type ChannelsEntity
+} from '@mezon/store-mobile';
+import { TypeMessage, checkIsThread, getMaxFileSize, isFileSizeExceeded, isImageFile } from '@mezon/utils';
 import Geolocation from '@react-native-community/geolocation';
-import { type DocumentPickerResponse, errorCodes, pick, types } from '@react-native-documents/picker';
+import { errorCodes, pick, types, type DocumentPickerResponse } from '@react-native-documents/picker';
 import { useNavigation } from '@react-navigation/native';
 import { ChannelStreamMode, ChannelType } from 'mezon-js';
 import React, { memo, useCallback, useMemo } from 'react';
@@ -82,7 +85,8 @@ const AdvancedFunction = memo(({ onClose, currentChannelId, directMessageId, mes
 
 	const currentChannel = useAppSelector((state) => selectChannelById(state, currentChannelId || ''));
 	const currentDmGroup = useAppSelector(selectDmGroupCurrent(directMessageId));
-	const anonymousMode = useAppSelector(selectAnonymousMode);
+	const anonymousMode = useAppSelector((state) => selectAnonymousMode(state, currentChannel?.clan_id));
+	const currentClanPreventAnonymous = useAppSelector(selectCurrentClanPreventAnonymous);
 
 	const channelOrDirect = useMemo(() => (directMessageId ? currentDmGroup : currentChannel), [directMessageId, currentDmGroup, currentChannel]);
 
@@ -123,12 +127,13 @@ const AdvancedFunction = memo(({ onClose, currentChannelId, directMessageId, mes
 					icon: IconCDN.threadPlusIcon,
 					backgroundColor: FUNCTION_COLORS.THREAD
 				},
-			!directMessageId && {
-				id: 'anonymous' as const,
-				label: anonymousMode ? t('message:turnOffAnonymous') : t('common:anonymous'),
-				icon: IconCDN.anonymous,
-				backgroundColor: FUNCTION_COLORS.ANONYMOUS
-			},
+			!directMessageId &&
+				!currentClanPreventAnonymous && {
+					id: 'anonymous' as const,
+					label: anonymousMode ? t('message:turnOffAnonymous') : t('common:anonymous'),
+					icon: IconCDN.anonymous,
+					backgroundColor: FUNCTION_COLORS.ANONYMOUS
+				},
 			{
 				id: 'buzz',
 				label: 'Buzz',
@@ -299,8 +304,8 @@ const AdvancedFunction = memo(({ onClose, currentChannelId, directMessageId, mes
 	}, [handleBuzzMessage]);
 
 	const handleToggleAnonymous = useCallback(() => {
-		dispatch(accountActions.setAnonymousMode());
-	}, [dispatch]);
+		dispatch(accountActions.setAnonymousMode(currentChannel?.clan_id));
+	}, [currentChannel?.clan_id, dispatch]);
 
 	const handleTransferFunds = useCallback(() => {
 		navigation.push(APP_SCREEN.WALLET, {

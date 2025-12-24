@@ -715,6 +715,7 @@ export function GalleryModal({ onClose, rootRef }: GalleryModalProps) {
 															onChange={handleStartDateChange}
 															dateFormat="dd/MM/yyyy"
 															minDate={endDate ? undefined : new Date(2020, 0, 1)}
+															maxDate={endDate || undefined}
 														/>
 													</Suspense>
 												</div>

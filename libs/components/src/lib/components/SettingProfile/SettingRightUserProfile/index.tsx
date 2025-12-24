@@ -132,6 +132,7 @@ const SettingRightUser = ({
 		if (!file) return;
 		if (!fileTypeImage.includes(file.type)) {
 			setOpenModalType(true);
+			e.target.value = '';
 			return;
 		}
 		if (file.size > MAX_FILE_SIZE_10MB) {

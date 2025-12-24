@@ -75,10 +75,12 @@ const SettingComunity = ({
 
 		if (file.size > MAX_FILE_SIZE_10MB) {
 			setOpenModal(true);
+			e.target.value = '';
 			return;
 		}
 		if (!fileTypeImage.includes(file.type)) {
 			setOpenTypeModal(true);
+			e.target.value = '';
 			return;
 		}
 

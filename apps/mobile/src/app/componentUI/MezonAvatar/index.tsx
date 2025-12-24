@@ -1,7 +1,8 @@
-import { IUserStatus } from '@mezon/mobile-components';
+import type { IUserStatus } from '@mezon/mobile-components';
 import { size, useTheme } from '@mezon/mobile-ui';
 import React from 'react';
-import { Text, View, ViewStyle } from 'react-native';
+import type { ViewStyle } from 'react-native';
+import { Text, View } from 'react-native';
 import { UserStatus } from '../../components/UserStatus';
 import MezonClanAvatar from '../MezonClanAvatar';
 import { createPositionStyle, style } from './styles';
@@ -22,7 +23,7 @@ interface IMezonAvatarProps {
 	countBadge?: number;
 	isShow?: boolean;
 	statusUserStyles?: ViewStyle;
-	isMsgReply?: boolean;
+	customFontSizeAvatarCharacter?: number;
 }
 const MezonAvatar = React.memo((props: IMezonAvatarProps) => {
 	const { themeValue } = useTheme();
@@ -39,7 +40,7 @@ const MezonAvatar = React.memo((props: IMezonAvatarProps) => {
 		isCountBadge,
 		countBadge,
 		statusUserStyles,
-		isMsgReply = false
+		customFontSizeAvatarCharacter
 	} = props;
 	const styles = style(themeValue, height, width, stacks?.length);
 
@@ -70,7 +71,7 @@ const MezonAvatar = React.memo((props: IMezonAvatarProps) => {
 	return (
 		<View style={[styles.containerItem, styles.sizedContainer]}>
 			<View style={[styles.boxImage, styles.sizedContainer, isBorderBoxImage && styles.borderBoxImage]}>
-				<MezonClanAvatar alt={username} image={avatarUrl} isMsgReply={isMsgReply} lightMode />
+				<MezonClanAvatar alt={username} image={avatarUrl} customFontSizeAvatarCharacter={customFontSizeAvatarCharacter} lightMode />
 			</View>
 
 			{!!userStatus && <UserStatus status={userStatus} customStyles={statusUserStyles} customStatus={customStatus} />}

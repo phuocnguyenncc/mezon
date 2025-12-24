@@ -139,11 +139,13 @@ const ModalAddRules = ({ onClose, ruleEdit, tempId }: { onClose: () => void; rul
 			const file = event.target.files[0];
 			if (!fileTypeImage.includes(file.type)) {
 				setOpenTypeModal(true);
+				event.target.value = '';
 				return;
 			}
 
 			if (file.size > MAX_FILE_SIZE_10MB) {
 				setOpenModal(true);
+				event.target.value = '';
 				return;
 			}
 

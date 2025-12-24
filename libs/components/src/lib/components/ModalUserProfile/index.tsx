@@ -199,7 +199,7 @@ const ModalUserProfile = ({
 			if (e.key === 'Enter' && content && onLoading.current === false) {
 				if (userById) {
 					sendMessage(
-						userById?.user?.id || '',
+						isFooterProfile ? userId || userById?.user?.id || '' : userById?.user?.id || '',
 						userById?.user?.display_name || userById?.user?.username,
 						userById?.user?.username,
 						userById.user?.avatar_url
@@ -207,11 +207,13 @@ const ModalUserProfile = ({
 					onLoading.current = true;
 					return;
 				}
-				sendMessage((userID === message?.sender_id ? message?.sender_id : message?.references?.[0].message_sender_id) || '');
+				sendMessage(
+					(isFooterProfile ? userId : userID === message?.sender_id ? message?.sender_id : message?.references?.[0].message_sender_id) || ''
+				);
 				onLoading.current = true;
 			}
 		},
-		[userById, content]
+		[userById, content, isFooterProfile]
 	);
 
 	return (
@@ -220,7 +222,7 @@ const ModalUserProfile = ({
 				className={`${classBanner ? classBanner : 'rounded-tl-lg bg-indigo-400 rounded-tr-lg h-[105px]'} flex justify-end gap-x-2 p-2 `}
 				style={{ backgroundColor: color }}
 			>
-				{userInvoice && !isFooterProfile && !isDM && <MemberInVoiceButton channelId={userInvoice} />}
+				{userInvoice && !isFooterProfile && !isDM && <MemberInVoiceButton channelId={userInvoice?.channelId} />}
 				{!checkUser && !checkAnonymous && (
 					<GroupIconBanner
 						checkAddFriend={checkAddFriend}

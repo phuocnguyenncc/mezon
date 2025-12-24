@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ModalDownload } from '../homepage/mezonpage/components';
 import Footer from '../homepage/mezonpage/footer';
 import HeaderMezon from '../homepage/mezonpage/header';
+import { SideBarMezon } from '../homepage/mezonpage/sidebar';
 
 const IntegrationsPage = () => {
 	const { t } = useTranslation('integrationspage');
@@ -16,6 +17,7 @@ const IntegrationsPage = () => {
 	const [imageLoaded, setImageLoaded] = useState(false);
 	const [openFAQ, setOpenFAQ] = useState<number | null>(0);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [sideBarIsOpen, setSideBarIsOpen] = useState(false);
 
 	const downloadUrl: string =
 		platform === Platform.MACOS
@@ -62,6 +64,15 @@ const IntegrationsPage = () => {
 			});
 		};
 	}, []);
+
+	const toggleSideBar = () => {
+		setSideBarIsOpen((prev) => !prev);
+	};
+
+	const scrollToSection = (id: string, event: React.MouseEvent) => {
+		event.preventDefault();
+		setSideBarIsOpen(false);
+	};
 
 	const animationStyles = `
     @keyframes slideInLeft {
@@ -146,14 +157,14 @@ const IntegrationsPage = () => {
 	return (
 		<div className="min-h-screen bg-white">
 			<style>{animationStyles}</style>
-			<HeaderMezon
-				sideBarIsOpen={false}
-				toggleSideBar={() => {
-					('');
-				}}
-				scrollToSection={() => {
-					('');
-				}}
+			<HeaderMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+			<SideBarMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+			<div
+				className={`fixed inset-0 z-30 bg-black transition-opacity duration-300 ease-in-out max-lg:block hidden ${
+					sideBarIsOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'
+				}`}
+				onClick={toggleSideBar}
+				style={{ top: '72px' }}
 			/>
 
 			<section

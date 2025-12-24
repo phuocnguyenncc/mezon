@@ -72,6 +72,36 @@
 	"muteUntilTurnedBack": "Until I turn it back on",
 	"imageCopiedToClipboard": "Copied to clipboard",
 	"messageResent": "Message resent successfully",
+	"reportMessageModal": {
+		"title": "Report Message",
+		"description": "Please select a reason for reporting this message.",
+		"selectReason": "Select a reason:",
+		"cancel": "Cancel",
+		"submit": "Submit Report",
+		"submitting": "Submitting...",
+		"customReasonPlaceholder": "Please describe the reason (max 64 characters)...",
+		"userBlockedSuccess": "User blocked successfully",
+		"userBlockedFailed": "Failed to block user",
+		"canOnlyBlockFriends": "You can only block users who are your friends",
+		"reasons": {
+			"spam": "Spam",
+			"harassment": "Harassment or Bullying",
+			"hate_speech": "Hate Speech",
+			"violence": "Violence or Threats",
+			"inappropriate_content": "Inappropriate Content",
+			"scam": "Scam or Fraud",
+			"other": "Other"
+		},
+		"actionModal": {
+			"title": "Additional Actions",
+			"description": "Would you like to take additional actions against this user?",
+			"ignoreMessages": "Ignore Messages",
+			"ignoreDescription": "Hide messages from this user",
+			"blockUser": "Block User",
+			"blockDescription": "Block this user completely",
+			"skip": "Skip"
+		}
+	},
 	"errors": {
 		"failedToNoteMessage": "Failed to note this message",
 		"failedToEditMessage": "Failed to edit message",

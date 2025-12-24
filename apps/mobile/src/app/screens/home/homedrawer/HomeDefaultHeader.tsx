@@ -1,10 +1,19 @@
 import { useChatSending } from '@mezon/core';
-import { ActionEmitEvent, ENotificationActive, ETypeSearch, IOption } from '@mezon/mobile-components';
+import type { IOption } from '@mezon/mobile-components';
+import { ActionEmitEvent, ENotificationActive, ETypeSearch } from '@mezon/mobile-components';
 import { size, useTheme } from '@mezon/mobile-ui';
-import { accountActions, selectAnonymousMode, selectChannelById, selectCurrentChannel, useAppDispatch, useAppSelector } from '@mezon/store-mobile';
+import {
+	accountActions,
+	selectAnonymousMode,
+	selectChannelById,
+	selectCurrentChannel,
+	selectCurrentClanPreventAnonymous,
+	useAppDispatch,
+	useAppSelector
+} from '@mezon/store-mobile';
 import { ChannelStatusEnum, TypeMessage } from '@mezon/utils';
 import { ChannelStreamMode, ChannelType } from 'mezon-js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DeviceEventEmitter, Text, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -36,26 +45,35 @@ const HomeDefaultHeader = React.memo(
 		const { t } = useTranslation('message');
 		const currentChannel = useSelector(selectCurrentChannel);
 		const parent = useAppSelector((state) => selectChannelById(state, currentChannel?.parent_id || ''));
-		const anonymousMode = useSelector(selectAnonymousMode);
+		const anonymousMode = useSelector((state) => selectAnonymousMode(state, currentChannel?.clan_id));
+		const currentClanPreventAnonymous = useAppSelector(selectCurrentClanPreventAnonymous);
 		const dispatch = useAppDispatch();
 		const mode =
 			currentChannel?.type === ChannelType.CHANNEL_TYPE_THREAD ? ChannelStreamMode.STREAM_MODE_THREAD : ChannelStreamMode.STREAM_MODE_CHANNEL;
 		const { sendMessage } = useChatSending({ mode, channelOrDirect: currentChannel });
 
-		const headerOptions: IOption[] = [
-			{
-				title: 'anonymous',
-				content: anonymousMode ? t('turnOffAnonymous') : t('turnOnAnonymous'),
-				value: OptionChannelHeader.Anonymous,
-				icon: <MezonIconCDN icon={IconCDN.anonymous} color={themeValue.text} height={size.s_18} width={size.s_18} />
-			},
-			{
-				title: 'buzz',
-				content: 'Buzz',
-				value: OptionChannelHeader.Buzz,
-				icon: <MezonIconCDN icon={IconCDN.buzz} color={themeValue.text} height={size.s_18} width={size.s_18} />
-			}
-		].filter((item) => !(isBanned && item?.value === OptionChannelHeader.Buzz));
+		const headerOptions = useMemo(
+			() =>
+				[
+					{
+						title: 'anonymous',
+						content: anonymousMode ? t('turnOffAnonymous') : t('turnOnAnonymous'),
+						value: OptionChannelHeader.Anonymous,
+						icon: <MezonIconCDN icon={IconCDN.anonymous} color={themeValue.text} height={size.s_18} width={size.s_18} />
+					},
+					{
+						title: 'buzz',
+						content: 'Buzz',
+						value: OptionChannelHeader.Buzz,
+						icon: <MezonIconCDN icon={IconCDN.buzz} color={themeValue.text} height={size.s_18} width={size.s_18} />
+					}
+				].filter((item) => {
+					if (item.value === OptionChannelHeader.Buzz && isBanned) return false;
+					if (item.value === OptionChannelHeader.Anonymous && currentClanPreventAnonymous) return false;
+					return true;
+				}),
+			[anonymousMode, t, themeValue, isBanned, currentClanPreventAnonymous]
+		);
 
 		const onPressOption = (option: IOption) => {
 			if (option?.value === OptionChannelHeader.Anonymous) {
@@ -77,7 +95,7 @@ const HomeDefaultHeader = React.memo(
 		};
 
 		const handleToggleAnnonymous = () => {
-			dispatch(accountActions.setAnonymousMode());
+			dispatch(accountActions.setAnonymousMode(currentChannel?.clan_id));
 		};
 
 		const parentChannelLabel = parent?.channel_label || '';

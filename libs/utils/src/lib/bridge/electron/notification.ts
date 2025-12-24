@@ -301,9 +301,18 @@ export class MezonNotificationService {
 
 		notification.onclick = (event) => {
 			event.preventDefault();
+
 			if (!link) {
+				notification.close();
 				return;
 			}
+
+			notification.close();
+			if (channelId && connection) {
+				connection.activeNotifications.delete(channelId);
+			}
+
+			window.focus();
 
 			const existingWindow = window.open('', '_self');
 
@@ -319,11 +328,13 @@ export class MezonNotificationService {
 						this.setCurrentActiveUserId(connection.userId);
 					}
 
-					window.dispatchEvent(
-						new CustomEvent('mezon:navigate', {
-							detail: { url: path, msg: fromTopic ? msg : null, userId: connection?.userId }
-						})
-					);
+					setTimeout(() => {
+						window.dispatchEvent(
+							new CustomEvent('mezon:navigate', {
+								detail: { url: path, msg: fromTopic ? msg : null, userId: connection?.userId }
+							})
+						);
+					}, 100);
 				} catch (error) {
 					console.error('Error navigating to link:', error);
 				}

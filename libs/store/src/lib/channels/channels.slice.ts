@@ -1519,6 +1519,13 @@ export const channelsSlice = createSlice({
 		removeByClanId: (state, action: PayloadAction<string>) => {
 			const clanId = action.payload;
 			delete state.byClans[clanId];
+		},
+
+		removeChannelApp: (state, action: PayloadAction<{ clanId: string; channelId: string }>) => {
+			const { clanId, channelId } = action.payload;
+			if (state.byClans[clanId]?.appChannelsList?.[channelId]) {
+				delete state.byClans[clanId].appChannelsList[channelId];
+			}
 		}
 	},
 	extraReducers: (builder) => {

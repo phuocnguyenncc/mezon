@@ -28,6 +28,7 @@ import { useContextMenu } from 'react-contexify';
 import { useModal } from 'react-modal-hook';
 import ModalDeleteMess from '../DeleteMessageModal/ModalDeleteMess';
 import { ModalAddPinMess } from '../PinMessModal';
+import { ReportMessageModal } from '../ReportMessageModal';
 import MessageContextMenu from './MessageContextMenu';
 
 const MESSAGE_CONTEXT_MENU_ID = 'message-context-menu';
@@ -56,6 +57,7 @@ type MessageContextMenuContextValue = {
 	onVisibilityChange: (status: boolean) => void;
 	openDeleteMessageModal: () => void;
 	openPinMessageModal: () => void;
+	openReportMessageModal: () => void;
 	selectedMessageId: string | null;
 };
 
@@ -64,6 +66,7 @@ export type MessageContextMenuProps = {
 	position?: ShowContextMenuParams['position'];
 	linkContent?: string;
 	isLinkContent?: boolean;
+	openReportMessageModal?: () => void;
 };
 
 export const MessageContextMenuContext = createContext<MessageContextMenuContextValue>({
@@ -90,6 +93,9 @@ export const MessageContextMenuContext = createContext<MessageContextMenuContext
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
 	},
 	openPinMessageModal: () => {
+		// eslint-disable-next-line @typescript-eslint/no-empty-function
+	},
+	openReportMessageModal: () => {
 		// eslint-disable-next-line @typescript-eslint/no-empty-function
 	},
 	selectedMessageId: null
@@ -152,6 +158,15 @@ export const MessageContextMenuProvider = ({ children, channelId }: { children: 
 		);
 	}, [messageIdRef.current]);
 
+	const [openReportMessageModal, closeReportMessageModal] = useModal(() => {
+		const store = getStore();
+		const appState = store.getState() as RootState;
+		const message = getMessage(appState, isTopic, messageIdRef.current);
+		const mode = getActiveMode();
+
+		return <ReportMessageModal mess={message} closeModal={closeReportMessageModal} mode={mode || 0} />;
+	}, [messageIdRef.current]);
+
 	const handlePinMessage = useCallback(async () => {
 		const store = getStore();
 		const appState = store.getState() as RootState;
@@ -212,11 +227,22 @@ export const MessageContextMenuProvider = ({ children, channelId }: { children: 
 				isTopic={isTopic}
 				openDeleteMessageModal={openDeleteMessageModal}
 				openPinMessageModal={openPinMessageModal}
+				openReportMessageModal={openReportMessageModal}
 				linkContent={linkContent}
 				isLinkContent={isLinkContent}
 			/>
 		);
-	}, [elementTarget, isMenuVisible, isTopic, linkContent, isLinkContent, openDeleteMessageModal, openPinMessageModal, selectedMessageId]);
+	}, [
+		elementTarget,
+		isMenuVisible,
+		isTopic,
+		linkContent,
+		isLinkContent,
+		openDeleteMessageModal,
+		openPinMessageModal,
+		openReportMessageModal,
+		selectedMessageId
+	]);
 
 	const setPositionShow = useCallback((pos: string) => {
 		setPosShowMenu(pos);
@@ -295,6 +321,7 @@ export const MessageContextMenuProvider = ({ children, channelId }: { children: 
 			onVisibilityChange,
 			openDeleteMessageModal,
 			openPinMessageModal,
+			openReportMessageModal,
 			selectedMessageId
 		}),
 		[
@@ -308,6 +335,7 @@ export const MessageContextMenuProvider = ({ children, channelId }: { children: 
 			onVisibilityChange,
 			openDeleteMessageModal,
 			openPinMessageModal,
+			openReportMessageModal,
 			selectedMessageId
 		]
 	);

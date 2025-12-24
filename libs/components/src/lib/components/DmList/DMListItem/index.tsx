@@ -8,15 +8,18 @@ import {
 	selectDirectById,
 	selectIsUnreadDMById,
 	selectLatestMessageId,
+	selectStatusInVoice,
 	useAppDispatch,
 	useAppSelector
 } from '@mezon/store';
-import type { ChannelMembersEntity } from '@mezon/utils';
+import { Icons } from '@mezon/ui';
+import type { ChannelMembersEntity, EUserStatus } from '@mezon/utils';
 import { createImgproxyUrl, generateE2eId } from '@mezon/utils';
 import { ChannelStreamMode, ChannelType } from 'mezon-js';
 import { memo, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'react-modal-hook';
+import { useSelector } from 'react-redux';
 import { useDirectMessageContextMenu } from '../../../contexts';
 import { AvatarImage } from '../../AvatarImage/AvatarImage';
 import BuzzBadge from '../../BuzzBadge';
@@ -159,22 +162,44 @@ const DmItemProfile = ({
 				srcImgProxy={createImgproxyUrl(avatar ?? '')}
 				src={avatar}
 			/>
-			{!isTypeDMGroup && (
-				<div className="rounded-full absolute left-5 -bottom-[3px] inline-flex items-center justify-center gap-1 p-[3px] text-sm text-theme-primary">
-					<UserStatusIconClan channelId={direct.id} userId={direct.user_ids?.[0] || ''} status={userStatus.status} />
-				</div>
-			)}
 
-			<div className="flex flex-col justify-center ">
-				<span className="one-line text-start" data-e2e={generateE2eId(`chat.direct_message.chat_item.username`)}>
-					{name}
-				</span>
-				{isTypeDMGroup && (
+			{isTypeDMGroup ? (
+				<div className="flex flex-col justify-center ">
+					<span className="one-line text-start" data-e2e={generateE2eId(`chat.direct_message.chat_item.username`)}>
+						{name}
+					</span>
 					<p className="opacity-60 text-theme-primary text-xs text-start">
 						{number} {t('members')}
 					</p>
-				)}
-			</div>
+				</div>
+			) : (
+				<DmInvoiceProfile name={name} directId={direct.id} userId={direct.user_ids?.[0] || ''} status={userStatus.status} />
+			)}
 		</div>
 	);
 };
+
+const DmInvoiceProfile = memo(({ userId, directId, status, name }: { userId: string; directId: string; status: EUserStatus; name: string }) => {
+	const { t } = useTranslation('memberPage');
+	const checkUserInvoice = useSelector((state) => selectStatusInVoice(state, userId));
+	return (
+		<>
+			<div
+				className={`rounded-full absolute left-5 -bottom-[3px] p-[3px] inline-flex items-center justify-center gap-1 text-sm text-theme-primary`}
+			>
+				<UserStatusIconClan channelId={directId} userId={userId} status={status} />
+			</div>
+
+			<div className="flex flex-col justify-center">
+				<span className="one-line text-start leading-4" data-e2e={generateE2eId(`chat.direct_message.chat_item.username`)}>
+					{name}
+				</span>
+				{!!checkUserInvoice && (
+					<p className="opacity-60 text-theme-primary text-xs text-start flex gap-[2px] items-center">
+						<Icons.Speaker className="text-green-500 !w-[10px] !h-[10px]" /> {t('inVoice')}
+					</p>
+				)}
+			</div>
+		</>
+	);
+});

@@ -10,7 +10,6 @@ import Toast from 'react-native-toast-message';
 import { EFriendState } from '../..';
 import MezonAvatar from '../../../../../../../componentUI/MezonAvatar';
 import MezonIconCDN from '../../../../../../../componentUI/MezonIconCDN';
-import { SeparatorWithLine } from '../../../../../../../components/Common';
 import { IconCDN } from '../../../../../../../constants/icon_cdn';
 import { styles } from './index.styles';
 interface IPendingContentProps {
@@ -108,7 +107,6 @@ export const PendingContent = memo((props: IPendingContentProps) => {
 				<FlatList
 					data={actionList}
 					keyExtractor={(item) => item.id.toString()}
-					ItemSeparatorComponent={SeparatorWithLine}
 					renderItem={({ item }) => {
 						const { text, isWarning, action, isShow } = item;
 						if (!isShow) return null;

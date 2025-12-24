@@ -219,7 +219,7 @@
 			"oneDay": "1 day",
 			"threeDays": "3 days"
 		},
-		"banList": "Ban list",
+		"banList": "Ban List",
 		"search": "Search banned users",
 		"banListEmpty": "No banned users found"
 	}

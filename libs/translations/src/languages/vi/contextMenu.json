@@ -71,6 +71,36 @@
 	"muteUntilTurnedBack": "Cho đến khi tôi bật lại",
 	"imageCopiedToClipboard": "Đã sao chép hình ảnh",
 	"messageResent": "Đã gửi lại tin nhắn thành công",
+	"reportMessageModal": {
+		"title": "Báo cáo tin nhắn",
+		"description": "Vui lòng chọn lý do báo cáo tin nhắn này.",
+		"selectReason": "Chọn lý do:",
+		"cancel": "Hủy",
+		"submit": "Gửi báo cáo",
+		"submitting": "Đang gửi...",
+		"customReasonPlaceholder": "Vui lòng mô tả lý do (tối đa 64 ký tự)...",
+		"userBlockedSuccess": "Đã chặn người dùng thành công",
+		"userBlockedFailed": "Không thể chặn người dùng",
+		"canOnlyBlockFriends": "Bạn chỉ có thể chặn người dùng là bạn bè",
+		"reasons": {
+			"spam": "Spam",
+			"harassment": "Quấy rối hoặc Bắt nạt",
+			"hate_speech": "Phát ngôn thù địch",
+			"violence": "Bạo lực hoặc Đe dọa",
+			"inappropriate_content": "Nội dung không phù hợp",
+			"scam": "Lừa đảo",
+			"other": "Khác"
+		},
+		"actionModal": {
+			"title": "Hành động bổ sung",
+			"description": "Bạn có muốn thực hiện thêm hành động nào với người dùng này?",
+			"ignoreMessages": "Bỏ qua tin nhắn",
+			"ignoreDescription": "Ẩn tin nhắn từ người dùng này",
+			"blockUser": "Chặn người dùng",
+			"blockDescription": "Chặn hoàn toàn người dùng này",
+			"skip": "Bỏ qua"
+		}
+	},
 	"errors": {
 		"failedToNoteMessage": "Không thể ghi chú tin nhắn này",
 		"failedToEditMessage": "Không thể chỉnh sửa tin nhắn",

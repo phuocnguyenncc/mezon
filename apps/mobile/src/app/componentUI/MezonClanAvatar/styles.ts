@@ -1,7 +1,8 @@
-import { Attributes, baseColor, Fonts, size } from '@mezon/mobile-ui';
+import type { Attributes } from '@mezon/mobile-ui';
+import { baseColor, Fonts, size } from '@mezon/mobile-ui';
 import { StyleSheet } from 'react-native';
 
-export const style = (colors: Attributes, isMsgReply = false) =>
+export const style = (colors: Attributes, customFontSizeAvatarCharacter?: number) =>
 	StyleSheet.create({
 		image: {
 			height: '100%',
@@ -33,8 +34,8 @@ export const style = (colors: Attributes, isMsgReply = false) =>
 			justifyContent: 'center',
 			alignItems: 'center'
 		},
-			textAvatarMessageBoxDefault: {
-			fontSize: isMsgReply ? size.h8 : size.h7,
+		textAvatarMessageBoxDefault: {
+			fontSize: customFontSizeAvatarCharacter ?? size.h4,
 			color: baseColor.white,
 			textTransform: 'uppercase'
 		},

@@ -132,8 +132,20 @@ function MezonPage() {
 				fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial'
 			}}
 		>
-			<div className="bg-white layout relative flex flex-col items-center text-textDarkTheme overflow-visible">
-				{!sideBarIsOpen && <HeaderMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />}
+			<HeaderMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+			<SideBarMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />
+			<div
+				className={`fixed inset-0 z-30 bg-black transition-opacity duration-300 ease-in-out max-lg:block hidden ${
+					sideBarIsOpen ? 'opacity-50 pointer-events-auto' : 'opacity-0 pointer-events-none'
+				}`}
+				onClick={toggleSideBar}
+				style={{ top: '72px' }}
+			/>
+			<div
+				className={`bg-white layout relative flex flex-col items-center text-textDarkTheme overflow-visible transition-all duration-300 ${
+					sideBarIsOpen ? 'max-lg:brightness-75' : ''
+				}`}
+			>
 				<HeroSection homeRef={homeRef} isVisible={isVisible} />
 				<TextChannelSection />
 				<CLanDiscoverSection />
@@ -141,8 +153,6 @@ function MezonPage() {
 				<ComunityPaymentsSection />
 				<AiAgentSection />
 				{/* <FinalCTASection /> */}
-
-				{sideBarIsOpen && <SideBarMezon sideBarIsOpen={sideBarIsOpen} toggleSideBar={toggleSideBar} scrollToSection={scrollToSection} />}
 			</div>
 
 			<Footer downloadUrl={downloadUrl} universalUrl={universalUrl} portableUrl={portableUrl} />

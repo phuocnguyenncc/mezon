@@ -20,6 +20,8 @@ import {
 	selectAllChannelsByUser,
 	selectAnonymousMode,
 	selectCurrentChannelId,
+	selectCurrentClanId,
+	selectCurrentClanPreventAnonymous,
 	selectCurrentDM,
 	threadsActions,
 	useAppDispatch
@@ -188,7 +190,9 @@ export const ChatBoxBottomBar = memo(
 			display: ''
 		});
 		const [isShowOptionPaste, setIsShowOptionPaste] = useState(false);
-		const anonymousMode = useSelector(selectAnonymousMode);
+		const currentClanId = useSelector(selectCurrentClanId);
+		const anonymousMode = useSelector((state) => selectAnonymousMode(state, currentClanId));
+		const currentClanPreventAnonymous = useSelector(selectCurrentClanPreventAnonymous);
 
 		const inputRef = useRef<TextInput>(null);
 		const cursorPositionRef = useRef(0);
@@ -204,8 +208,12 @@ export const ChatBoxBottomBar = memo(
 		const lastTap = useRef<number>(0);
 		const currentChannelKey = useMemo(() => topicChannelId || channelId, [topicChannelId, channelId]);
 		const showAnonymousIcon = useMemo(
-			() => mode !== ChannelStreamMode.STREAM_MODE_DM && mode !== ChannelStreamMode.STREAM_MODE_GROUP && anonymousMode,
-			[mode, anonymousMode]
+			() =>
+				mode !== ChannelStreamMode.STREAM_MODE_DM &&
+				mode !== ChannelStreamMode.STREAM_MODE_GROUP &&
+				anonymousMode &&
+				!currentClanPreventAnonymous,
+			[mode, anonymousMode, currentClanPreventAnonymous]
 		);
 		const inputTriggersConfig = useMemo(() => {
 			const isDM = [ChannelStreamMode.STREAM_MODE_GROUP].includes(mode);
@@ -830,7 +838,7 @@ export const ChatBoxBottomBar = memo(
 							voiceLinkRoomOnMessage={voiceLinkRoomList}
 							messageAction={messageAction}
 							clearInputAfterSendMessage={onSendSuccess}
-							anonymousMode={anonymousMode}
+							anonymousMode={anonymousMode && !currentClanPreventAnonymous}
 							ephemeralTargetUserId={ephemeralTargetUserInfo?.id}
 							currentTopicId={topicChannelId}
 						/>
@@ -840,7 +848,7 @@ export const ChatBoxBottomBar = memo(
 					textChange={textChange}
 					mode={mode}
 					channelId={channelId}
-					anonymousMode={anonymousMode}
+					anonymousMode={anonymousMode && !currentClanPreventAnonymous}
 					isPublic={isPublic}
 					topicChannelId={topicChannelId || ''}
 				/>
